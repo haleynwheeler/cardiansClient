@@ -33,16 +33,14 @@ public:
     sizer->Add(theBackgroundDrawable,1,wxEXPAND);
 
     mainFrame->SetSizer(sizer);
-
     mainFrame->Show();
+      Button *logBut = new Button(wxT("Login"));
+      Button *userBut = new Button(wxT("New User"));
+      logBut->Show(true);
+      userBut->Show(true);
+
 
     return true;
-
-	//	Simple *simple = new Simple(wxT("Simple"));
-  //  Button *logBut = new Button(wxT("Login"));
-  //  Button *userBut = new Button(wxT("New User"));
-  //  logBut->Show(true);
-  //  userBut->Show(true);
 	}
 };
 
