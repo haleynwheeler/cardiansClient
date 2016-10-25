@@ -1,0 +1,1 @@
+/usr/bin/c++    -pthread   CMakeFiles/cardiansClient.dir/main.cpp.o CMakeFiles/cardiansClient.dir/button.cpp.o CMakeFiles/cardiansClient.dir/baseBackground.cpp.o CMakeFiles/cardiansClient.dir/login.cpp.o  -o cardiansClient  -L/usr/local/lib -rdynamic -L/usr/local/lib -pthread -lwx_gtk3u_core-3.1 -lwx_baseu-3.1 -Wl,-rpath,/usr/local/lib 
