@@ -8,7 +8,9 @@ class Simple : public wxFrame
 {
 public:
     Simple(const wxString& title)
-		: wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(250, 150))
+		: wxFrame(NULL, wxID_ANY, title, wxDefaultPosition,
+      wxSize(wxSystemSettings::GetMetric(wxSYS_SCREEN_X)*.5,
+      wxSystemSettings::GetMetric(wxSYS_SCREEN_Y)*.5))
 	{
 		Centre();
 	}
