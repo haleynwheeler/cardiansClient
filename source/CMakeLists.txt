@@ -34,7 +34,10 @@ include( "${wxWidgets_USE_FILE}" )
 # For convenience we define the sources as a variable. You can add
 # header files and cpp/c files and CMake will sort them out
 # ************************ WHEN YOU ADD A SOURCE, UPDATE HERE *****************
-set(SRCS main.cpp button.h button.cpp baseBackground.h baseBackground.cpp)
+set(SRCS main.cpp
+    button.h button.cpp
+    baseBackground.h baseBackground.cpp
+    login.h login.cpp)
 
 # If we build for windows systems, we also include the resource file
 # containing the manifest, icon and other resources

@@ -1,6 +1,4 @@
 #include "baseBackground.h"
-#include <wx/wx.h>
-#include <wx/sizer.h>
 
 baseBackground::baseBackground(wxFrame* parent, wxString file,
   wxBitmapType format): wxPanel(parent)

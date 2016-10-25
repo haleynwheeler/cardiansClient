@@ -177,6 +177,33 @@ button.cpp.s:
 	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/button.cpp.s
 .PHONY : button.cpp.s
 
+login.o: login.cpp.o
+
+.PHONY : login.o
+
+# target to build an object file
+login.cpp.o:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/login.cpp.o
+.PHONY : login.cpp.o
+
+login.i: login.cpp.i
+
+.PHONY : login.i
+
+# target to preprocess a source file
+login.cpp.i:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/login.cpp.i
+.PHONY : login.cpp.i
+
+login.s: login.cpp.s
+
+.PHONY : login.s
+
+# target to generate assembly for a file
+login.cpp.s:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/login.cpp.s
+.PHONY : login.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -219,6 +246,9 @@ help:
 	@echo "... button.o"
 	@echo "... button.i"
 	@echo "... button.s"
+	@echo "... login.o"
+	@echo "... login.i"
+	@echo "... login.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

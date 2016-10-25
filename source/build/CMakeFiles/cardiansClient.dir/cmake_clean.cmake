@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/cardiansClient.dir/main.cpp.o"
   "CMakeFiles/cardiansClient.dir/button.cpp.o"
   "CMakeFiles/cardiansClient.dir/baseBackground.cpp.o"
+  "CMakeFiles/cardiansClient.dir/login.cpp.o"
   "cardiansClient.pdb"
   "cardiansClient"
 )

@@ -2,7 +2,7 @@
 #include <wx/sizer.h>
 #include "button.h"
 #include "baseBackground.h"
-
+#include "login.h"
 
 class Simple : public wxFrame
 {
@@ -25,19 +25,24 @@ public:
 
     Simple *mainFrame;
     baseBackground *theBackgroundDrawable;
-
-    wxBoxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
     mainFrame = new Simple(wxT("Cardians of the Galaxy"));
+
+    //Sets the background color
+    wxBoxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
     theBackgroundDrawable = new baseBackground(mainFrame, wxT("background.jpg"),
       wxBITMAP_TYPE_JPEG);
     sizer->Add(theBackgroundDrawable,1,wxEXPAND);
+/*
+    Button *logBut = new Button(wxT("Login"),mainFrame);
+    Button *userBut = new Button(wxT("New User"),mainFrame);
+*/
+    login *loginPane;
+    loginPane = new login(mainFrame);
 
     mainFrame->SetSizer(sizer);
     mainFrame->Show();
-      Button *logBut = new Button(wxT("Login"));
-      Button *userBut = new Button(wxT("New User"));
-      logBut->Show(true);
-      userBut->Show(true);
+  //  logBut->Show(true);
+  //  userBut->Show(true);
 
 
     return true;
