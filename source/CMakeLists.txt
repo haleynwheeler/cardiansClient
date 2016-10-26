@@ -37,7 +37,8 @@ include( "${wxWidgets_USE_FILE}" )
 set(SRCS main.cpp
     button.h button.cpp
     baseBackground.h baseBackground.cpp
-    login.h login.cpp)
+    login.h login.cpp
+    imageInsert.h imageInsert.cpp)
 
 # If we build for windows systems, we also include the resource file
 # containing the manifest, icon and other resources

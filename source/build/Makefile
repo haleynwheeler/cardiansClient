@@ -177,6 +177,33 @@ button.cpp.s:
 	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/button.cpp.s
 .PHONY : button.cpp.s
 
+imageInsert.o: imageInsert.cpp.o
+
+.PHONY : imageInsert.o
+
+# target to build an object file
+imageInsert.cpp.o:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/imageInsert.cpp.o
+.PHONY : imageInsert.cpp.o
+
+imageInsert.i: imageInsert.cpp.i
+
+.PHONY : imageInsert.i
+
+# target to preprocess a source file
+imageInsert.cpp.i:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/imageInsert.cpp.i
+.PHONY : imageInsert.cpp.i
+
+imageInsert.s: imageInsert.cpp.s
+
+.PHONY : imageInsert.s
+
+# target to generate assembly for a file
+imageInsert.cpp.s:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/imageInsert.cpp.s
+.PHONY : imageInsert.cpp.s
+
 login.o: login.cpp.o
 
 .PHONY : login.o
@@ -246,6 +273,9 @@ help:
 	@echo "... button.o"
 	@echo "... button.i"
 	@echo "... button.s"
+	@echo "... imageInsert.o"
+	@echo "... imageInsert.i"
+	@echo "... imageInsert.s"
 	@echo "... login.o"
 	@echo "... login.i"
 	@echo "... login.s"

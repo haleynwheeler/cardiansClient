@@ -24,9 +24,23 @@ button.h
 wx/wx.h
 -
 
+/home/mad-cook/cardiansClient/source/imageInsert.cpp
+imageInsert.h
+/home/mad-cook/cardiansClient/source/imageInsert.h
+
+/home/mad-cook/cardiansClient/source/imageInsert.h
+wx/wx.h
+-
+wx/sizer.h
+-
+
 /home/mad-cook/cardiansClient/source/login.cpp
 login.h
 /home/mad-cook/cardiansClient/source/login.h
+button.h
+/home/mad-cook/cardiansClient/source/button.h
+imageInsert.h
+/home/mad-cook/cardiansClient/source/imageInsert.h
 
 /home/mad-cook/cardiansClient/source/login.h
 wx/wx.h

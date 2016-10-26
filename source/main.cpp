@@ -32,17 +32,12 @@ public:
     theBackgroundDrawable = new baseBackground(mainFrame, wxT("background.jpg"),
       wxBITMAP_TYPE_JPEG);
     sizer->Add(theBackgroundDrawable,1,wxEXPAND);
-/*
-    Button *logBut = new Button(wxT("Login"),mainFrame);
-    Button *userBut = new Button(wxT("New User"),mainFrame);
-*/
+    
     login *loginPane;
     loginPane = new login(mainFrame);
 
     mainFrame->SetSizer(sizer);
     mainFrame->Show();
-  //  logBut->Show(true);
-  //  userBut->Show(true);
 
 
     return true;
