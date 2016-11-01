@@ -1,7 +1,7 @@
 #include "imageInsert.h"
 imageInsert::imageInsert(wxPanel* parent, const wxString file,
   wxBitmapType format, int maxHeight, int maxWidth) :wxPanel(parent,wxID_ANY,
-    wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, wxPanelNameStr)
+    wxDefaultPosition, wxSize(maxHeight,maxWidth), wxTAB_TRAVERSAL, wxPanelNameStr)
 {
   wxImage* image = new wxImage(file,format,-1);
 
@@ -14,7 +14,8 @@ imageInsert::imageInsert(wxPanel* parent, const wxString file,
   theImage = wxBitmap(Image);
   width = Image.GetWidth();
   height = Image.GetHeight();
-  SetSize(width,height);
+  //SetBackgroundColour(wxColour(88,22,79));
+  SetSize(height,width);
 }
 
 void imageInsert::OnPaint(wxPaintEvent& event)
@@ -23,13 +24,12 @@ void imageInsert::OnPaint(wxPaintEvent& event)
   if(theImage.Ok())
   {
     dc.DrawBitmap(theImage,0,0);
-    std::cout <<"You drew the image"<<std::endl;
   }
 }
 
 imageInsert::~imageInsert()
 {
-  
+
 }
 
 BEGIN_EVENT_TABLE(imageInsert,wxPanel)

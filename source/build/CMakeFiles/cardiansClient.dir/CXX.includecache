@@ -57,6 +57,8 @@ baseBackground.h
 /home/mad-cook/cardiansClient/source/baseBackground.h
 login.h
 /home/mad-cook/cardiansClient/source/login.h
+imageInsert.h
+/home/mad-cook/cardiansClient/source/imageInsert.h
 
 /usr/local/include/wx-3.1/wx/accel.h
 wx/defs.h

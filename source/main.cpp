@@ -3,6 +3,7 @@
 #include "button.h"
 #include "baseBackground.h"
 #include "login.h"
+#include "imageInsert.h"
 
 class Simple : public wxFrame
 {
@@ -32,9 +33,10 @@ public:
     theBackgroundDrawable = new baseBackground(mainFrame, wxT("background.jpg"),
       wxBITMAP_TYPE_JPEG);
     sizer->Add(theBackgroundDrawable,1,wxEXPAND);
-    
+
     login *loginPane;
     loginPane = new login(mainFrame);
+
 
     mainFrame->SetSizer(sizer);
     mainFrame->Show();
@@ -43,8 +45,6 @@ public:
     return true;
 	}
 };
-
-
 
 
 

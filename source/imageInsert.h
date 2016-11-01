@@ -16,3 +16,7 @@ private:
 };
 
 #endif
+
+//https://forums.wxwidgets.org/viewtopic.php?t=3911
+//This guide heavily influenced and guided me in producting a class we could use
+// to add any image to our application.

@@ -23,6 +23,8 @@ void baseBackground::render(wxDC& dc)
   dc.DrawBitmap( backgroundImage, 0, 0, false );
 }
 
+
+
 BEGIN_EVENT_TABLE(baseBackground, wxPanel)
  EVT_PAINT(baseBackground::paintEvent)
 END_EVENT_TABLE()

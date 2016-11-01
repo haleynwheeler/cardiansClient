@@ -982,6 +982,7 @@ CMakeFiles/cardiansClient.dir/login.cpp.o
 CMakeFiles/cardiansClient.dir/main.cpp.o
  /home/mad-cook/cardiansClient/source/baseBackground.h
  /home/mad-cook/cardiansClient/source/button.h
+ /home/mad-cook/cardiansClient/source/imageInsert.h
  /home/mad-cook/cardiansClient/source/login.h
  /home/mad-cook/cardiansClient/source/main.cpp
  /usr/local/include/wx-3.1/wx/accel.h

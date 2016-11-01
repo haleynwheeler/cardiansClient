@@ -981,6 +981,7 @@ CMakeFiles/cardiansClient.dir/login.cpp.o: /usr/local/lib/wx/include/gtk3-unicod
 
 CMakeFiles/cardiansClient.dir/main.cpp.o: ../baseBackground.h
 CMakeFiles/cardiansClient.dir/main.cpp.o: ../button.h
+CMakeFiles/cardiansClient.dir/main.cpp.o: ../imageInsert.h
 CMakeFiles/cardiansClient.dir/main.cpp.o: ../login.h
 CMakeFiles/cardiansClient.dir/main.cpp.o: ../main.cpp
 CMakeFiles/cardiansClient.dir/main.cpp.o: /usr/local/include/wx-3.1/wx/accel.h
