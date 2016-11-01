@@ -3,7 +3,7 @@
 
 #include <wx/wx.h>
 
-class Button: public wxPanel{
+class Button: public wxButton{
 //  wxButton theButton;
 public:
   //Passing in what's on the button

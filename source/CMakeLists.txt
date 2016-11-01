@@ -38,7 +38,8 @@ set(SRCS main.cpp
     button.h button.cpp
     baseBackground.h baseBackground.cpp
     login.h login.cpp
-    imageInsert.h imageInsert.cpp)
+    imageInsert.h imageInsert.cpp
+    playArea.h playArea.cpp)
 
 add_subdirectory(crazyEightsLogic)
 

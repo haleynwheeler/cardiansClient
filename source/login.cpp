@@ -5,35 +5,49 @@
 //This panel sets up the panel to log in. It has 2 input boxes and 2 buttons
 //It also has the main logo.
 login::login(wxFrame* parent): wxPanel(parent,wxID_ANY,wxDefaultPosition,
-    wxSize(wxSystemSettings::GetMetric(wxSYS_SCREEN_X)*.5,wxSystemSettings::GetMetric(wxSYS_SCREEN_Y)*.5), wxTAB_TRAVERSAL, wxPanelNameStr)
+    wxSize(wxSystemSettings::GetMetric(wxSYS_SCREEN_Y)*.5,wxSystemSettings::GetMetric(wxSYS_SCREEN_X)*.5), wxTAB_TRAVERSAL, wxPanelNameStr)
   {
-  wxFlexGridSizer *verticalBox = new wxFlexGridSizer(3,0,10,10);
-  wxBoxSizer *horizontalLogo = new wxBoxSizer(wxHORIZONTAL);
-  wxBoxSizer *horizontalBox = new wxBoxSizer(wxHORIZONTAL);
-  wxBoxSizer *horizontalBoxTwo = new wxBoxSizer(wxHORIZONTAL);
 
-  Button *login = new Button(wxT("Login"),parent, wxSize(200,100));
-  Button *user = new Button(wxT("New User"),parent, wxSize(200,100));
+  imageInsert *theLogo = new imageInsert(this, wxT("logo.png"), wxBITMAP_TYPE_PNG,
+      300,600);
 
-  horizontalBox->Add(login, wxCENTER,0);
-  horizontalBox->Add(user, wxCENTER,0);
+  wxBoxSizer *verticalOne = new wxBoxSizer(wxVERTICAL);
+  wxBoxSizer *verticalTwo = new wxBoxSizer(wxVERTICAL);
+  wxBoxSizer *horizontalContainer = new wxBoxSizer(wxHORIZONTAL);
+  wxBoxSizer *theSizer = new wxBoxSizer(wxVERTICAL);
 
-  horizontalBoxTwo->Add(new wxTextCtrl(this,0,"Login"   ,wxDefaultPosition,
+
+  //verticalOne->Add(new wxTextCtrl(this,0,"Login",wxDefaultPosition,
     wxSize(140,60)),1,wxCENTER,0);
-  horizontalBoxTwo->Add(new wxTextCtrl(this,0,"Password",wxDefaultPosition,
-    wxSize(140,60)),1,wxCENTER,0);
+   wxButton *login = new wxButton(this, wxID_ANY, wxT("Login"), wxDefaultPosition,
+   wxSize(200,100), 0, wxDefaultValidator, wxButtonNameStr);
+    Button *login = new Button(wxT("Login"),parent, wxSize(400,100));
+  verticalOne->Add(login);
 
-  imageInsert *theLogo = new imageInsert(this, wxT("logo.jpg"), wxBITMAP_TYPE_JPEG,
-      wxSystemSettings::GetMetric(wxSYS_SCREEN_X)*.2,wxSystemSettings::GetMetric(wxSYS_SCREEN_X)*.2);
-
-  verticalBox->Add(theLogo, wxCENTER,0);
-  verticalBox->Add(horizontalBoxTwo,wxCENTER,0);
-  verticalBox->Add(horizontalBox,wxCENTER,0);
+  login->SetBackgroundColour(wxColour(90,5,18,wxALPHA_OPAQUE));
+  login->SetForegroundColour(wxColour(wxT("WHITE")));
 
 
+  // Button *user = new Button(wxT("New User"),parent, wxSize(100,100));
+  verticalTwo->Add(new wxTextCtrl(this,0,"Password",wxDefaultPosition,
+  wxSize(140,60)),1,wxCENTER,0);
+    wxButton *user = new wxButton(this, wxID_ANY, wxT("User"), wxDefaultPosition,
+      wxSize(200,100), 0, wxDefaultValidator, wxButtonNameStr);
+   verticalTwo->Add(user);
 
-  SetSizerAndFit(verticalBox);
-  CenterOnParent();
+   user->SetBackgroundColour(wxColour(90,5,18,wxALPHA_OPAQUE));
+   user->SetForegroundColour(wxColour(wxT("WHITE")));
+
+  horizontalContainer->Add(verticalOne);
+  horizontalContainer->Add(verticalTwo);
+
+  theSizer->Add(theLogo);
+  theSizer->Add(horizontalContainer);
+  theSizer->Add(verticalOne, wxLEFT, 0);
+  theSizer->Add(verticalTwo, wxRIGHT, 0);
+
+  SetSizerAndFit(theSizer);
+  Center();
 }
 
 login::~login()
