@@ -59,6 +59,22 @@ login.h
 /home/mad-cook/cardiansClient/source/login.h
 imageInsert.h
 /home/mad-cook/cardiansClient/source/imageInsert.h
+playArea.h
+/home/mad-cook/cardiansClient/source/playArea.h
+
+/home/mad-cook/cardiansClient/source/playArea.cpp
+playArea.h
+/home/mad-cook/cardiansClient/source/playArea.h
+button.h
+/home/mad-cook/cardiansClient/source/button.h
+imageInsert.h
+/home/mad-cook/cardiansClient/source/imageInsert.h
+
+/home/mad-cook/cardiansClient/source/playArea.h
+wx/wx.h
+-
+string
+-
 
 /usr/local/include/wx-3.1/wx/accel.h
 wx/defs.h

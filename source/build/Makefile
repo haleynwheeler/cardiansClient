@@ -258,6 +258,33 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+playArea.o: playArea.cpp.o
+
+.PHONY : playArea.o
+
+# target to build an object file
+playArea.cpp.o:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/playArea.cpp.o
+.PHONY : playArea.cpp.o
+
+playArea.i: playArea.cpp.i
+
+.PHONY : playArea.i
+
+# target to preprocess a source file
+playArea.cpp.i:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/playArea.cpp.i
+.PHONY : playArea.cpp.i
+
+playArea.s: playArea.cpp.s
+
+.PHONY : playArea.s
+
+# target to generate assembly for a file
+playArea.cpp.s:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/playArea.cpp.s
+.PHONY : playArea.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -282,6 +309,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... playArea.o"
+	@echo "... playArea.i"
+	@echo "... playArea.s"
 .PHONY : help
 
 

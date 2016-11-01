@@ -7,34 +7,45 @@
 login::login(wxFrame* parent): wxPanel(parent,wxID_ANY,wxDefaultPosition,
     wxSize(wxSystemSettings::GetMetric(wxSYS_SCREEN_Y)*.5,wxSystemSettings::GetMetric(wxSYS_SCREEN_X)*.5), wxTAB_TRAVERSAL, wxPanelNameStr)
   {
-  wxBoxSizer *theSizer = new wxBoxSizer(wxHORIZONTAL);
 
-  wxFlexGridSizer *verticalBox = new wxFlexGridSizer(3,1,10,10);
-  wxBoxSizer *horizontalLogo = new wxBoxSizer(wxHORIZONTAL);
-  wxBoxSizer *horizontalBox = new wxBoxSizer(wxHORIZONTAL);
-  wxBoxSizer *horizontalBoxTwo = new wxBoxSizer(wxHORIZONTAL);
+  imageInsert *theLogo = new imageInsert(this, wxT("logo.png"), wxBITMAP_TYPE_PNG,
+      300,600);
 
-  Button *login = new Button(wxT("Login"),parent, wxSize(200,100));
-  Button *user = new Button(wxT("New User"),parent, wxSize(200,100));
+  wxBoxSizer *verticalOne = new wxBoxSizer(wxVERTICAL);
+  wxBoxSizer *verticalTwo = new wxBoxSizer(wxVERTICAL);
+  wxBoxSizer *horizontalContainer = new wxBoxSizer(wxHORIZONTAL);
+  wxBoxSizer *theSizer = new wxBoxSizer(wxVERTICAL);
 
-  horizontalBox->AddStretchSpacer();
-  horizontalBox->Add(login, wxCENTER,0);
-  horizontalBox->Add(user, wxCENTER,0);
-  horizontalBox->AddStretchSpacer();
 
-  horizontalBoxTwo->Add(new wxTextCtrl(this,0,"Login"   ,wxDefaultPosition,
+  //verticalOne->Add(new wxTextCtrl(this,0,"Login",wxDefaultPosition,
     wxSize(140,60)),1,wxCENTER,0);
-  horizontalBoxTwo->Add(new wxTextCtrl(this,0,"Password",wxDefaultPosition,
-    wxSize(140,60)),1,wxCENTER,0);
+   wxButton *login = new wxButton(this, wxID_ANY, wxT("Login"), wxDefaultPosition,
+   wxSize(200,100), 0, wxDefaultValidator, wxButtonNameStr);
+    Button *login = new Button(wxT("Login"),parent, wxSize(400,100));
+  verticalOne->Add(login);
 
-  imageInsert *theLogo = new imageInsert(this, wxT("logo.jpg"), wxBITMAP_TYPE_JPEG,
-      200,400);
+  login->SetBackgroundColour(wxColour(90,5,18,wxALPHA_OPAQUE));
+  login->SetForegroundColour(wxColour(wxT("WHITE")));
 
-  verticalBox->Add(theLogo, wxCENTER | wxEXPAND,0);
-  verticalBox->Add(horizontalBox,wxALIGN_CENTER_HORIZONTAL,0);
-  verticalBox->Add(horizontalBoxTwo,wxCENTER | wxEXPAND,0);
-  verticalBox->AddGrowableRow(1, 0);
-  theSizer->Add(verticalBox);
+
+  // Button *user = new Button(wxT("New User"),parent, wxSize(100,100));
+  verticalTwo->Add(new wxTextCtrl(this,0,"Password",wxDefaultPosition,
+  wxSize(140,60)),1,wxCENTER,0);
+    wxButton *user = new wxButton(this, wxID_ANY, wxT("User"), wxDefaultPosition,
+      wxSize(200,100), 0, wxDefaultValidator, wxButtonNameStr);
+   verticalTwo->Add(user);
+
+   user->SetBackgroundColour(wxColour(90,5,18,wxALPHA_OPAQUE));
+   user->SetForegroundColour(wxColour(wxT("WHITE")));
+
+  horizontalContainer->Add(verticalOne);
+  horizontalContainer->Add(verticalTwo);
+
+  theSizer->Add(theLogo);
+  theSizer->Add(horizontalContainer);
+  theSizer->Add(verticalOne, wxLEFT, 0);
+  theSizer->Add(verticalTwo, wxRIGHT, 0);
+
   SetSizerAndFit(theSizer);
   Center();
 }

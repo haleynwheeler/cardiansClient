@@ -1,15 +1,13 @@
 #include "button.h"
 
 Button::Button(const wxString& title, wxFrame* parent, wxSize size):
-    wxPanel(parent,wxID_ANY, wxDefaultPosition, size, wxTAB_TRAVERSAL,
-      wxPanelNameStr)
+      wxButton(parent, wxID_ANY, title, wxDefaultPosition,
+     size, 0, wxDefaultValidator, wxButtonNameStr)
   {
-   wxButton* theButton = new wxButton(this, wxID_ANY, title, wxDefaultPosition,
-        size, 0, wxDefaultValidator, wxButtonNameStr);
-   theButton->CentreOnParent();
-   theButton->SetBackgroundColour(wxColour(90,5,18,wxALPHA_OPAQUE));
-   theButton->SetForegroundColour(wxColour(wxT("WHITE")));
-    this->SetBackgroundColour(wxColour(90,5,18,wxALPHA_OPAQUE));
+//   wxButton* theButton = new ;
+  // this->CentreOnParent();
+   this->SetBackgroundColour(wxColour(90,5,18,wxALPHA_OPAQUE));
+   this->SetForegroundColour(wxColour(wxT("WHITE")));
   };
 
 void Button::OnClick(wxCommandEvent & event)

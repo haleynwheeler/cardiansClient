@@ -14,6 +14,10 @@ public:
       wxSize(wxSystemSettings::GetMetric(wxSYS_SCREEN_X)*.5,
       wxSystemSettings::GetMetric(wxSYS_SCREEN_Y)*.5))
 	{
+    SetMaxSize(wxSize(wxSize(wxSystemSettings::GetMetric(wxSYS_SCREEN_X)*.5,
+    wxSystemSettings::GetMetric(wxSYS_SCREEN_Y)*.5)));
+    SetMinSize(wxSize(wxSize(wxSystemSettings::GetMetric(wxSYS_SCREEN_X)*.5,
+    wxSystemSettings::GetMetric(wxSYS_SCREEN_Y)*.5)));
 		Centre();
 	}
 };
@@ -35,9 +39,11 @@ public:
       wxBITMAP_TYPE_JPEG);
     sizer->Add(theBackgroundDrawable,1,wxEXPAND);
 
-//    login *loginPane;
-//    loginPane = new login(mainFrame);
+   //login *loginPane;
+   //loginPane = new login(mainFrame);
 
+     playArea *theGame;
+     theGame = new playArea(mainFrame);
 
     mainFrame->SetSizer(sizer);
     mainFrame->Show();

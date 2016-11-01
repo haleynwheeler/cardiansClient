@@ -14,7 +14,7 @@ imageInsert::imageInsert(wxPanel* parent, const wxString file,
   theImage = wxBitmap(Image);
   width = theImage.GetWidth();
   height = theImage.GetHeight();
-  SetBackgroundColour(wxColour(88,22,79));
+//  SetBackgroundColour(wxColour(88,22,79));
 //  InvalidateBestSize ();
 //  SetSize(width,height);
   this->SetMaxSize(wxSize(height,width));
