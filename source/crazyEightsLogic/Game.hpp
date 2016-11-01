@@ -17,7 +17,9 @@ private:
   int turn; // index in player vector
   Suit suitSpecified;
   void computersTurn();
-  void humanDrewCard();     // Needs an action listener for when deck is pressed
+  void humanDrewCard(); // Needs an action listener for when deck is pressed
+  void humanPassed(); // Needs an action listener for when the passed button is
+                      // pressed
   void humanMadeMove(Card); // Needs an action listener for when card is pressed
   Suit askUserToPickSuit(); // Shows a dialog box prompting user to pick a suit
                             // (used when an 8 is played)

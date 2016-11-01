@@ -17,11 +17,16 @@ void CrazyEightsGame::startNewRound() {
   for (auto &&player : players) {
     player.startNewRound();
     player.initializeHand(deck, 5);
-    discardPile.push_back(deck.back());
-    deck.pop_back();
-    turn = 0;
-    updateGUI();
   }
+  int i = 0;
+  while (deck.back().getValue() == EIGHT) {
+    std::swap(deck.back(), deck[i]);
+    i++;
+  }
+  discardPile.push_back(deck.back());
+  deck.pop_back();
+  turn = 0;
+  updateGUI();
 }
 
 // THIS SHOULD BE CALLED WHEN THE DECK IS PRESSED
@@ -30,6 +35,25 @@ void CrazyEightsGame::humanDrewCard() {
     players[0].insertCardToHand(deck.back());
     deck.pop_back();
     updateGUI();
+  }
+}
+
+// The 'PASS' button should only exists in place of the
+// deck if the deck is empty. In which case, if the player does not have a
+// valid move, they can choose to pass. Also, a dialog box should pop up if the
+// inappropriately pass.
+void CrazyEightsGame::humanPassed() {
+  if (turn == 0) {
+    auto hand = players[0].getHand();
+    for (auto &&card : hand) {
+      auto validMove = checkCardValidity(card);
+      if (validMove) {
+        // YELL AT THEM WITH DIALOG BOX
+        return;
+      }
+    }
+    updateGUI();
+    computersTurn();
   }
 }
 
@@ -69,10 +93,11 @@ void CrazyEightsGame::computersMove() {
       return;
     }
   }
-  while (true) {
+  while (deck.size() > 0) {
     auto newCard = deck.back();
     deck.pop_back();
     players[turn].insertCardToHand(newCard);
+    updateGUI();
     auto validMove = checkCardValidity(newCard);
     if (validMove) {
       performValidAiMove(newCard);
@@ -88,6 +113,7 @@ void CrazyEightsGame::performValidAiMove(Card card) {
   } else if (card.getValue() == EIGHT) {
     std::srand(std::time(0));
     suitSpecified = static_cast<Suit>(std::rand() % 3);
+    // Issue a message to the user telling them what suit was picked
   }
 }
 
