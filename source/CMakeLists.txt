@@ -39,6 +39,14 @@ set(SRCS main.cpp
     baseBackground.h baseBackground.cpp
     login.h login.cpp)
 
+add_subdirectory(crazyEightsLogic)
+
+set(CMAKE_C++_FLAGS "-g -Wall")
+
+add_definitions(
+  -std=c++14
+)
+
 # If we build for windows systems, we also include the resource file
 # containing the manifest, icon and other resources
 if(WIN32)
