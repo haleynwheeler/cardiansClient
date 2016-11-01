@@ -4,6 +4,7 @@
 #include "baseBackground.h"
 #include "login.h"
 #include "imageInsert.h"
+#include "playArea.h"
 
 class Simple : public wxFrame
 {
@@ -34,8 +35,8 @@ public:
       wxBITMAP_TYPE_JPEG);
     sizer->Add(theBackgroundDrawable,1,wxEXPAND);
 
-    login *loginPane;
-    loginPane = new login(mainFrame);
+//    login *loginPane;
+//    loginPane = new login(mainFrame);
 
 
     mainFrame->SetSizer(sizer);

@@ -4,11 +4,12 @@ Button::Button(const wxString& title, wxFrame* parent, wxSize size):
     wxPanel(parent,wxID_ANY, wxDefaultPosition, size, wxTAB_TRAVERSAL,
       wxPanelNameStr)
   {
-    wxButton* theButton = new wxButton(this, wxID_ANY, title, wxDefaultPosition,
-         size, 0, wxDefaultValidator, wxButtonNameStr);
-    theButton->CentreOnParent();
-    theButton->SetBackgroundColour(wxColour(90,5,18,wxALPHA_OPAQUE));
-    theButton->SetForegroundColour(wxColour(wxT("WHITE")));
+   wxButton* theButton = new wxButton(this, wxID_ANY, title, wxDefaultPosition,
+        size, 0, wxDefaultValidator, wxButtonNameStr);
+   theButton->CentreOnParent();
+   theButton->SetBackgroundColour(wxColour(90,5,18,wxALPHA_OPAQUE));
+   theButton->SetForegroundColour(wxColour(wxT("WHITE")));
+    this->SetBackgroundColour(wxColour(90,5,18,wxALPHA_OPAQUE));
   };
 
 void Button::OnClick(wxCommandEvent & event)
