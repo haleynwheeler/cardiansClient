@@ -7,7 +7,7 @@
 class playerCard : public wxPanel {
   Card *theCard;
 public:
-  playerCard(wxFrame* parent, Card theCards);
+  playerCard(wxFrame* parent, Card *theCards, wxSize size);
   ~playerCard();
   Card getCard();
 

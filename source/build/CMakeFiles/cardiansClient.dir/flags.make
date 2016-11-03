@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_FLAGS =  -pthread   -std=c++14
 
-CXX_DEFINES = -D_FILE_OFFSET_BITS=64 -D__WXGTK__
+CXX_DEFINES = -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__
 
-CXX_INCLUDES = -isystem /usr/local/lib/wx/include/gtk3-unicode-static-3.1 -isystem /usr/local/include/wx-3.1 
+CXX_INCLUDES = -isystem /usr/local/lib/wx/include/gtk3-unicode-3.1 -isystem /usr/local/include/wx-3.1 
 

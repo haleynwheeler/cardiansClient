@@ -2,6 +2,7 @@
 #define playArea_H
 
 #include "crazyEightsLogic/Card.hpp"
+#include"playerCard.h"
 #include <string>
 #include <wx/wx.h>
 

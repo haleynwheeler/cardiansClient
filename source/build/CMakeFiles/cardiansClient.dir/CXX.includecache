@@ -6,27 +6,27 @@
 
 #IncludeRegexTransform: 
 
-/home/haley/Desktop/cardiansClient/source/baseBackground.cpp
+/home/mad-cook/cardiansClient/source/baseBackground.cpp
 baseBackground.h
-/home/haley/Desktop/cardiansClient/source/baseBackground.h
+/home/mad-cook/cardiansClient/source/baseBackground.h
 
-/home/haley/Desktop/cardiansClient/source/baseBackground.h
+/home/mad-cook/cardiansClient/source/baseBackground.h
 wx/wx.h
 -
 wx/sizer.h
 -
 
-/home/haley/Desktop/cardiansClient/source/button.cpp
+/home/mad-cook/cardiansClient/source/button.cpp
 button.h
-/home/haley/Desktop/cardiansClient/source/button.h
+/home/mad-cook/cardiansClient/source/button.h
 
-/home/haley/Desktop/cardiansClient/source/button.h
+/home/mad-cook/cardiansClient/source/button.h
 wx/wx.h
 -
 
-/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Card.cpp
+/home/mad-cook/cardiansClient/source/crazyEightsLogic/Card.cpp
 Card.hpp
-/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Card.hpp
+/home/mad-cook/cardiansClient/source/crazyEightsLogic/Card.hpp
 algorithm
 -
 iostream
@@ -36,105 +36,129 @@ iterator
 random
 -
 
-/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Card.hpp
+/home/mad-cook/cardiansClient/source/crazyEightsLogic/Card.hpp
 vector
 -
 
-/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Game.cpp
+/home/mad-cook/cardiansClient/source/crazyEightsLogic/Game.cpp
 Game.hpp
-/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Game.hpp
-ctime
+/home/mad-cook/cardiansClient/source/crazyEightsLogic/Game.hpp
+chrono
+-
+random
+-
+thread
+-
+wx/wx.h
 -
 
-/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Game.hpp
+/home/mad-cook/cardiansClient/source/crazyEightsLogic/Game.hpp
+../playArea.h
+/home/mad-cook/cardiansClient/source/playArea.h
 Card.hpp
-/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Card.hpp
+/home/mad-cook/cardiansClient/source/crazyEightsLogic/Card.hpp
 Player.hpp
-/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Player.hpp
+/home/mad-cook/cardiansClient/source/crazyEightsLogic/Player.hpp
 vector
 -
 
-/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Player.cpp
+/home/mad-cook/cardiansClient/source/crazyEightsLogic/Player.cpp
 Player.hpp
-/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Player.hpp
+/home/mad-cook/cardiansClient/source/crazyEightsLogic/Player.hpp
 algorithm
 -
 
-/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Player.hpp
+/home/mad-cook/cardiansClient/source/crazyEightsLogic/Player.hpp
 Card.hpp
-/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Card.hpp
+/home/mad-cook/cardiansClient/source/crazyEightsLogic/Card.hpp
 string
 -
 vector
 -
 
-/home/haley/Desktop/cardiansClient/source/imageInsert.cpp
+/home/mad-cook/cardiansClient/source/imageInsert.cpp
 imageInsert.h
-/home/haley/Desktop/cardiansClient/source/imageInsert.h
+/home/mad-cook/cardiansClient/source/imageInsert.h
 
-/home/haley/Desktop/cardiansClient/source/imageInsert.h
+/home/mad-cook/cardiansClient/source/imageInsert.h
 wx/wx.h
 -
 wx/sizer.h
 -
 
-/home/haley/Desktop/cardiansClient/source/login.cpp
+/home/mad-cook/cardiansClient/source/login.cpp
 login.h
-/home/haley/Desktop/cardiansClient/source/login.h
+/home/mad-cook/cardiansClient/source/login.h
 button.h
-/home/haley/Desktop/cardiansClient/source/button.h
-playArea.h
-/home/haley/Desktop/cardiansClient/source/playArea.h
+/home/mad-cook/cardiansClient/source/button.h
 imageInsert.h
-/home/haley/Desktop/cardiansClient/source/imageInsert.h
+/home/mad-cook/cardiansClient/source/imageInsert.h
+playArea.h
+/home/mad-cook/cardiansClient/source/playArea.h
 
-/home/haley/Desktop/cardiansClient/source/login.h
+/home/mad-cook/cardiansClient/source/login.h
 wx/wx.h
 -
 
-/home/haley/Desktop/cardiansClient/source/main.cpp
-wx/wx.h
--
-wx/sizer.h
--
-button.h
-/home/haley/Desktop/cardiansClient/source/button.h
+/home/mad-cook/cardiansClient/source/main.cpp
 baseBackground.h
-/home/haley/Desktop/cardiansClient/source/baseBackground.h
+/home/mad-cook/cardiansClient/source/baseBackground.h
+button.h
+/home/mad-cook/cardiansClient/source/button.h
+crazyEightsLogic/Game.hpp
+/home/mad-cook/cardiansClient/source/crazyEightsLogic/Game.hpp
+imageInsert.h
+/home/mad-cook/cardiansClient/source/imageInsert.h
 login.h
-/home/haley/Desktop/cardiansClient/source/login.h
-imageInsert.h
-/home/haley/Desktop/cardiansClient/source/imageInsert.h
+/home/mad-cook/cardiansClient/source/login.h
 playArea.h
-/home/haley/Desktop/cardiansClient/source/playArea.h
-newUser.h
-/home/haley/Desktop/cardiansClient/source/newUser.h
-
-/home/haley/Desktop/cardiansClient/source/newUser.cpp
-newUser.h
-/home/haley/Desktop/cardiansClient/source/newUser.h
-button.h
-/home/haley/Desktop/cardiansClient/source/button.h
-imageInsert.h
-/home/haley/Desktop/cardiansClient/source/imageInsert.h
-
-/home/haley/Desktop/cardiansClient/source/newUser.h
+/home/mad-cook/cardiansClient/source/playArea.h
+wx/sizer.h
+-
 wx/wx.h
 -
 
-/home/haley/Desktop/cardiansClient/source/playArea.cpp
-playArea.h
-/home/haley/Desktop/cardiansClient/source/playArea.h
+/home/mad-cook/cardiansClient/source/newUser.cpp
+newUser.h
+/home/mad-cook/cardiansClient/source/newUser.h
 button.h
-/home/haley/Desktop/cardiansClient/source/button.h
+/home/mad-cook/cardiansClient/source/button.h
 imageInsert.h
-/home/haley/Desktop/cardiansClient/source/imageInsert.h
+/home/mad-cook/cardiansClient/source/imageInsert.h
 
-/home/haley/Desktop/cardiansClient/source/playArea.h
+/home/mad-cook/cardiansClient/source/newUser.h
 wx/wx.h
 -
+
+/home/mad-cook/cardiansClient/source/playArea.cpp
+playArea.h
+/home/mad-cook/cardiansClient/source/playArea.h
+button.h
+/home/mad-cook/cardiansClient/source/button.h
+imageInsert.h
+/home/mad-cook/cardiansClient/source/imageInsert.h
+iostream
+-
+
+/home/mad-cook/cardiansClient/source/playArea.h
+crazyEightsLogic/Card.hpp
+/home/mad-cook/cardiansClient/source/crazyEightsLogic/Card.hpp
+playerCard.h
+/home/mad-cook/cardiansClient/source/playerCard.h
 string
 -
+wx/wx.h
+-
+
+/home/mad-cook/cardiansClient/source/playerCard.cpp
+playerCard.h
+/home/mad-cook/cardiansClient/source/playerCard.h
+
+/home/mad-cook/cardiansClient/source/playerCard.h
+wx/wx.h
+-
+crazyEightsLogic/Card.hpp
+/home/mad-cook/cardiansClient/source/crazyEightsLogic/Card.hpp
 
 /usr/local/include/wx-3.1/wx/accel.h
 wx/defs.h
@@ -2802,5 +2826,5 @@ wx/log.h
 typeinfo
 -
 
-/usr/local/lib/wx/include/gtk3-unicode-static-3.1/wx/setup.h
+/usr/local/lib/wx/include/gtk3-unicode-3.1/wx/setup.h
 

@@ -8,9 +8,11 @@ playArea::playArea(wxFrame *parent)
               wxTAB_TRAVERSAL, wxPanelNameStr) {
   int cardWidth = 20;
   int cardHeight = 100;
-
+  Card *dummyCard = new Card(HEARTS, TWO);
   int heightLeft = wxSystemSettings::GetMetric(wxSYS_SCREEN_Y) * .7;
   heightLeft -= 850;
+
+
 
   wxBoxSizer *theMainSizer = new wxBoxSizer(wxVERTICAL);
 
@@ -34,29 +36,24 @@ playArea::playArea(wxFrame *parent)
   wxBitmapButton *Deck = new wxBitmapButton(
       this, wxID_ANY, wxBitmap("../../res/upFull.jpg", wxBITMAP_TYPE_JPEG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
-  wxBitmapButton *Discard = new wxBitmapButton(
+    wxBitmapButton *Discard = new wxBitmapButton(
       this, wxID_ANY, wxBitmap("../../res/white.jpg", wxBITMAP_TYPE_JPEG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
 
-  wxString upFull = wxT("../../res/downFull.jpg");
-  wxBitmapButton *card1 = new wxBitmapButton(
-      this, wxID_ANY, wxBitmap(upFull, wxBITMAP_TYPE_JPEG), wxDefaultPosition,
-      wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
-  yourHand->Add(card1);
-  for (int i = 0; i < 12; i++) {
-    wxBitmapButton *card = new wxBitmapButton(
-        this, wxID_ANY, wxBitmap("../../res/up.jpg", wxBITMAP_TYPE_JPEG),
-        wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator,
-        wxButtonNameStr);
-    // card->Bind(wxEVT_BUTTON, &playArea::OnClick, this);
+  playerCard *tcard = new playerCard(parent,dummyCard,wxSize(60,100));
+  yourHand->Add(tcard);
+  yourHand->AddSpacer(10);
+  for (int i = 0; i < 4; i++) {
+    playerCard *card = new playerCard(parent,dummyCard,wxSize(20,100));
     yourHand->Add(card);
+    yourHand->AddSpacer(5);
   }
 
   wxBitmapButton *card2 = new wxBitmapButton(
       this, wxID_ANY, wxBitmap("../../res/leftFull.jpg", wxBITMAP_TYPE_JPEG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
   playerOne->Add(card2);
-  for (int i = 0; i < 12; i++) {
+  for (int i = 0; i < 4; i++) {
     wxBitmapButton *card = new wxBitmapButton(
         this, wxID_ANY, wxBitmap("../../res/left.jpg", wxBITMAP_TYPE_JPEG),
         wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator,
@@ -68,7 +65,7 @@ playArea::playArea(wxFrame *parent)
       this, wxID_ANY, wxBitmap("../../res/upFull.jpg", wxBITMAP_TYPE_JPEG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
   playerTwo->Add(card3);
-  for (int i = 0; i < 12; i++) {
+  for (int i = 0; i < 4; i++) {
     wxBitmapButton *card = new wxBitmapButton(
         this, wxID_ANY, wxBitmap("../../res/down.jpg", wxBITMAP_TYPE_JPEG),
         wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator,
@@ -80,7 +77,7 @@ playArea::playArea(wxFrame *parent)
       this, wxID_ANY, wxBitmap("../../res/rightFull.jpg", wxBITMAP_TYPE_JPEG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
   playerThree->Add(card4);
-  for (int i = 0; i < 12; i++) {
+  for (int i = 0; i < 4; i++) {
     wxBitmapButton *card = new wxBitmapButton(
         this, wxID_ANY, wxBitmap("../../res/right.jpg", wxBITMAP_TYPE_JPEG),
         wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator,
@@ -114,13 +111,16 @@ playArea::playArea(wxFrame *parent)
   theMainSizer->Add(upperPortion);
   theMainSizer->AddSpacer(20);
   theMainSizer->Add(middlePortion);
-  theMainSizer->AddSpacer(20);
+//  theMainSizer->AddSpacer(10);
   theMainSizer->Add(lowerPortion, wxCENTER);
   SetSizerAndFit(theMainSizer);
 }
 
 void playArea::updatePlayArea(int playerId, std::vector<Card> hand,
-                              bool deckEmpty, Card topOfDiscardPile) {}
+                              bool deckEmpty, Card topOfDiscardPile) {
+
+
+                              }
 
 void playArea::invalidMoveDialog() {
   wxMessageDialog dialog(NULL, "You played an invalid card. You must match "
