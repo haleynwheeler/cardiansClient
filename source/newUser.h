@@ -9,12 +9,12 @@ class newUser: public wxPanel
 public:
   newUser(wxFrame* parent);
   void OnNewUser(wxCommandEvent & event);
-  //void OnLogin(wxCommandEvent & event);
+  wxTextCtrl *usernameText;
+  wxTextCtrl *passwordText;
   ~newUser();
 
   enum{
-    //loginButton = 2,
-    newUserButton = 3
+    newUserButton = 4
   };
   wxDECLARE_EVENT_TABLE();
 };
