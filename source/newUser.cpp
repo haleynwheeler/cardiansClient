@@ -62,7 +62,7 @@ void newUser::OnNewUser(wxCommandEvent & event)
 }
 // void newUser::OnLogin(wxCommandEvent & event)
 // {
-//   std::cout<<"Login Pressed button"<<std::endl;
+  // std::cout<<"Login Pressed button"<<std::endl;
 // }
 
 newUser::~newUser()
