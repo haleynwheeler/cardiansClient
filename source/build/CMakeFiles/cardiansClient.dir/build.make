@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/haley/Desktop/cardiansClient/source
+CMAKE_SOURCE_DIR = /home/mad-cook/cardiansClient/source
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/haley/Desktop/cardiansClient/source/build
+CMAKE_BINARY_DIR = /home/mad-cook/cardiansClient/source/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/cardiansClient.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/cardiansClient.dir/flags.make
 
 CMakeFiles/cardiansClient.dir/main.cpp.o: CMakeFiles/cardiansClient.dir/flags.make
 CMakeFiles/cardiansClient.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/haley/Desktop/cardiansClient/source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cardiansClient.dir/main.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cardiansClient.dir/main.cpp.o -c /home/haley/Desktop/cardiansClient/source/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mad-cook/cardiansClient/source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cardiansClient.dir/main.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cardiansClient.dir/main.cpp.o -c /home/mad-cook/cardiansClient/source/main.cpp
 
 CMakeFiles/cardiansClient.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cardiansClient.dir/main.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/haley/Desktop/cardiansClient/source/main.cpp > CMakeFiles/cardiansClient.dir/main.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mad-cook/cardiansClient/source/main.cpp > CMakeFiles/cardiansClient.dir/main.cpp.i
 
 CMakeFiles/cardiansClient.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cardiansClient.dir/main.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/haley/Desktop/cardiansClient/source/main.cpp -o CMakeFiles/cardiansClient.dir/main.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mad-cook/cardiansClient/source/main.cpp -o CMakeFiles/cardiansClient.dir/main.cpp.s
 
 CMakeFiles/cardiansClient.dir/main.cpp.o.requires:
 
@@ -83,16 +83,16 @@ CMakeFiles/cardiansClient.dir/main.cpp.o.provides.build: CMakeFiles/cardiansClie
 
 CMakeFiles/cardiansClient.dir/button.cpp.o: CMakeFiles/cardiansClient.dir/flags.make
 CMakeFiles/cardiansClient.dir/button.cpp.o: ../button.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/haley/Desktop/cardiansClient/source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/cardiansClient.dir/button.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cardiansClient.dir/button.cpp.o -c /home/haley/Desktop/cardiansClient/source/button.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mad-cook/cardiansClient/source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/cardiansClient.dir/button.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cardiansClient.dir/button.cpp.o -c /home/mad-cook/cardiansClient/source/button.cpp
 
 CMakeFiles/cardiansClient.dir/button.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cardiansClient.dir/button.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/haley/Desktop/cardiansClient/source/button.cpp > CMakeFiles/cardiansClient.dir/button.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mad-cook/cardiansClient/source/button.cpp > CMakeFiles/cardiansClient.dir/button.cpp.i
 
 CMakeFiles/cardiansClient.dir/button.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cardiansClient.dir/button.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/haley/Desktop/cardiansClient/source/button.cpp -o CMakeFiles/cardiansClient.dir/button.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mad-cook/cardiansClient/source/button.cpp -o CMakeFiles/cardiansClient.dir/button.cpp.s
 
 CMakeFiles/cardiansClient.dir/button.cpp.o.requires:
 
@@ -107,16 +107,16 @@ CMakeFiles/cardiansClient.dir/button.cpp.o.provides.build: CMakeFiles/cardiansCl
 
 CMakeFiles/cardiansClient.dir/baseBackground.cpp.o: CMakeFiles/cardiansClient.dir/flags.make
 CMakeFiles/cardiansClient.dir/baseBackground.cpp.o: ../baseBackground.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/haley/Desktop/cardiansClient/source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/cardiansClient.dir/baseBackground.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cardiansClient.dir/baseBackground.cpp.o -c /home/haley/Desktop/cardiansClient/source/baseBackground.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mad-cook/cardiansClient/source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/cardiansClient.dir/baseBackground.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cardiansClient.dir/baseBackground.cpp.o -c /home/mad-cook/cardiansClient/source/baseBackground.cpp
 
 CMakeFiles/cardiansClient.dir/baseBackground.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cardiansClient.dir/baseBackground.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/haley/Desktop/cardiansClient/source/baseBackground.cpp > CMakeFiles/cardiansClient.dir/baseBackground.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mad-cook/cardiansClient/source/baseBackground.cpp > CMakeFiles/cardiansClient.dir/baseBackground.cpp.i
 
 CMakeFiles/cardiansClient.dir/baseBackground.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cardiansClient.dir/baseBackground.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/haley/Desktop/cardiansClient/source/baseBackground.cpp -o CMakeFiles/cardiansClient.dir/baseBackground.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mad-cook/cardiansClient/source/baseBackground.cpp -o CMakeFiles/cardiansClient.dir/baseBackground.cpp.s
 
 CMakeFiles/cardiansClient.dir/baseBackground.cpp.o.requires:
 
@@ -131,16 +131,16 @@ CMakeFiles/cardiansClient.dir/baseBackground.cpp.o.provides.build: CMakeFiles/ca
 
 CMakeFiles/cardiansClient.dir/login.cpp.o: CMakeFiles/cardiansClient.dir/flags.make
 CMakeFiles/cardiansClient.dir/login.cpp.o: ../login.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/haley/Desktop/cardiansClient/source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/cardiansClient.dir/login.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cardiansClient.dir/login.cpp.o -c /home/haley/Desktop/cardiansClient/source/login.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mad-cook/cardiansClient/source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/cardiansClient.dir/login.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cardiansClient.dir/login.cpp.o -c /home/mad-cook/cardiansClient/source/login.cpp
 
 CMakeFiles/cardiansClient.dir/login.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cardiansClient.dir/login.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/haley/Desktop/cardiansClient/source/login.cpp > CMakeFiles/cardiansClient.dir/login.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mad-cook/cardiansClient/source/login.cpp > CMakeFiles/cardiansClient.dir/login.cpp.i
 
 CMakeFiles/cardiansClient.dir/login.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cardiansClient.dir/login.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/haley/Desktop/cardiansClient/source/login.cpp -o CMakeFiles/cardiansClient.dir/login.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mad-cook/cardiansClient/source/login.cpp -o CMakeFiles/cardiansClient.dir/login.cpp.s
 
 CMakeFiles/cardiansClient.dir/login.cpp.o.requires:
 
@@ -155,16 +155,16 @@ CMakeFiles/cardiansClient.dir/login.cpp.o.provides.build: CMakeFiles/cardiansCli
 
 CMakeFiles/cardiansClient.dir/imageInsert.cpp.o: CMakeFiles/cardiansClient.dir/flags.make
 CMakeFiles/cardiansClient.dir/imageInsert.cpp.o: ../imageInsert.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/haley/Desktop/cardiansClient/source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/cardiansClient.dir/imageInsert.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cardiansClient.dir/imageInsert.cpp.o -c /home/haley/Desktop/cardiansClient/source/imageInsert.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mad-cook/cardiansClient/source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/cardiansClient.dir/imageInsert.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cardiansClient.dir/imageInsert.cpp.o -c /home/mad-cook/cardiansClient/source/imageInsert.cpp
 
 CMakeFiles/cardiansClient.dir/imageInsert.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cardiansClient.dir/imageInsert.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/haley/Desktop/cardiansClient/source/imageInsert.cpp > CMakeFiles/cardiansClient.dir/imageInsert.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mad-cook/cardiansClient/source/imageInsert.cpp > CMakeFiles/cardiansClient.dir/imageInsert.cpp.i
 
 CMakeFiles/cardiansClient.dir/imageInsert.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cardiansClient.dir/imageInsert.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/haley/Desktop/cardiansClient/source/imageInsert.cpp -o CMakeFiles/cardiansClient.dir/imageInsert.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mad-cook/cardiansClient/source/imageInsert.cpp -o CMakeFiles/cardiansClient.dir/imageInsert.cpp.s
 
 CMakeFiles/cardiansClient.dir/imageInsert.cpp.o.requires:
 
@@ -179,16 +179,16 @@ CMakeFiles/cardiansClient.dir/imageInsert.cpp.o.provides.build: CMakeFiles/cardi
 
 CMakeFiles/cardiansClient.dir/newUser.cpp.o: CMakeFiles/cardiansClient.dir/flags.make
 CMakeFiles/cardiansClient.dir/newUser.cpp.o: ../newUser.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/haley/Desktop/cardiansClient/source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/cardiansClient.dir/newUser.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cardiansClient.dir/newUser.cpp.o -c /home/haley/Desktop/cardiansClient/source/newUser.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mad-cook/cardiansClient/source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/cardiansClient.dir/newUser.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cardiansClient.dir/newUser.cpp.o -c /home/mad-cook/cardiansClient/source/newUser.cpp
 
 CMakeFiles/cardiansClient.dir/newUser.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cardiansClient.dir/newUser.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/haley/Desktop/cardiansClient/source/newUser.cpp > CMakeFiles/cardiansClient.dir/newUser.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mad-cook/cardiansClient/source/newUser.cpp > CMakeFiles/cardiansClient.dir/newUser.cpp.i
 
 CMakeFiles/cardiansClient.dir/newUser.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cardiansClient.dir/newUser.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/haley/Desktop/cardiansClient/source/newUser.cpp -o CMakeFiles/cardiansClient.dir/newUser.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mad-cook/cardiansClient/source/newUser.cpp -o CMakeFiles/cardiansClient.dir/newUser.cpp.s
 
 CMakeFiles/cardiansClient.dir/newUser.cpp.o.requires:
 
@@ -203,16 +203,16 @@ CMakeFiles/cardiansClient.dir/newUser.cpp.o.provides.build: CMakeFiles/cardiansC
 
 CMakeFiles/cardiansClient.dir/playArea.cpp.o: CMakeFiles/cardiansClient.dir/flags.make
 CMakeFiles/cardiansClient.dir/playArea.cpp.o: ../playArea.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/haley/Desktop/cardiansClient/source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/cardiansClient.dir/playArea.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cardiansClient.dir/playArea.cpp.o -c /home/haley/Desktop/cardiansClient/source/playArea.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mad-cook/cardiansClient/source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/cardiansClient.dir/playArea.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cardiansClient.dir/playArea.cpp.o -c /home/mad-cook/cardiansClient/source/playArea.cpp
 
 CMakeFiles/cardiansClient.dir/playArea.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cardiansClient.dir/playArea.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/haley/Desktop/cardiansClient/source/playArea.cpp > CMakeFiles/cardiansClient.dir/playArea.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mad-cook/cardiansClient/source/playArea.cpp > CMakeFiles/cardiansClient.dir/playArea.cpp.i
 
 CMakeFiles/cardiansClient.dir/playArea.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cardiansClient.dir/playArea.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/haley/Desktop/cardiansClient/source/playArea.cpp -o CMakeFiles/cardiansClient.dir/playArea.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mad-cook/cardiansClient/source/playArea.cpp -o CMakeFiles/cardiansClient.dir/playArea.cpp.s
 
 CMakeFiles/cardiansClient.dir/playArea.cpp.o.requires:
 
@@ -225,18 +225,42 @@ CMakeFiles/cardiansClient.dir/playArea.cpp.o.provides: CMakeFiles/cardiansClient
 CMakeFiles/cardiansClient.dir/playArea.cpp.o.provides.build: CMakeFiles/cardiansClient.dir/playArea.cpp.o
 
 
+CMakeFiles/cardiansClient.dir/playerCard.cpp.o: CMakeFiles/cardiansClient.dir/flags.make
+CMakeFiles/cardiansClient.dir/playerCard.cpp.o: ../playerCard.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mad-cook/cardiansClient/source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/cardiansClient.dir/playerCard.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cardiansClient.dir/playerCard.cpp.o -c /home/mad-cook/cardiansClient/source/playerCard.cpp
+
+CMakeFiles/cardiansClient.dir/playerCard.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cardiansClient.dir/playerCard.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mad-cook/cardiansClient/source/playerCard.cpp > CMakeFiles/cardiansClient.dir/playerCard.cpp.i
+
+CMakeFiles/cardiansClient.dir/playerCard.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cardiansClient.dir/playerCard.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mad-cook/cardiansClient/source/playerCard.cpp -o CMakeFiles/cardiansClient.dir/playerCard.cpp.s
+
+CMakeFiles/cardiansClient.dir/playerCard.cpp.o.requires:
+
+.PHONY : CMakeFiles/cardiansClient.dir/playerCard.cpp.o.requires
+
+CMakeFiles/cardiansClient.dir/playerCard.cpp.o.provides: CMakeFiles/cardiansClient.dir/playerCard.cpp.o.requires
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/playerCard.cpp.o.provides.build
+.PHONY : CMakeFiles/cardiansClient.dir/playerCard.cpp.o.provides
+
+CMakeFiles/cardiansClient.dir/playerCard.cpp.o.provides.build: CMakeFiles/cardiansClient.dir/playerCard.cpp.o
+
+
 CMakeFiles/cardiansClient.dir/crazyEightsLogic/Card.cpp.o: CMakeFiles/cardiansClient.dir/flags.make
 CMakeFiles/cardiansClient.dir/crazyEightsLogic/Card.cpp.o: ../crazyEightsLogic/Card.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/haley/Desktop/cardiansClient/source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/cardiansClient.dir/crazyEightsLogic/Card.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cardiansClient.dir/crazyEightsLogic/Card.cpp.o -c /home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Card.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mad-cook/cardiansClient/source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/cardiansClient.dir/crazyEightsLogic/Card.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cardiansClient.dir/crazyEightsLogic/Card.cpp.o -c /home/mad-cook/cardiansClient/source/crazyEightsLogic/Card.cpp
 
 CMakeFiles/cardiansClient.dir/crazyEightsLogic/Card.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cardiansClient.dir/crazyEightsLogic/Card.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Card.cpp > CMakeFiles/cardiansClient.dir/crazyEightsLogic/Card.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mad-cook/cardiansClient/source/crazyEightsLogic/Card.cpp > CMakeFiles/cardiansClient.dir/crazyEightsLogic/Card.cpp.i
 
 CMakeFiles/cardiansClient.dir/crazyEightsLogic/Card.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cardiansClient.dir/crazyEightsLogic/Card.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Card.cpp -o CMakeFiles/cardiansClient.dir/crazyEightsLogic/Card.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mad-cook/cardiansClient/source/crazyEightsLogic/Card.cpp -o CMakeFiles/cardiansClient.dir/crazyEightsLogic/Card.cpp.s
 
 CMakeFiles/cardiansClient.dir/crazyEightsLogic/Card.cpp.o.requires:
 
@@ -251,16 +275,16 @@ CMakeFiles/cardiansClient.dir/crazyEightsLogic/Card.cpp.o.provides.build: CMakeF
 
 CMakeFiles/cardiansClient.dir/crazyEightsLogic/Player.cpp.o: CMakeFiles/cardiansClient.dir/flags.make
 CMakeFiles/cardiansClient.dir/crazyEightsLogic/Player.cpp.o: ../crazyEightsLogic/Player.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/haley/Desktop/cardiansClient/source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/cardiansClient.dir/crazyEightsLogic/Player.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cardiansClient.dir/crazyEightsLogic/Player.cpp.o -c /home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Player.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mad-cook/cardiansClient/source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/cardiansClient.dir/crazyEightsLogic/Player.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cardiansClient.dir/crazyEightsLogic/Player.cpp.o -c /home/mad-cook/cardiansClient/source/crazyEightsLogic/Player.cpp
 
 CMakeFiles/cardiansClient.dir/crazyEightsLogic/Player.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cardiansClient.dir/crazyEightsLogic/Player.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Player.cpp > CMakeFiles/cardiansClient.dir/crazyEightsLogic/Player.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mad-cook/cardiansClient/source/crazyEightsLogic/Player.cpp > CMakeFiles/cardiansClient.dir/crazyEightsLogic/Player.cpp.i
 
 CMakeFiles/cardiansClient.dir/crazyEightsLogic/Player.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cardiansClient.dir/crazyEightsLogic/Player.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Player.cpp -o CMakeFiles/cardiansClient.dir/crazyEightsLogic/Player.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mad-cook/cardiansClient/source/crazyEightsLogic/Player.cpp -o CMakeFiles/cardiansClient.dir/crazyEightsLogic/Player.cpp.s
 
 CMakeFiles/cardiansClient.dir/crazyEightsLogic/Player.cpp.o.requires:
 
@@ -275,16 +299,16 @@ CMakeFiles/cardiansClient.dir/crazyEightsLogic/Player.cpp.o.provides.build: CMak
 
 CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.o: CMakeFiles/cardiansClient.dir/flags.make
 CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.o: ../crazyEightsLogic/Game.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/haley/Desktop/cardiansClient/source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.o -c /home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Game.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mad-cook/cardiansClient/source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.o -c /home/mad-cook/cardiansClient/source/crazyEightsLogic/Game.cpp
 
 CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Game.cpp > CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mad-cook/cardiansClient/source/crazyEightsLogic/Game.cpp > CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.i
 
 CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Game.cpp -o CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mad-cook/cardiansClient/source/crazyEightsLogic/Game.cpp -o CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.s
 
 CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.o.requires:
 
@@ -306,6 +330,7 @@ cardiansClient_OBJECTS = \
 "CMakeFiles/cardiansClient.dir/imageInsert.cpp.o" \
 "CMakeFiles/cardiansClient.dir/newUser.cpp.o" \
 "CMakeFiles/cardiansClient.dir/playArea.cpp.o" \
+"CMakeFiles/cardiansClient.dir/playerCard.cpp.o" \
 "CMakeFiles/cardiansClient.dir/crazyEightsLogic/Card.cpp.o" \
 "CMakeFiles/cardiansClient.dir/crazyEightsLogic/Player.cpp.o" \
 "CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.o"
@@ -320,14 +345,13 @@ cardiansClient: CMakeFiles/cardiansClient.dir/login.cpp.o
 cardiansClient: CMakeFiles/cardiansClient.dir/imageInsert.cpp.o
 cardiansClient: CMakeFiles/cardiansClient.dir/newUser.cpp.o
 cardiansClient: CMakeFiles/cardiansClient.dir/playArea.cpp.o
+cardiansClient: CMakeFiles/cardiansClient.dir/playerCard.cpp.o
 cardiansClient: CMakeFiles/cardiansClient.dir/crazyEightsLogic/Card.cpp.o
 cardiansClient: CMakeFiles/cardiansClient.dir/crazyEightsLogic/Player.cpp.o
 cardiansClient: CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.o
 cardiansClient: CMakeFiles/cardiansClient.dir/build.make
-cardiansClient: /usr/local/lib/libwx_gtk3u_core-3.1.a
-cardiansClient: /usr/local/lib/libwx_baseu-3.1.a
 cardiansClient: CMakeFiles/cardiansClient.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/haley/Desktop/cardiansClient/source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable cardiansClient"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/mad-cook/cardiansClient/source/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable cardiansClient"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cardiansClient.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -342,6 +366,7 @@ CMakeFiles/cardiansClient.dir/requires: CMakeFiles/cardiansClient.dir/login.cpp.
 CMakeFiles/cardiansClient.dir/requires: CMakeFiles/cardiansClient.dir/imageInsert.cpp.o.requires
 CMakeFiles/cardiansClient.dir/requires: CMakeFiles/cardiansClient.dir/newUser.cpp.o.requires
 CMakeFiles/cardiansClient.dir/requires: CMakeFiles/cardiansClient.dir/playArea.cpp.o.requires
+CMakeFiles/cardiansClient.dir/requires: CMakeFiles/cardiansClient.dir/playerCard.cpp.o.requires
 CMakeFiles/cardiansClient.dir/requires: CMakeFiles/cardiansClient.dir/crazyEightsLogic/Card.cpp.o.requires
 CMakeFiles/cardiansClient.dir/requires: CMakeFiles/cardiansClient.dir/crazyEightsLogic/Player.cpp.o.requires
 CMakeFiles/cardiansClient.dir/requires: CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.o.requires
@@ -353,6 +378,6 @@ CMakeFiles/cardiansClient.dir/clean:
 .PHONY : CMakeFiles/cardiansClient.dir/clean
 
 CMakeFiles/cardiansClient.dir/depend:
-	cd /home/haley/Desktop/cardiansClient/source/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/haley/Desktop/cardiansClient/source /home/haley/Desktop/cardiansClient/source /home/haley/Desktop/cardiansClient/source/build /home/haley/Desktop/cardiansClient/source/build /home/haley/Desktop/cardiansClient/source/build/CMakeFiles/cardiansClient.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/mad-cook/cardiansClient/source/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/mad-cook/cardiansClient/source /home/mad-cook/cardiansClient/source /home/mad-cook/cardiansClient/source/build /home/mad-cook/cardiansClient/source/build /home/mad-cook/cardiansClient/source/build/CMakeFiles/cardiansClient.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/cardiansClient.dir/depend
 

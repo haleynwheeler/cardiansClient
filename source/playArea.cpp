@@ -2,29 +2,37 @@
 #include "button.h"
 #include "imageInsert.h"
 #include <iostream>
+#include <vector>
 
 playArea::playArea(wxFrame *parent)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
               wxTAB_TRAVERSAL, wxPanelNameStr) {
   int cardWidth = 20;
   int cardHeight = 100;
-
+  Card *dummyCard = new Card(HEARTS, TWO);
   int heightLeft = wxSystemSettings::GetMetric(wxSYS_SCREEN_Y) * .7;
   heightLeft -= 850;
 
-  wxBoxSizer *theMainSizer = new wxBoxSizer(wxVERTICAL);
+  thePlayerHandSize = 5;
+  playerOneHandSize = 5;
+  playerTwoHandSize =5;
+  playerThreeHandSize = 5;
 
-  wxBoxSizer *upperPortion = new wxBoxSizer(wxHORIZONTAL);
-  wxBoxSizer *middlePortion = new wxBoxSizer(wxHORIZONTAL);
-  wxBoxSizer *lowerPortion = new wxBoxSizer(wxHORIZONTAL);
+  theMainSizer = new wxBoxSizer(wxVERTICAL);
 
-  wxBoxSizer *fieldArea = new wxBoxSizer(wxHORIZONTAL);
-  wxBoxSizer *verticalfieldArea = new wxBoxSizer(wxVERTICAL);
+  upperPortion = new wxBoxSizer(wxHORIZONTAL);
+  middlePortion = new wxBoxSizer(wxHORIZONTAL);
+  lowerPortion = new wxBoxSizer(wxHORIZONTAL);
 
-  wxBoxSizer *yourHand = new wxBoxSizer(wxHORIZONTAL);
-  wxBoxSizer *playerOne = new wxBoxSizer(wxVERTICAL);
-  wxBoxSizer *playerTwo = new wxBoxSizer(wxHORIZONTAL);
-  wxBoxSizer *playerThree = new wxBoxSizer(wxVERTICAL);
+  fieldArea = new wxBoxSizer(wxHORIZONTAL);
+  verticalfieldArea = new wxBoxSizer(wxVERTICAL);
+
+  yourHand = new wxBoxSizer(wxHORIZONTAL);
+  playerOne = new wxBoxSizer(wxVERTICAL);
+  playerTwo = new wxBoxSizer(wxHORIZONTAL);
+  playerThree = new wxBoxSizer(wxVERTICAL);
+
+  std::cout << yourHand << std::endl;
 
   wxBitmapButton *topLogo = new wxBitmapButton(
       this, wxID_ANY, wxBitmap("../../res/TextLogo.png", wxBITMAP_TYPE_PNG),
@@ -34,29 +42,22 @@ playArea::playArea(wxFrame *parent)
   wxBitmapButton *Deck = new wxBitmapButton(
       this, wxID_ANY, wxBitmap("../../res/upFull.jpg", wxBITMAP_TYPE_JPEG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
-  wxBitmapButton *Discard = new wxBitmapButton(
-      this, wxID_ANY, wxBitmap("../../res/white.jpg", wxBITMAP_TYPE_JPEG),
-      wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
+    playerCard *Discard = new playerCard(parent,dummyCard,wxSize(70,110));
 
-  wxString upFull = wxT("../../res/downFull.jpg");
-  wxBitmapButton *card1 = new wxBitmapButton(
-      this, wxID_ANY, wxBitmap(upFull, wxBITMAP_TYPE_JPEG), wxDefaultPosition,
-      wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
-  yourHand->Add(card1);
-  for (int i = 0; i < 12; i++) {
-    wxBitmapButton *card = new wxBitmapButton(
-        this, wxID_ANY, wxBitmap("../../res/up.jpg", wxBITMAP_TYPE_JPEG),
-        wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator,
-        wxButtonNameStr);
-    // card->Bind(wxEVT_BUTTON, &playArea::OnClick, this);
+  playerCard *tcard = new playerCard(parent,dummyCard,wxSize(60,100));
+  yourHand->Add(tcard);
+  yourHand->AddSpacer(10);
+  for (int i = 0; i < playerOneHandSize; i++) {
+    playerCard *card = new playerCard(parent,dummyCard,wxSize(20,100));
     yourHand->Add(card);
+    yourHand->AddSpacer(5);
   }
 
   wxBitmapButton *card2 = new wxBitmapButton(
       this, wxID_ANY, wxBitmap("../../res/leftFull.jpg", wxBITMAP_TYPE_JPEG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
   playerOne->Add(card2);
-  for (int i = 0; i < 12; i++) {
+  for (int i = 0; i < playerOneHandSize; i++) {
     wxBitmapButton *card = new wxBitmapButton(
         this, wxID_ANY, wxBitmap("../../res/left.jpg", wxBITMAP_TYPE_JPEG),
         wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator,
@@ -68,7 +69,7 @@ playArea::playArea(wxFrame *parent)
       this, wxID_ANY, wxBitmap("../../res/upFull.jpg", wxBITMAP_TYPE_JPEG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
   playerTwo->Add(card3);
-  for (int i = 0; i < 12; i++) {
+  for (int i = 0; i < playerTwoHandSize; i++) {
     wxBitmapButton *card = new wxBitmapButton(
         this, wxID_ANY, wxBitmap("../../res/down.jpg", wxBITMAP_TYPE_JPEG),
         wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator,
@@ -80,7 +81,7 @@ playArea::playArea(wxFrame *parent)
       this, wxID_ANY, wxBitmap("../../res/rightFull.jpg", wxBITMAP_TYPE_JPEG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
   playerThree->Add(card4);
-  for (int i = 0; i < 12; i++) {
+  for (int i = 0; i < playerThreeHandSize; i++) {
     wxBitmapButton *card = new wxBitmapButton(
         this, wxID_ANY, wxBitmap("../../res/right.jpg", wxBITMAP_TYPE_JPEG),
         wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator,
@@ -114,13 +115,62 @@ playArea::playArea(wxFrame *parent)
   theMainSizer->Add(upperPortion);
   theMainSizer->AddSpacer(20);
   theMainSizer->Add(middlePortion);
-  theMainSizer->AddSpacer(20);
+//  theMainSizer->AddSpacer(10);
   theMainSizer->Add(lowerPortion, wxCENTER);
   SetSizerAndFit(theMainSizer);
+  std::cout << yourHand << std::endl;
 }
 
+void playArea::playerZero(std::vector<Card> hand,
+                              bool deckEmpty, Card topOfDiscardPile)
+{
+  yourHand->Clear();
+  Card *temper = new Card(hand.at(0).getSuit(),hand.at(0).getValue());
+  playerCard *tcard = new playerCard(this->GetParent(),temper,wxSize(60,100));
+  yourHand->Add(tcard);
+  yourHand->AddSpacer(10);
+  for (int i = 1; i < playerOneHandSize; i++) {
+    Card *temp = new  Card(hand.at(i).getSuit(),hand.at(i).getValue());
+    playerCard *card = new playerCard(this->GetParent(),temp,wxSize(20,100));
+    yourHand->Add(card);
+    yourHand->AddSpacer(5);
+  }
+  yourHand->Layout();
+  fieldArea->Detach(1);
+  Card *tempest = new Card(topOfDiscardPile.getSuit(),topOfDiscardPile.getValue());
+  playerCard *Discard = new playerCard(this->GetParent(),tempest,wxSize(70,110));
+  fieldArea->Add(Discard);
+  fieldArea->Layout();
+}
+
+void playArea::playerAi(int playerId, std::vector<Card> hand,
+                              bool deckEmpty, Card topOfDiscardPile)
+{
+
+
+}
+
+
 void playArea::updatePlayArea(int playerId, std::vector<Card> hand,
-                              bool deckEmpty, Card topOfDiscardPile) {}
+                              bool deckEmpty, Card topOfDiscardPile) {
+  switch(playerId){
+
+  case 0:
+      playerZero(hand,deckEmpty,topOfDiscardPile);
+      break;
+  case 1:
+
+
+  break;
+  case 2:
+
+  break;
+  case 3:
+
+  break;
+  }
+
+}
 
 void playArea::invalidMoveDialog() {
   wxMessageDialog dialog(NULL, "You played an invalid card. You must match "

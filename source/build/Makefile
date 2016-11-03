@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/haley/Desktop/cardiansClient/source
+CMAKE_SOURCE_DIR = /home/mad-cook/cardiansClient/source
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/haley/Desktop/cardiansClient/source/build
+CMAKE_BINARY_DIR = /home/mad-cook/cardiansClient/source/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/haley/Desktop/cardiansClient/source/build/CMakeFiles /home/haley/Desktop/cardiansClient/source/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mad-cook/cardiansClient/source/build/CMakeFiles /home/mad-cook/cardiansClient/source/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/haley/Desktop/cardiansClient/source/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mad-cook/cardiansClient/source/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -393,6 +393,33 @@ playArea.cpp.s:
 	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/playArea.cpp.s
 .PHONY : playArea.cpp.s
 
+playerCard.o: playerCard.cpp.o
+
+.PHONY : playerCard.o
+
+# target to build an object file
+playerCard.cpp.o:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/playerCard.cpp.o
+.PHONY : playerCard.cpp.o
+
+playerCard.i: playerCard.cpp.i
+
+.PHONY : playerCard.i
+
+# target to preprocess a source file
+playerCard.cpp.i:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/playerCard.cpp.i
+.PHONY : playerCard.cpp.i
+
+playerCard.s: playerCard.cpp.s
+
+.PHONY : playerCard.s
+
+# target to generate assembly for a file
+playerCard.cpp.s:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/playerCard.cpp.s
+.PHONY : playerCard.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -432,6 +459,9 @@ help:
 	@echo "... playArea.o"
 	@echo "... playArea.i"
 	@echo "... playArea.s"
+	@echo "... playerCard.o"
+	@echo "... playerCard.i"
+	@echo "... playerCard.s"
 .PHONY : help
 
 

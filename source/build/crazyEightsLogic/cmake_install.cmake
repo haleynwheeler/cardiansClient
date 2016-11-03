@@ -1,4 +1,4 @@
-# Install script for directory: /home/haley/Desktop/cardiansClient/source/crazyEightsLogic
+# Install script for directory: /home/mad-cook/cardiansClient/source/crazyEightsLogic
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

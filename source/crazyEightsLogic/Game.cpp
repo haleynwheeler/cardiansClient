@@ -15,7 +15,6 @@ CrazyEightsGame::CrazyEightsGame(wxFrame *mainFrame) {
   for (auto i = 1; i < 4; i++) {
     players.push_back(Player(0, "AI"));
   }
-  playArea *gui;
   gui = new playArea(mainFrame);
   startNewRound();
 }
