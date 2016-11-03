@@ -2,6 +2,8 @@
 #define LOGIN_H
 
 #include <wx/wx.h>
+#include <wx/textctrl.h>
+#include <string>
 
 
 class login: public wxPanel
@@ -10,6 +12,8 @@ public:
   login(wxFrame* parent);
   void OnNewUser(wxCommandEvent & event);
   void OnLogin(wxCommandEvent & event);
+  wxTextCtrl *usernameText;
+  wxTextCtrl *passwordText;
   ~login();
 
   enum{
