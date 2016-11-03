@@ -12,12 +12,12 @@ public:
     Simple(const wxString& title)
 		: wxFrame(NULL, wxID_ANY, title, wxDefaultPosition,
       wxSize(wxSystemSettings::GetMetric(wxSYS_SCREEN_X)*.5,
-      wxSystemSettings::GetMetric(wxSYS_SCREEN_Y)*.7))
+      wxSystemSettings::GetMetric(wxSYS_SCREEN_Y)*.738))
 	{
     SetMaxSize(wxSize(wxSize(wxSystemSettings::GetMetric(wxSYS_SCREEN_X)*.5,
-    wxSystemSettings::GetMetric(wxSYS_SCREEN_Y)*.7)));
+    wxSystemSettings::GetMetric(wxSYS_SCREEN_Y)*.738)));
     SetMinSize(wxSize(wxSize(wxSystemSettings::GetMetric(wxSYS_SCREEN_X)*.5,
-    wxSystemSettings::GetMetric(wxSYS_SCREEN_Y)*.7)));
+    wxSystemSettings::GetMetric(wxSYS_SCREEN_Y)*.738)));
 		Centre();
 	}
 };

@@ -69,6 +69,8 @@ button.h
 /home/mad-cook/cardiansClient/source/button.h
 imageInsert.h
 /home/mad-cook/cardiansClient/source/imageInsert.h
+iostream
+-
 
 /home/mad-cook/cardiansClient/source/playArea.h
 wx/wx.h

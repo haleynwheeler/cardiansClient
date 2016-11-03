@@ -7,9 +7,10 @@
 
 class playArea: public wxPanel
 {
+
 public:
   playArea(wxFrame* parent);
   ~playArea();
-
+  OnButton();
 };
 #endif
