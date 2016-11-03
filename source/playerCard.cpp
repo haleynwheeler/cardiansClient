@@ -1,7 +1,7 @@
 #include "playerCard.h"
 
 
-playerCard::playerCard(wxFrame *parent, Card *theCards, wxSize size) :
+playerCard::playerCard(wxWindow *parent, Card *theCards, wxSize size) :
     wxPanel(parent, wxID_ANY, wxDefaultPosition, size,
       wxTAB_TRAVERSAL, wxPanelNameStr){
 
