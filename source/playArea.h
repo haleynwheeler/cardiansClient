@@ -7,9 +7,12 @@
 
 class playArea: public wxPanel
 {
+
 public:
   playArea(wxFrame* parent);
   ~playArea();
+  void OnClick(wxCommandEvent &  event);
 
+wxDECLARE_EVENT_TABLE();
 };
 #endif
