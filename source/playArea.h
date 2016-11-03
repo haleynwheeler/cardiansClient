@@ -32,10 +32,8 @@ public:
   void updatePlayArea(int playerId, std::vector<Card> hand, bool deckEmpty,
                       Card topOfDiscardPile);
 
-  void playerZero(std::vector<Card> hand,
-                      bool deckEmpty, Card topOfDiscardPile);
-  void playerAi(int playerId, std::vector<Card> hand,
-                      bool deckEmpty, Card topOfDiscardPile);
+  void playerZero(std::vector<Card> hand);
+  void playerAi(int playerId, std::vector<Card> hand);
 
   void invalidMoveDialog();
   Suit userPickSuitDialog();

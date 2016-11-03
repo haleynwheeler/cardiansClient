@@ -1984,6 +1984,7 @@ CMakeFiles/cardiansClient.dir/playArea.cpp.o
  /usr/local/include/wx-3.1/wx/xtitypes.h
  /usr/local/lib/wx/include/gtk3-unicode-3.1/wx/setup.h
 CMakeFiles/cardiansClient.dir/playerCard.cpp.o
+ /home/mad-cook/cardiansClient/source/baseBackground.h
  /home/mad-cook/cardiansClient/source/crazyEightsLogic/Card.hpp
  /home/mad-cook/cardiansClient/source/playerCard.cpp
  /home/mad-cook/cardiansClient/source/playerCard.h
