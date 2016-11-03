@@ -40,7 +40,8 @@ set(SRCS main.cpp
     login.h login.cpp
     imageInsert.cpp imageInsert.h
     newUser.cpp newUser.h
-    playArea.cpp playArea.h)
+    playArea.cpp playArea.h
+    playerCard.cpp playerCard.h)
 
 add_subdirectory(crazyEightsLogic)
 
