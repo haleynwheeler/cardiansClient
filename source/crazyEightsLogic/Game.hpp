@@ -32,4 +32,5 @@ public:
   CrazyEightsGame(wxFrame *);
   ~CrazyEightsGame();
   void startNewRound();
+  void onButton(wxCommandEvent& event);
 };

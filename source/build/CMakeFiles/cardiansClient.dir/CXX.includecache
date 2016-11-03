@@ -155,6 +155,8 @@ wx/wx.h
 /home/mad-cook/cardiansClient/source/playerCard.cpp
 playerCard.h
 /home/mad-cook/cardiansClient/source/playerCard.h
+baseBackground.h
+/home/mad-cook/cardiansClient/source/baseBackground.h
 
 /home/mad-cook/cardiansClient/source/playerCard.h
 wx/wx.h
