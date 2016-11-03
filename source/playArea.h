@@ -2,7 +2,8 @@
 #define playArea_H
 
 #include "crazyEightsLogic/Card.hpp"
-#include"playerCard.h"
+#include "playerCard.h"
+#include <functional>
 #include <string>
 #include <wx/wx.h>
 
@@ -25,6 +26,9 @@ class playArea : public wxPanel {
   wxBoxSizer *playerTwo;
   wxBoxSizer *playerThree;
 
+  std::function<void()> humanDrewCard;
+  std::function<void(Card)> humanMadeMove;
+
 public:
   playArea(wxFrame *parent);
   ~playArea();
@@ -40,5 +44,8 @@ public:
   void aiPickedSuitDialog(Suit suitSpecified);
   bool endOfRoundDialog(std::vector<int> allPlayersRoundScores,
                         std::vector<int> allPlayersTotalScores);
+
+  void setDrewCardFunction(std::function<void()>);
+  void setMadeMoveFunction(std::function<void(Card)>);
 };
 #endif

@@ -37,10 +37,13 @@ void CrazyEightsGame::startNewRound() {
   deck.pop_back();
   turn = 0;
   gui->updatePlayArea(0, players[0].getHand(), false, topOfDiscardPile);
+  gui->setDrewCardFunction([this]() { humanDrewCard(); });
+  gui->setMadeMoveFunction([this](Card c) { humanMadeMove(c); });
 }
 
 // THIS SHOULD BE CALLED WHEN THE DECK IS PRESSED
 void CrazyEightsGame::humanDrewCard() {
+  std::cout << "Human Drew Card" << std::endl;
   if (turn == 0) {
     if (!deck.empty()) {
       players[0].insertCardToHand(deck.back());
@@ -63,6 +66,7 @@ void CrazyEightsGame::humanDrewCard() {
 
 // THIS SHOULD BE CALLED WHEN A CARD IN THE HAND IS PRESSED
 void CrazyEightsGame::humanMadeMove(Card c) {
+  std::cout << "Human Made Move" << std::endl;
   if (turn == 0) {
     auto validMove = checkCardValidity(c) && removeCardFromHand(c);
     if (validMove) {

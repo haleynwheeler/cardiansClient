@@ -13,7 +13,8 @@ playArea::playArea(wxFrame *parent)
   int heightLeft = wxSystemSettings::GetMetric(wxSYS_SCREEN_Y) * .7;
   heightLeft -= 850;
 
-  thePlayerHandSize =playerOneHandSize =playerTwoHandSize =playerThreeHandSize=4;
+  thePlayerHandSize = playerOneHandSize = playerTwoHandSize =
+      playerThreeHandSize = 4;
 
   theMainSizer = new wxBoxSizer(wxVERTICAL);
 
@@ -29,7 +30,6 @@ playArea::playArea(wxFrame *parent)
   playerTwo = new wxBoxSizer(wxHORIZONTAL);
   playerThree = new wxBoxSizer(wxVERTICAL);
 
-
   wxBitmapButton *topLogo = new wxBitmapButton(
       this, wxID_ANY, wxBitmap("../../res/TextLogo.png", wxBITMAP_TYPE_PNG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
@@ -38,15 +38,15 @@ playArea::playArea(wxFrame *parent)
   wxBitmapButton *Deck = new wxBitmapButton(
       this, wxID_ANY, wxBitmap("../../res/upFull.jpg", wxBITMAP_TYPE_JPEG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
-    playerCard *Discard = new playerCard(parent,dummyCard,wxSize(80,120));
+  playerCard *Discard = new playerCard(parent, dummyCard, wxSize(80, 120));
 
-  playerCard *tcard = new playerCard(parent,dummyCard,wxSize(70,100));
+  playerCard *tcard = new playerCard(parent, dummyCard, wxSize(70, 100));
   yourHand->Add(tcard);
   for (int i = 1; i < 13; i++) {
-    playerCard *card = new playerCard(parent,dummyCard,wxSize(70,100));
+    playerCard *card = new playerCard(parent, dummyCard, wxSize(70, 100));
     yourHand->Add(card);
-    if(i>thePlayerHandSize){
-      yourHand->Hide (i);
+    if (i > thePlayerHandSize) {
+      yourHand->Hide(i);
     }
   }
 
@@ -112,73 +112,80 @@ playArea::playArea(wxFrame *parent)
   theMainSizer->Add(upperPortion);
   theMainSizer->AddSpacer(20);
   theMainSizer->Add(middlePortion);
-//  theMainSizer->AddSpacer(10);
+  //  theMainSizer->AddSpacer(10);
   theMainSizer->Add(lowerPortion, wxCENTER);
   SetSizerAndFit(theMainSizer);
 }
 
-void playArea::playerZero(std::vector<Card> hand)
-{
+void playArea::setDrewCardFunction(std::function<void()> f) {
+  humanDrewCard = f;
+}
+
+void playArea::setMadeMoveFunction(std::function<void(Card)> f) {
+  humanMadeMove = f;
+}
+
+void playArea::playerZero(std::vector<Card> hand) {
   yourHand->Clear();
   yourHand->Layout();
-  Card *temper = new Card(hand.at(0).getSuit(),hand.at(0).getValue());
-  playerCard *tcard = new playerCard(this->GetParent(),temper,wxSize(70,100));
-//  tcard->Bind(wxEVT_BUTTON, &CrazyEightsGame::OnButton, this);
+  Card *temper = new Card(hand.at(0).getSuit(), hand.at(0).getValue());
+  playerCard *tcard =
+      new playerCard(this->GetParent(), temper, wxSize(70, 100));
+  //  tcard->Bind(wxEVT_BUTTON, &CrazyEightsGame::OnButton, this);
   yourHand->Add(tcard);
   for (int i = 1; i < hand.size(); i++) {
-    Card *temp = new  Card(hand.at(i).getSuit(),hand.at(i).getValue());
-    playerCard *card = new playerCard(this->GetParent(),temp,wxSize(70,100));
-//     card->Bind(wxEVT_BUTTON, &CrazyEightsGame::OnButton, this);
+    Card *temp = new Card(hand.at(i).getSuit(), hand.at(i).getValue());
+    playerCard *card = new playerCard(this->GetParent(), temp, wxSize(70, 100));
+    //     card->Bind(wxEVT_BUTTON, &CrazyEightsGame::OnButton, this);
     yourHand->Add(card);
   }
   yourHand->Layout();
 }
 
-void playArea::playerAi(int playerId, std::vector<Card> hand)
-{
-  switch(playerId){
-    case 1:
-      playerOne->Detach(1);
-      playerOne->Layout();
-      break;
+void playArea::playerAi(int playerId, std::vector<Card> hand) {
+  switch (playerId) {
+  case 1:
+    playerOne->Detach(1);
+    playerOne->Layout();
+    break;
 
-    case 2:
-      playerTwo->Detach(1);
-      playerTwo->Layout();
-      break;
+  case 2:
+    playerTwo->Detach(1);
+    playerTwo->Layout();
+    break;
 
-    case 3:
-      playerThree->Detach(1);
-      playerThree->Layout();
-      break;
-
+  case 3:
+    playerThree->Detach(1);
+    playerThree->Layout();
+    break;
   }
-
 }
-
 
 void playArea::updatePlayArea(int playerId, std::vector<Card> hand,
                               bool deckEmpty, Card topOfDiscardPile) {
-  switch(playerId){
+  switch (playerId) {
 
   case 0:
-      playerZero(hand);
-      break;
+    playerZero(hand);
+    break;
   case 1:
   case 2:
   case 3:
-  playerAi(playerId,hand);
-  break;
+    playerAi(playerId, hand);
+    break;
   }
   fieldArea->Detach(1);
-  Card *tempest = new Card(topOfDiscardPile.getSuit(),topOfDiscardPile.getValue());
-  playerCard *Discard = new playerCard(this->GetParent(),tempest,wxSize(80,120));
+  Card *tempest =
+      new Card(topOfDiscardPile.getSuit(), topOfDiscardPile.getValue());
+  playerCard *Discard =
+      new playerCard(this->GetParent(), tempest, wxSize(80, 120));
   fieldArea->Add(Discard);
   fieldArea->Layout();
-  if(deckEmpty){
+  if (deckEmpty) {
     wxBitmapButton *Deck = new wxBitmapButton(
         this, wxID_ANY, wxBitmap("../../res/white.jpg", wxBITMAP_TYPE_JPEG),
-        wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
+        wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator,
+        wxButtonNameStr);
   }
 }
 
@@ -190,7 +197,15 @@ void playArea::invalidMoveDialog() {
   dialog.ShowModal();
 }
 
-Suit playArea::userPickSuitDialog() { return HEARTS; }
+Suit playArea::userPickSuitDialog() {
+  // wxArrayString array;
+  // array.Add("Hearts");
+  // array.Add("Spades");
+  // array.Add("Clubs");
+  // array.Add("Diamonds");
+  // wxSingleChoiceDialog(NULL, "Pick a suit", "Pick a Suit", 4, array);
+  return HEARTS;
+}
 
 void playArea::aiPickedSuitDialog(Suit suitSpecified) {
   std::string msg = "The computer played an eight and have chosen the suit ";
@@ -231,7 +246,5 @@ bool playArea::endOfRoundDialog(std::vector<int> playersRoundScores,
 }
 
 playArea::~playArea() {}
-
-
 
 // https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Galaxy-2048x1152.jpg/512px-Galaxy-2048x1152.jpg
