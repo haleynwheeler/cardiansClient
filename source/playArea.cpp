@@ -198,13 +198,16 @@ void playArea::invalidMoveDialog() {
 }
 
 Suit playArea::userPickSuitDialog() {
-  // wxArrayString array;
-  // array.Add("Hearts");
-  // array.Add("Spades");
-  // array.Add("Clubs");
-  // array.Add("Diamonds");
-  // wxSingleChoiceDialog(NULL, "Pick a suit", "Pick a Suit", 4, array);
-  return HEARTS;
+  wxArrayString choices;
+  choices.Add("Hearts");
+  choices.Add("Spades");
+  choices.Add("Clubs");
+  choices.Add("Diamonds");
+  wxString title("Pick a Suit");
+  wxSingleChoiceDialog dialog(NULL, title, title, choices);
+  dialog.ShowModal();
+  int choice = dialog.GetSelection();
+  return static_cast<Suit>(choice);
 }
 
 void playArea::aiPickedSuitDialog(Suit suitSpecified) {
