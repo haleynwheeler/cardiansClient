@@ -4,12 +4,14 @@
 *
 *
 */
+#include "../playArea.h"
 #include "Card.hpp"
 #include "Player.hpp"
 #include <vector>
 
 class CrazyEightsGame {
 private:
+  playArea *gui;
   std::vector<Card> deck;
   std::vector<Card> discardPile;
   std::vector<Player> players;
@@ -17,21 +19,17 @@ private:
   int turn; // index in player vector
   Suit suitSpecified;
   void computersTurn();
-  void humanDrewCard(); // Needs an action listener for when deck is pressed
-  void humanPassed(); // Needs an action listener for when the passed button is
-                      // pressed
+  void humanDrewCard();     // Needs an action listener for when deck is pressed
   void humanMadeMove(Card); // Needs an action listener for when card is pressed
-  Suit askUserToPickSuit(); // Shows a dialog box prompting user to pick a suit
-                            // (used when an 8 is played)
   bool checkCardValidity(Card);
   bool removeCardFromHand(Card);
   void endRound();
   void displayEndOfRoundDialogBox(); // Shows a dialog box of Player's scores.
-  void startNewRound();
   void computersMove();
   void performValidAiMove(Card);
-  void updateGUI();
 
 public:
-  CrazyEightsGame();
+  CrazyEightsGame(wxFrame *);
+  ~CrazyEightsGame();
+  void startNewRound();
 };

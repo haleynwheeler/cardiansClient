@@ -1,18 +1,22 @@
 #ifndef playArea_H
 #define playArea_H
 
-#include <wx/wx.h>
+#include "crazyEightsLogic/Card.hpp"
 #include <string>
+#include <wx/wx.h>
 
-
-class playArea: public wxPanel
-{
+class playArea : public wxPanel {
 
 public:
-  playArea(wxFrame* parent);
+  playArea(wxFrame *parent);
   ~playArea();
-  void OnClick(wxCommandEvent &  event);
-
-wxDECLARE_EVENT_TABLE();
+  void OnClick(wxCommandEvent &event);
+  void updatePlayArea(int playerId, std::vector<Card> hand, bool deckEmpty,
+                      Card topOfDiscardPile);
+  void invalidMoveDialog();
+  Suit userPickSuitDialog();
+  void aiPickedSuitDialog(Suit suitSpecified);
+  bool endOfRoundDialog(std::vector<int> allPlayersRoundScores,
+                        std::vector<int> allPlayersTotalScores);
 };
 #endif
