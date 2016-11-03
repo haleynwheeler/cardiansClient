@@ -9,7 +9,7 @@ project(cardiansClient)
 
 # Location where cmake first looks for cmake modules.
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}")
-# set(CMAKE_MODULE_PATH "${/home/katie/Desktop/testWx}")
+# set(CMAKE_MODULE_PATH "${/home/haley/Desktop/cardiansClient}")
 
 ##---------------------------------------------------
 ## Please set your wxWidgets configuration here
@@ -38,8 +38,9 @@ set(SRCS main.cpp
     button.h button.cpp
     baseBackground.h baseBackground.cpp
     login.h login.cpp
-    imageInsert.h imageInsert.cpp
-    playArea.h playArea.cpp)
+    imageInsert.cpp imageInsert.h
+    newUser.cpp newUser.h
+    playArea.cpp playArea.h)
 
 add_subdirectory(crazyEightsLogic)
 

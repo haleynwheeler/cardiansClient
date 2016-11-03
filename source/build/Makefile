@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/mad-cook/cardiansClient/source
+CMAKE_SOURCE_DIR = /home/haley/Desktop/cardiansClient/source
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/mad-cook/cardiansClient/source/build
+CMAKE_BINARY_DIR = /home/haley/Desktop/cardiansClient/source/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mad-cook/cardiansClient/source/build/CMakeFiles /home/mad-cook/cardiansClient/source/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/haley/Desktop/cardiansClient/source/build/CMakeFiles /home/haley/Desktop/cardiansClient/source/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mad-cook/cardiansClient/source/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/haley/Desktop/cardiansClient/source/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -177,6 +177,87 @@ button.cpp.s:
 	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/button.cpp.s
 .PHONY : button.cpp.s
 
+crazyEightsLogic/Card.o: crazyEightsLogic/Card.cpp.o
+
+.PHONY : crazyEightsLogic/Card.o
+
+# target to build an object file
+crazyEightsLogic/Card.cpp.o:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/crazyEightsLogic/Card.cpp.o
+.PHONY : crazyEightsLogic/Card.cpp.o
+
+crazyEightsLogic/Card.i: crazyEightsLogic/Card.cpp.i
+
+.PHONY : crazyEightsLogic/Card.i
+
+# target to preprocess a source file
+crazyEightsLogic/Card.cpp.i:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/crazyEightsLogic/Card.cpp.i
+.PHONY : crazyEightsLogic/Card.cpp.i
+
+crazyEightsLogic/Card.s: crazyEightsLogic/Card.cpp.s
+
+.PHONY : crazyEightsLogic/Card.s
+
+# target to generate assembly for a file
+crazyEightsLogic/Card.cpp.s:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/crazyEightsLogic/Card.cpp.s
+.PHONY : crazyEightsLogic/Card.cpp.s
+
+crazyEightsLogic/Game.o: crazyEightsLogic/Game.cpp.o
+
+.PHONY : crazyEightsLogic/Game.o
+
+# target to build an object file
+crazyEightsLogic/Game.cpp.o:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.o
+.PHONY : crazyEightsLogic/Game.cpp.o
+
+crazyEightsLogic/Game.i: crazyEightsLogic/Game.cpp.i
+
+.PHONY : crazyEightsLogic/Game.i
+
+# target to preprocess a source file
+crazyEightsLogic/Game.cpp.i:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.i
+.PHONY : crazyEightsLogic/Game.cpp.i
+
+crazyEightsLogic/Game.s: crazyEightsLogic/Game.cpp.s
+
+.PHONY : crazyEightsLogic/Game.s
+
+# target to generate assembly for a file
+crazyEightsLogic/Game.cpp.s:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.s
+.PHONY : crazyEightsLogic/Game.cpp.s
+
+crazyEightsLogic/Player.o: crazyEightsLogic/Player.cpp.o
+
+.PHONY : crazyEightsLogic/Player.o
+
+# target to build an object file
+crazyEightsLogic/Player.cpp.o:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/crazyEightsLogic/Player.cpp.o
+.PHONY : crazyEightsLogic/Player.cpp.o
+
+crazyEightsLogic/Player.i: crazyEightsLogic/Player.cpp.i
+
+.PHONY : crazyEightsLogic/Player.i
+
+# target to preprocess a source file
+crazyEightsLogic/Player.cpp.i:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/crazyEightsLogic/Player.cpp.i
+.PHONY : crazyEightsLogic/Player.cpp.i
+
+crazyEightsLogic/Player.s: crazyEightsLogic/Player.cpp.s
+
+.PHONY : crazyEightsLogic/Player.s
+
+# target to generate assembly for a file
+crazyEightsLogic/Player.cpp.s:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/crazyEightsLogic/Player.cpp.s
+.PHONY : crazyEightsLogic/Player.cpp.s
+
 imageInsert.o: imageInsert.cpp.o
 
 .PHONY : imageInsert.o
@@ -258,6 +339,33 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+newUser.o: newUser.cpp.o
+
+.PHONY : newUser.o
+
+# target to build an object file
+newUser.cpp.o:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/newUser.cpp.o
+.PHONY : newUser.cpp.o
+
+newUser.i: newUser.cpp.i
+
+.PHONY : newUser.i
+
+# target to preprocess a source file
+newUser.cpp.i:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/newUser.cpp.i
+.PHONY : newUser.cpp.i
+
+newUser.s: newUser.cpp.s
+
+.PHONY : newUser.s
+
+# target to generate assembly for a file
+newUser.cpp.s:
+	$(MAKE) -f CMakeFiles/cardiansClient.dir/build.make CMakeFiles/cardiansClient.dir/newUser.cpp.s
+.PHONY : newUser.cpp.s
+
 playArea.o: playArea.cpp.o
 
 .PHONY : playArea.o
@@ -300,6 +408,15 @@ help:
 	@echo "... button.o"
 	@echo "... button.i"
 	@echo "... button.s"
+	@echo "... crazyEightsLogic/Card.o"
+	@echo "... crazyEightsLogic/Card.i"
+	@echo "... crazyEightsLogic/Card.s"
+	@echo "... crazyEightsLogic/Game.o"
+	@echo "... crazyEightsLogic/Game.i"
+	@echo "... crazyEightsLogic/Game.s"
+	@echo "... crazyEightsLogic/Player.o"
+	@echo "... crazyEightsLogic/Player.i"
+	@echo "... crazyEightsLogic/Player.s"
 	@echo "... imageInsert.o"
 	@echo "... imageInsert.i"
 	@echo "... imageInsert.s"
@@ -309,6 +426,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... newUser.o"
+	@echo "... newUser.i"
+	@echo "... newUser.s"
 	@echo "... playArea.o"
 	@echo "... playArea.i"
 	@echo "... playArea.s"

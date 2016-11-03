@@ -6,71 +6,131 @@
 
 #IncludeRegexTransform: 
 
-/home/mad-cook/cardiansClient/source/baseBackground.cpp
+/home/haley/Desktop/cardiansClient/source/baseBackground.cpp
 baseBackground.h
-/home/mad-cook/cardiansClient/source/baseBackground.h
+/home/haley/Desktop/cardiansClient/source/baseBackground.h
 
-/home/mad-cook/cardiansClient/source/baseBackground.h
+/home/haley/Desktop/cardiansClient/source/baseBackground.h
 wx/wx.h
 -
 wx/sizer.h
 -
 
-/home/mad-cook/cardiansClient/source/button.cpp
+/home/haley/Desktop/cardiansClient/source/button.cpp
 button.h
-/home/mad-cook/cardiansClient/source/button.h
+/home/haley/Desktop/cardiansClient/source/button.h
 
-/home/mad-cook/cardiansClient/source/button.h
+/home/haley/Desktop/cardiansClient/source/button.h
 wx/wx.h
 -
 
-/home/mad-cook/cardiansClient/source/imageInsert.cpp
-imageInsert.h
-/home/mad-cook/cardiansClient/source/imageInsert.h
+/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Card.cpp
+Card.hpp
+/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Card.hpp
+algorithm
+-
+iostream
+-
+iterator
+-
+random
+-
 
-/home/mad-cook/cardiansClient/source/imageInsert.h
+/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Card.hpp
+vector
+-
+
+/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Game.cpp
+Game.hpp
+/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Game.hpp
+ctime
+-
+
+/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Game.hpp
+Card.hpp
+/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Card.hpp
+Player.hpp
+/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Player.hpp
+vector
+-
+
+/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Player.cpp
+Player.hpp
+/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Player.hpp
+algorithm
+-
+
+/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Player.hpp
+Card.hpp
+/home/haley/Desktop/cardiansClient/source/crazyEightsLogic/Card.hpp
+string
+-
+vector
+-
+
+/home/haley/Desktop/cardiansClient/source/imageInsert.cpp
+imageInsert.h
+/home/haley/Desktop/cardiansClient/source/imageInsert.h
+
+/home/haley/Desktop/cardiansClient/source/imageInsert.h
 wx/wx.h
 -
 wx/sizer.h
 -
 
-/home/mad-cook/cardiansClient/source/login.cpp
+/home/haley/Desktop/cardiansClient/source/login.cpp
 login.h
-/home/mad-cook/cardiansClient/source/login.h
+/home/haley/Desktop/cardiansClient/source/login.h
 button.h
-/home/mad-cook/cardiansClient/source/button.h
+/home/haley/Desktop/cardiansClient/source/button.h
+playArea.h
+/home/haley/Desktop/cardiansClient/source/playArea.h
 imageInsert.h
-/home/mad-cook/cardiansClient/source/imageInsert.h
+/home/haley/Desktop/cardiansClient/source/imageInsert.h
 
-/home/mad-cook/cardiansClient/source/login.h
+/home/haley/Desktop/cardiansClient/source/login.h
 wx/wx.h
 -
 
-/home/mad-cook/cardiansClient/source/main.cpp
+/home/haley/Desktop/cardiansClient/source/main.cpp
 wx/wx.h
 -
 wx/sizer.h
 -
 button.h
-/home/mad-cook/cardiansClient/source/button.h
+/home/haley/Desktop/cardiansClient/source/button.h
 baseBackground.h
-/home/mad-cook/cardiansClient/source/baseBackground.h
+/home/haley/Desktop/cardiansClient/source/baseBackground.h
 login.h
-/home/mad-cook/cardiansClient/source/login.h
+/home/haley/Desktop/cardiansClient/source/login.h
 imageInsert.h
-/home/mad-cook/cardiansClient/source/imageInsert.h
+/home/haley/Desktop/cardiansClient/source/imageInsert.h
 playArea.h
-/home/mad-cook/cardiansClient/source/playArea.h
+/home/haley/Desktop/cardiansClient/source/playArea.h
+newUser.h
+/home/haley/Desktop/cardiansClient/source/newUser.h
 
-/home/mad-cook/cardiansClient/source/playArea.cpp
-playArea.h
-/home/mad-cook/cardiansClient/source/playArea.h
+/home/haley/Desktop/cardiansClient/source/newUser.cpp
+newUser.h
+/home/haley/Desktop/cardiansClient/source/newUser.h
 button.h
-/home/mad-cook/cardiansClient/source/button.h
+/home/haley/Desktop/cardiansClient/source/button.h
 imageInsert.h
-/home/mad-cook/cardiansClient/source/imageInsert.h
+/home/haley/Desktop/cardiansClient/source/imageInsert.h
 
-/home/mad-cook/cardiansClient/source/playArea.h
+/home/haley/Desktop/cardiansClient/source/newUser.h
+wx/wx.h
+-
+
+/home/haley/Desktop/cardiansClient/source/playArea.cpp
+playArea.h
+/home/haley/Desktop/cardiansClient/source/playArea.h
+button.h
+/home/haley/Desktop/cardiansClient/source/button.h
+imageInsert.h
+/home/haley/Desktop/cardiansClient/source/imageInsert.h
+
+/home/haley/Desktop/cardiansClient/source/playArea.h
 wx/wx.h
 -
 string
@@ -2742,5 +2802,5 @@ wx/log.h
 typeinfo
 -
 
-/usr/local/lib/wx/include/gtk3-unicode-3.1/wx/setup.h
+/usr/local/lib/wx/include/gtk3-unicode-static-3.1/wx/setup.h
 
