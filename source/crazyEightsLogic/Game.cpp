@@ -1,16 +1,26 @@
 #include "Game.hpp"
-#include <ctime>
+#include <chrono>
+#include <random>
+#include <thread>
+#include <wx/wx.h>
 
-CrazyEightsGame::CrazyEightsGame() {
+using namespace std::chrono_literals;
+
+CrazyEightsGame::CrazyEightsGame(wxFrame *mainFrame) {
+  std::cout << "Creating Crazy Eights Game" << std::endl;
   // Construct a Player Named "You". This will be our Human Player.
   players.push_back(Player(0, "You"));
 
   // Construct the AI Players.
   for (auto i = 1; i < 4; i++) {
-    players.push_back(Player(0, "AI " + i));
+    players.push_back(Player(0, "AI"));
   }
+  playArea *gui;
+  gui = new playArea(mainFrame);
   startNewRound();
 }
+
+CrazyEightsGame::~CrazyEightsGame() {}
 
 void CrazyEightsGame::startNewRound() {
   deck = initializeDeck();
@@ -23,37 +33,32 @@ void CrazyEightsGame::startNewRound() {
     std::swap(deck.back(), deck[i]);
     i++;
   }
-  discardPile.push_back(deck.back());
+  auto topOfDiscardPile = deck.back();
+  discardPile.push_back(topOfDiscardPile);
   deck.pop_back();
   turn = 0;
-  updateGUI();
+  gui->updatePlayArea(0, players[0].getHand(), false, topOfDiscardPile);
 }
 
 // THIS SHOULD BE CALLED WHEN THE DECK IS PRESSED
 void CrazyEightsGame::humanDrewCard() {
   if (turn == 0) {
-    players[0].insertCardToHand(deck.back());
-    deck.pop_back();
-    updateGUI();
-  }
-}
-
-// The 'PASS' button should only exists in place of the
-// deck if the deck is empty. In which case, if the player does not have a
-// valid move, they can choose to pass. Also, a dialog box should pop up if the
-// inappropriately pass.
-void CrazyEightsGame::humanPassed() {
-  if (turn == 0) {
-    auto hand = players[0].getHand();
-    for (auto &&card : hand) {
-      auto validMove = checkCardValidity(card);
-      if (validMove) {
-        // YELL AT THEM WITH DIALOG BOX
-        return;
+    if (!deck.empty()) {
+      players[0].insertCardToHand(deck.back());
+      deck.pop_back();
+      gui->updatePlayArea(0, players[0].getHand(), deck.empty(),
+                          discardPile.back());
+    } else {
+      auto hand = players[0].getHand();
+      for (auto &&card : hand) {
+        auto validMove = checkCardValidity(card);
+        if (!validMove) {
+          gui->invalidMoveDialog();
+          return;
+        }
       }
+      computersTurn();
     }
-    updateGUI();
-    computersTurn();
   }
 }
 
@@ -65,12 +70,13 @@ void CrazyEightsGame::humanMadeMove(Card c) {
       if (players[0].getHand().size() == 0) {
         endRound();
       } else if (c.getValue() == EIGHT) {
-        suitSpecified = askUserToPickSuit();
+        suitSpecified = gui->userPickSuitDialog();
       }
-      updateGUI();
+      gui->updatePlayArea(0, players[0].getHand(), deck.empty(),
+                          discardPile.back());
       computersTurn();
     } else {
-      // TELL THEM THEY'VE PLAYED A BAD MOVE!
+      gui->invalidMoveDialog();
     }
   }
 }
@@ -79,7 +85,9 @@ void CrazyEightsGame::computersTurn() {
   for (int i = 1; i < 4; i++) {
     turn = i;
     computersMove();
-    updateGUI();
+    gui->updatePlayArea(i, players[i].getHand(), deck.empty(),
+                        discardPile.back());
+    std::this_thread::sleep_for(2s);
   }
   turn = 0;
 }
@@ -97,7 +105,6 @@ void CrazyEightsGame::computersMove() {
     auto newCard = deck.back();
     deck.pop_back();
     players[turn].insertCardToHand(newCard);
-    updateGUI();
     auto validMove = checkCardValidity(newCard);
     if (validMove) {
       performValidAiMove(newCard);
@@ -111,9 +118,11 @@ void CrazyEightsGame::performValidAiMove(Card card) {
   if (players[turn].getHand().size() == 0) {
     endRound();
   } else if (card.getValue() == EIGHT) {
-    std::srand(std::time(0));
-    suitSpecified = static_cast<Suit>(std::rand() % 3);
-    // Issue a message to the user telling them what suit was picked
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_int_distribution<> dist(0, 3);
+    suitSpecified = static_cast<Suit>(dist(rd));
+    gui->aiPickedSuitDialog(suitSpecified);
   }
 }
 
@@ -157,26 +166,13 @@ void CrazyEightsGame::endRound() {
       }
     }
   }
-  displayEndOfRoundDialogBox();
-}
-
-void CrazyEightsGame::updateGUI() {
-  // Updates the look of the GUI screen (after card is played or drawn)
-}
-
-Suit CrazyEightsGame::askUserToPickSuit() {
-  // Prompts the user with a dialog box to pick a suit after playing an 8
-  return HEARTS;
-}
-
-void CrazyEightsGame::displayEndOfRoundDialogBox() {
-  // Displays the dialog box at the end of round
-  // players[i].getOverallScores() will return a vector of all the previous
-  // rounds scores
-  // players[i].getRoundScore() will return the score of the round that just
-  // ended
-  // players[i].getTotalScore() will return the sum of all the scores (including
-  // previous round)
-
-  // If they press true, the function startNewRound() should be called.
+  std::vector<int> allPlayersTotalScores;
+  std::vector<int> allPlayersRoundScores;
+  for (auto &&player : players) {
+    allPlayersTotalScores.push_back(player.getTotalScore());
+    allPlayersRoundScores.push_back(player.getRoundScore());
+  }
+  if (gui->endOfRoundDialog(allPlayersRoundScores, allPlayersTotalScores)) {
+    startNewRound();
+  }
 }
