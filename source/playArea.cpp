@@ -27,25 +27,25 @@ playArea::playArea(wxFrame *parent)
   wxBoxSizer *playerThree = new wxBoxSizer(wxVERTICAL);
 
   wxBitmapButton *topLogo = new wxBitmapButton(
-      this, wxID_ANY, wxBitmap("TextLogo.png", wxBITMAP_TYPE_PNG),
+      this, wxID_ANY, wxBitmap("../../res/TextLogo.png", wxBITMAP_TYPE_PNG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
   topLogo->SetBackgroundColour(wxColour(90, 5, 18, 0));
 
   wxBitmapButton *Deck = new wxBitmapButton(
-      this, wxID_ANY, wxBitmap("upFull.jpg", wxBITMAP_TYPE_JPEG),
+      this, wxID_ANY, wxBitmap("../../res/upFull.jpg", wxBITMAP_TYPE_JPEG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
   wxBitmapButton *Discard = new wxBitmapButton(
-      this, wxID_ANY, wxBitmap("white.jpg", wxBITMAP_TYPE_JPEG),
+      this, wxID_ANY, wxBitmap("../../res/white.jpg", wxBITMAP_TYPE_JPEG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
 
-  wxString upFull = wxT("downFull.jpg");
+  wxString upFull = wxT("../../res/downFull.jpg");
   wxBitmapButton *card1 = new wxBitmapButton(
       this, wxID_ANY, wxBitmap(upFull, wxBITMAP_TYPE_JPEG), wxDefaultPosition,
       wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
   yourHand->Add(card1);
   for (int i = 0; i < 12; i++) {
     wxBitmapButton *card = new wxBitmapButton(
-        this, wxID_ANY, wxBitmap("up.jpg", wxBITMAP_TYPE_JPEG),
+        this, wxID_ANY, wxBitmap("../../res/up.jpg", wxBITMAP_TYPE_JPEG),
         wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator,
         wxButtonNameStr);
     // card->Bind(wxEVT_BUTTON, &playArea::OnClick, this);
@@ -53,36 +53,36 @@ playArea::playArea(wxFrame *parent)
   }
 
   wxBitmapButton *card2 = new wxBitmapButton(
-      this, wxID_ANY, wxBitmap("leftFull.jpg", wxBITMAP_TYPE_JPEG),
+      this, wxID_ANY, wxBitmap("../../res/leftFull.jpg", wxBITMAP_TYPE_JPEG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
   playerOne->Add(card2);
   for (int i = 0; i < 12; i++) {
     wxBitmapButton *card = new wxBitmapButton(
-        this, wxID_ANY, wxBitmap("left.jpg", wxBITMAP_TYPE_JPEG),
+        this, wxID_ANY, wxBitmap("../../res/left.jpg", wxBITMAP_TYPE_JPEG),
         wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator,
         wxButtonNameStr);
     playerOne->Add(card);
   }
 
   wxBitmapButton *card3 = new wxBitmapButton(
-      this, wxID_ANY, wxBitmap("upFull.jpg", wxBITMAP_TYPE_JPEG),
+      this, wxID_ANY, wxBitmap("../../res/upFull.jpg", wxBITMAP_TYPE_JPEG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
   playerTwo->Add(card3);
   for (int i = 0; i < 12; i++) {
     wxBitmapButton *card = new wxBitmapButton(
-        this, wxID_ANY, wxBitmap("down.jpg", wxBITMAP_TYPE_JPEG),
+        this, wxID_ANY, wxBitmap("../../res/down.jpg", wxBITMAP_TYPE_JPEG),
         wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator,
         wxButtonNameStr);
     playerTwo->Add(card);
   }
 
   wxBitmapButton *card4 = new wxBitmapButton(
-      this, wxID_ANY, wxBitmap("rightFull.jpg", wxBITMAP_TYPE_JPEG),
+      this, wxID_ANY, wxBitmap("../../res/rightFull.jpg", wxBITMAP_TYPE_JPEG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
   playerThree->Add(card4);
   for (int i = 0; i < 12; i++) {
     wxBitmapButton *card = new wxBitmapButton(
-        this, wxID_ANY, wxBitmap("right.jpg", wxBITMAP_TYPE_JPEG),
+        this, wxID_ANY, wxBitmap("../../res/right.jpg", wxBITMAP_TYPE_JPEG),
         wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator,
         wxButtonNameStr);
     playerThree->Add(card);
