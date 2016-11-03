@@ -122,15 +122,52 @@ playArea::playArea(wxFrame *parent)
 void playArea::updatePlayArea(int playerId, std::vector<Card> hand,
                               bool deckEmpty, Card topOfDiscardPile) {}
 
-void playArea::invalidMoveDialog() {}
+void playArea::invalidMoveDialog() {
+  wxMessageDialog dialog(NULL, "You played an invalid card. You must match "
+                               "either the suit or the value of the card at "
+                               "the top of the discard pile. Please try again.",
+                         "Invalid Move", wxICON_EXCLAMATION);
+  dialog.ShowModal();
+}
 
 Suit playArea::userPickSuitDialog() { return HEARTS; }
 
-void playArea::aiPickedSuitDialog(Suit suitSpecified) {}
+void playArea::aiPickedSuitDialog(Suit suitSpecified) {
+  std::string msg = "The computer played an eight and have chosen the suit ";
+  if (suitSpecified == HEARTS) {
+    msg += "hearts.";
+  } else if (suitSpecified == SPADES) {
+    msg += "spades.";
+  } else if (suitSpecified == CLUBS) {
+    msg += "clubs.";
+  } else {
+    msg += "diamonds.";
+  }
+  wxMessageDialog dialog(NULL, msg, "Computer Played an Eight");
+  dialog.ShowModal();
+}
 
-bool playArea::endOfRoundDialog(std::vector<int> allPlayersRoundScores,
-                                std::vector<int> allPlayersTotalScores) {
-  return false;
+bool playArea::endOfRoundDialog(std::vector<int> playersRoundScores,
+                                std::vector<int> playersOverallScores) {
+  std::string msg = "The round is over. Would you like to play again?\n\n";
+  msg += "SCORES:\n";
+  msg += "YOU:\t";
+  msg += "Round Score: " + std::to_string(playersRoundScores[0]) + "\n";
+  msg += "\t\tOverall Score: " + std::to_string(playersOverallScores[0]);
+
+  for (int i = 1; i < 4; i++) {
+    msg += "\nAI " + std::to_string(i) + ":\t";
+    msg += "Round Score: " + std::to_string(playersRoundScores[i]) + "\n";
+    msg += "\t\tOverall Score: " + std::to_string(playersOverallScores[i]);
+  }
+
+  wxMessageDialog dialog(NULL, msg, "Round Over", wxYES_NO);
+  auto decision = dialog.ShowModal();
+  if (decision == wxID_YES) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 playArea::~playArea() {}
