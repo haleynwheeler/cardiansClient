@@ -58,3 +58,7 @@ playerCard::playerCard(wxWindow *parent, Card *theCards, wxSize size) :
 playerCard::~playerCard(){
 
 }
+
+Card playerCard::getCard(){
+  return Card(theCard->getSuit(),theCard->getValue());
+}

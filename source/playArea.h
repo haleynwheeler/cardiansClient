@@ -29,7 +29,6 @@ class playArea : public wxPanel {
   std::function<void()> humanDrewCard;
   std::function<void(Card)> humanMadeMove;
 
-
 public:
   playArea(wxFrame *parent);
   ~playArea();
@@ -49,13 +48,6 @@ public:
   void setDrewCardFunction(std::function<void()>);
   void setMadeMoveFunction(std::function<void(Card)>);
   void getCardPlayed(wxCommandEvent & event);
-  void getDeckCard(wxCommandEvent& event);
-  enum {
-    BUTTON = 1,
-    DECK = 2,
-  };
-
-  wxDECLARE_EVENT_TABLE();
 };
 
 

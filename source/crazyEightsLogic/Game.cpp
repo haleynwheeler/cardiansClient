@@ -59,10 +59,11 @@ void CrazyEightsGame::humanDrewCard() {
           return;
         }
       }
+    }
       computersTurn();
     }
   }
-}
+
 
 // THIS SHOULD BE CALLED WHEN A CARD IN THE HAND IS PRESSED
 void CrazyEightsGame::humanMadeMove(Card c) {
@@ -90,6 +91,8 @@ void CrazyEightsGame::computersTurn() {
     computersMove();
     gui->updatePlayArea(i, players[i].getHand(), deck.empty(),
                         discardPile.back());
+    gui->Refresh();
+    gui->Update();
     std::this_thread::sleep_for(2s);
   }
   turn = 0;
