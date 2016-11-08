@@ -248,6 +248,21 @@ bool playArea::endOfRoundDialog(std::vector<int> playersRoundScores,
   }
 }
 
+void playArea::getCardPlayed(wxCommandEvent &event){
+  Card card = wxDynamicCast(event.GetEventObject.getCard(), Card);
+//  playerCard *thePanel = dynamic_cast<playerCard*>event.GetEventObject();
+//  Card theCard = dynamic_cast<Card> event.GetEventObject()->getCard();
+//  humanMadeMove(thePanel->getCard());
+}
+
+void playArea::getDeckCard(wxCommandEvent &event){
+  humanDrewCard();
+}
 playArea::~playArea() {}
+
+wxBEGIN_EVENT_TABLE(playArea, wxPanel)
+    EVT_BUTTON(BUTTON, playArea::getDeckCard)
+    EVT_BUTTON(DECK, playArea::getCardPlayed)
+     wxEND_EVENT_TABLE()
 
 // https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Galaxy-2048x1152.jpg/512px-Galaxy-2048x1152.jpg
