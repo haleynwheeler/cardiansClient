@@ -11,7 +11,7 @@ login::login(wxFrame* parent): wxPanel(parent,wxID_ANY,wxDefaultPosition,
     wxSize(wxSystemSettings::GetMetric(wxSYS_SCREEN_Y)*.5,wxSystemSettings::GetMetric(wxSYS_SCREEN_X)*.5), wxTAB_TRAVERSAL, wxPanelNameStr)
   {
 
-  imageInsert *theLogo = new imageInsert(this, wxT("logo.png"), wxBITMAP_TYPE_PNG,
+  imageInsert *theLogo = new imageInsert(this, wxT("../../res/logo.png"), wxBITMAP_TYPE_PNG,
       300,600);
 
   wxBoxSizer *verticalOne = new wxBoxSizer(wxVERTICAL);
@@ -50,7 +50,6 @@ login::login(wxFrame* parent): wxPanel(parent,wxID_ANY,wxDefaultPosition,
   SetSizerAndFit(theSizer);
   Center();
 
-  //wxDECLARE_EVENT_TABLE();
 }
 
 void login::OnNewUser(wxCommandEvent & event)

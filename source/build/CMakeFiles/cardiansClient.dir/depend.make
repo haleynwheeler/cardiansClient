@@ -496,6 +496,7 @@ CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.o: ../crazyEightsLogic/C
 CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.o: ../crazyEightsLogic/Game.cpp
 CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.o: ../crazyEightsLogic/Game.hpp
 CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.o: ../crazyEightsLogic/Player.hpp
+CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.o: ../imageInsert.h
 CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.o: ../playArea.h
 CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.o: ../playerCard.h
 CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.o: /usr/local/include/wx-3.1/wx/accel.h
@@ -1985,6 +1986,7 @@ CMakeFiles/cardiansClient.dir/playArea.cpp.o: /usr/local/lib/wx/include/gtk3-uni
 
 CMakeFiles/cardiansClient.dir/playerCard.cpp.o: ../baseBackground.h
 CMakeFiles/cardiansClient.dir/playerCard.cpp.o: ../crazyEightsLogic/Card.hpp
+CMakeFiles/cardiansClient.dir/playerCard.cpp.o: ../imageInsert.h
 CMakeFiles/cardiansClient.dir/playerCard.cpp.o: ../playerCard.cpp
 CMakeFiles/cardiansClient.dir/playerCard.cpp.o: ../playerCard.h
 CMakeFiles/cardiansClient.dir/playerCard.cpp.o: /usr/local/include/wx-3.1/wx/accel.h

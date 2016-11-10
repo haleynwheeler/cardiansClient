@@ -21,7 +21,7 @@ imageInsert::imageInsert(wxPanel* parent, const wxString file,
 
 }
 
-void imageInsert::OnPaint(wxPaintEvent& event)
+void imageInsert::paintEvent(wxPaintEvent& event)
 {
   wxPaintDC dc(this);
   if(theImage.Ok())
@@ -30,11 +30,21 @@ void imageInsert::OnPaint(wxPaintEvent& event)
   }
 }
 
+void imageInsert::paintNow()
+{
+  wxPaintDC dc(this);
+  if(theImage.Ok())
+  {
+    dc.DrawBitmap(theImage,0,0);
+  }
+}
+
+
 imageInsert::~imageInsert()
 {
 
 }
 
 BEGIN_EVENT_TABLE(imageInsert,wxPanel)
-  EVT_PAINT(imageInsert::OnPaint)
+  EVT_PAINT(imageInsert::paintEvent)
 END_EVENT_TABLE()

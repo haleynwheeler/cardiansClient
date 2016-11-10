@@ -44,7 +44,7 @@ public:
     //  playArea *theGame;
     //  theGame = new playArea(mainFrame);
 
-    CrazyEightsGame *game = new CrazyEightsGame(mainFrame);
+   CrazyEightsGame *game = new CrazyEightsGame(mainFrame);
 
     mainFrame->SetSizer(sizer);
     mainFrame->Show();

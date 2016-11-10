@@ -91,10 +91,10 @@ login.h
 /home/mad-cook/cardiansClient/source/login.h
 button.h
 /home/mad-cook/cardiansClient/source/button.h
-imageInsert.h
-/home/mad-cook/cardiansClient/source/imageInsert.h
 playArea.h
 /home/mad-cook/cardiansClient/source/playArea.h
+imageInsert.h
+/home/mad-cook/cardiansClient/source/imageInsert.h
 
 /home/mad-cook/cardiansClient/source/login.h
 wx/wx.h
@@ -165,6 +165,8 @@ wx/wx.h
 -
 crazyEightsLogic/Card.hpp
 /home/mad-cook/cardiansClient/source/crazyEightsLogic/Card.hpp
+imageInsert.h
+/home/mad-cook/cardiansClient/source/imageInsert.h
 
 /usr/local/include/wx-3.1/wx/accel.h
 wx/defs.h

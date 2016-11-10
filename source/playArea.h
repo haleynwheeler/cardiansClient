@@ -47,7 +47,13 @@ public:
 
   void setDrewCardFunction(std::function<void()>);
   void setMadeMoveFunction(std::function<void(Card)>);
-  void getCardPlayed(wxCommandEvent & event);
+  void getCardPlayed(wxMouseEvent & event);
+
+  enum{
+    CARD_TOUCHED = 5,
+    DECK_TOUHED  = 15
+  };
+  // wxDECLARE_EVENT_TABLE();
 };
 
 
