@@ -16,6 +16,13 @@ public:
   ~playerCard();
   Card getCard();
 
+  // wxDECLARE_EVENT_TABLE();
 };
 
 #endif
+
+
+// EVT_BUTTON(loginButton, login::OnLogin)
+// tcard->Bind(wxEVT_BUTTON, [=](wxCommandEvent&) {
+//        setMadeMoveFunction(this->getCard());
+// });

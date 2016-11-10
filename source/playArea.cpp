@@ -35,15 +35,15 @@ playArea::playArea(wxFrame *parent)
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
   topLogo->SetBackgroundColour(wxColour(90, 5, 18, 0));
 
-  playerCard *Deck = new playerCard(this->GetParent(), cardBackType, wxSize(100, 70),
-      TRUE);
+  // playerCard *Deck = new playerCard(this->GetParent(), cardBackType, wxSize(100, 70),
+  //     TRUE);
 
 
-  // wxBitmapButton *Deck = new wxBitmapButton(
-  //     this, wxID_ANY, wxBitmap("../../res/upFull.jpg", wxBITMAP_TYPE_JPEG),
-  //     wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
-  //  Deck->Bind(wxEVT_BUTTON, [=](wxCommandEvent& event) {
-  //    humanDrewCard();});
+  wxBitmapButton *Deck = new wxBitmapButton(
+      this, wxID_ANY, wxBitmap("../../res/upFull.jpg", wxBITMAP_TYPE_JPEG),
+      wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
+   Deck->Bind(wxEVT_BUTTON, [=](wxCommandEvent& event) {
+     humanDrewCard();});
   playerCard *Discard = new playerCard(parent, dummyCard, wxSize(80, 120));
 
 
@@ -206,18 +206,23 @@ void playArea::updatePlayArea(int playerId, std::vector<Card> hand,
   verticalfieldArea->Clear(true);
   fieldArea= new wxBoxSizer(wxHORIZONTAL);
   verticalfieldArea->AddSpacer(180);
-  playerCard *Deck;
-  if(!deckEmpty){
-    Deck = new playerCard(this->GetParent(), cardBackType, wxSize(80, 120),
-        FALSE);
-  }
-  else{
-    Deck = new playerCard(this->GetParent(), cardBackType, wxSize(80, 120));
-  }
-  Deck->Bind(wxEVT_LEFT_UP, [=](wxMouseEvent &event) {
-    wxPostEvent(GetParent(), event);
-    std::cout<<"Drew Card"<<std::endl;
-     humanDrewCard();},wxID_ANY);
+  // playerCard *Deck;
+  // if(!deckEmpty){
+  //   Deck = new playerCard(this->GetParent(), cardBackType, wxSize(80, 120),
+  //       FALSE);
+  // }
+  // else{
+  //   Deck = new playerCard(this->GetParent(), cardBackType, wxSize(80, 120));
+  // }
+  // Deck->Bind(wxEVT_LEFT_DOWN, [=](wxMouseEvent &event) {
+  //   std::cout<<"Drew Card"<<std::endl;
+  //    humanDrewCard();},wxID_ANY);
+
+     wxBitmapButton *Deck = new wxBitmapButton(
+         this, wxID_ANY, wxBitmap("../../res/upFull.jpg", wxBITMAP_TYPE_JPEG),
+         wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
+      Deck->Bind(wxEVT_BUTTON, [=](wxCommandEvent& event) {
+        humanDrewCard();});
 
   fieldArea->Add(Deck);
   Card *tempest =

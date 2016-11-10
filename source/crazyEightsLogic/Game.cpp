@@ -121,6 +121,7 @@ void CrazyEightsGame::computersMove() {
 
 void CrazyEightsGame::performValidAiMove(Card card) {
   players[turn].removeCardFromHand(card);
+  discardPile.push_back(card);
   if (players[turn].getHand().size() == 0) {
     endRound();
   } else if (card.getValue() == EIGHT) {

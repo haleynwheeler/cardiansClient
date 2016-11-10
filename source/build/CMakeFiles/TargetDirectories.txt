@@ -1,0 +1,5 @@
+/home/mad-cook/cardiansClient/source/build/CMakeFiles/edit_cache.dir
+/home/mad-cook/cardiansClient/source/build/CMakeFiles/rebuild_cache.dir
+/home/mad-cook/cardiansClient/source/build/CMakeFiles/cardiansClient.dir
+/home/mad-cook/cardiansClient/source/build/crazyEightsLogic/CMakeFiles/edit_cache.dir
+/home/mad-cook/cardiansClient/source/build/crazyEightsLogic/CMakeFiles/rebuild_cache.dir
