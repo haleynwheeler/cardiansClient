@@ -43,7 +43,7 @@ set(SRCS main.cpp
     playArea.cpp playArea.h
     playerCard.cpp playerCard.h)
 
-add_subdirectory(crazyEightsLogic)
+add_subdirectory(GameLogic)
 
 set(CMAKE_C++_FLAGS "-g -Wall")
 

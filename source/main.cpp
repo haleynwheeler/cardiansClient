@@ -1,6 +1,6 @@
+#include "GameLogic/CrazyEightsGame.hpp"
 #include "baseBackground.h"
 #include "button.h"
-#include "crazyEightsLogic/Game.hpp"
 #include "imageInsert.h"
 #include "login.h"
 #include "playArea.h"
@@ -13,12 +13,12 @@ public:
       : wxFrame(NULL, wxID_ANY, title, wxDefaultPosition,
                 wxSize(wxSystemSettings::GetMetric(wxSYS_SCREEN_X) * .5,
                        wxSystemSettings::GetMetric(wxSYS_SCREEN_Y) * .7)) {
-    SetMaxSize(
-        wxSize(wxSize(wxSystemSettings::GetMetric(wxSYS_SCREEN_X) * .5,
-                      wxSystemSettings::GetMetric(wxSYS_SCREEN_Y) * .7)));
-    SetMinSize(
-        wxSize(wxSize(wxSystemSettings::GetMetric(wxSYS_SCREEN_X) * .5,
-                      wxSystemSettings::GetMetric(wxSYS_SCREEN_Y) * .7)));
+    // SetMaxSize(
+    // wxSize(wxSize(wxSystemSettings::GetMetric(wxSYS_SCREEN_X) * .5,
+    // wxSystemSettings::GetMetric(wxSYS_SCREEN_Y) * .7)));
+    // SetMinSize(
+    // wxSize(wxSize(wxSystemSettings::GetMetric(wxSYS_SCREEN_X) * .5,
+    // wxSystemSettings::GetMetric(wxSYS_SCREEN_Y) * .7)));
     Centre();
   }
 };
@@ -44,7 +44,7 @@ public:
     //  playArea *theGame;
     //  theGame = new playArea(mainFrame);
 
-   CrazyEightsGame *game = new CrazyEightsGame(mainFrame);
+    CrazyEightsGame *game = new CrazyEightsGame(mainFrame);
 
     mainFrame->SetSizer(sizer);
     mainFrame->Show();
