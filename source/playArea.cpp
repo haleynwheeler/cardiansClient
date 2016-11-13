@@ -129,10 +129,17 @@ void playArea::setMadeMoveFunction(std::function<void(Card)> f) {
 }
 
 void playArea::playerZero(std::vector<Card> hand) {
+  yourHand->Clear();
   yourHand->Show(this,false,true);
   yourHand->ShowItems(true);
-  for(int i= hand.size() ; i< thePlayerHandSize; i++){
-        yourHand->Hide(i);
+  for(int i= 0 ; i< thePlayerHandSize; i++){
+    Card *temp = new Card(hand.at(i).getSuit(), hand.at(i).getValue());
+    playerCard *card =
+    new playerCard(this->GetParent(), temp, wxSize(80, 120),14);
+    yourHand->Add(card);
+        if(i>=hand.size()){
+          yourHand->Hide(i);
+        }
   }
  yourHand->Layout();
  theMainSizer->Layout();
