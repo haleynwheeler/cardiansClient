@@ -14,14 +14,11 @@ imageInsert::imageInsert(wxPanel* parent, const wxString file,
   theImage = wxBitmap(Image);
   width = theImage.GetWidth();
   height = theImage.GetHeight();
-//  SetBackgroundColour(wxColour(88,22,79));
-//  InvalidateBestSize ();
-//  SetSize(width,height);
   this->SetMaxSize(wxSize(height,width));
 
 }
 
-void imageInsert::OnPaint(wxPaintEvent& event)
+void imageInsert::paintEvent(wxPaintEvent& event)
 {
   wxPaintDC dc(this);
   if(theImage.Ok())
@@ -30,11 +27,21 @@ void imageInsert::OnPaint(wxPaintEvent& event)
   }
 }
 
+void imageInsert::paintNow()
+{
+  wxPaintDC dc(this);
+  if(theImage.Ok())
+  {
+    dc.DrawBitmap(theImage,0,0);
+  }
+}
+
+
 imageInsert::~imageInsert()
 {
 
 }
 
 BEGIN_EVENT_TABLE(imageInsert,wxPanel)
-  EVT_PAINT(imageInsert::OnPaint)
+  EVT_PAINT(imageInsert::paintEvent)
 END_EVENT_TABLE()

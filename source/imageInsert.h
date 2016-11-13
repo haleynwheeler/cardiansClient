@@ -9,7 +9,9 @@ class imageInsert : public wxPanel
 public:
   imageInsert(wxPanel* parent, const wxString file, wxBitmapType format, int maxHeight, int maxWidth);
   ~imageInsert();
-  void OnPaint(wxPaintEvent& event);
+  void paintEvent(wxPaintEvent& event);
+  void paintNow();
+
 private:
   wxBitmap theImage;
   DECLARE_EVENT_TABLE()

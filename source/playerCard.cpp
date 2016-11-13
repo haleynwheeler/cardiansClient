@@ -1,60 +1,102 @@
 #include "playerCard.h"
 #include "baseBackground.h"
+#include "playArea.h"
+
+playerCard::playerCard(wxWindow *parent, int direction, int bgType, wxSize size,
+   bool fullCard) : wxPanel(parent, wxID_ANY, wxDefaultPosition, size,
+      wxTAB_TRAVERSAL, wxPanelNameStr){
+        wxBoxSizer *background = new wxBoxSizer(wxHORIZONTAL);
+        wxString bgImagePath;
+      if(fullCard){
+        bgImagePath = wxString::Format(wxT("../../res/CardBacks/%i/%i.png"),
+          bgType, direction);
+      }
+      else{
+        bgImagePath = wxString::Format(wxT("../../res/CardBacks/%i/%iS.png"),
+          bgType, direction);
+      }
+        bgImage = new imageInsert(this, bgImagePath, wxBITMAP_TYPE_PNG,
+          size.GetHeight(),size.GetWidth());
+        background->Add(bgImage);
+        background->SetMinSize(size);
+        this->SetSizerAndFit(background);
+}
+
+playerCard::playerCard(wxWindow* parent, int bgType, wxSize size, bool deckEmpty)
+    : wxPanel(parent, wxID_ANY, wxDefaultPosition, size,
+      wxTAB_TRAVERSAL, wxPanelNameStr){
+
+    wxBoxSizer *background = new wxBoxSizer(wxHORIZONTAL);
+    wxString bgImagePath;
+    if(deckEmpty){
+      bgImagePath = wxString::Format(wxT("../../res/CardBacks/%i/0.png"),
+      bgType);
+    }
+    else{
+      bgImagePath = wxString::Format(wxT("../../res/CardBacks/%i/1.png"),
+      bgType);
+    }
+      bgImage = new imageInsert(this, bgImagePath, wxBITMAP_TYPE_PNG,
+      size.GetHeight(),size.GetWidth());
+      background->Add(bgImage);
+      background->SetMinSize(size);
+
+      Connect(wxEVT_LEFT_DCLICK,
+      wxMouseEventHandler(playArea::getDeckCard));
+      Bind(wxEVT_BUTTON, [=](wxCommandEvent& event) {
+        std::cout<<"Touched the button"<<std::endl;
+      });
+
+      this->SetSizerAndFit(background);
+
+}
 
 
-playerCard::playerCard(wxWindow *parent, Card *theCards, wxSize size) :
+playerCard::playerCard(wxWindow *parent, Card *theCards, wxSize size, int bgType) :
     wxPanel(parent, wxID_ANY, wxDefaultPosition, size,
       wxTAB_TRAVERSAL, wxPanelNameStr){
-        wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
-        if(size==wxSize(70,100)){
-        wxBitmapButton *border = new wxBitmapButton(
-          this, wxID_ANY, wxBitmap("../../res/fullBorder.png", wxBITMAP_TYPE_PNG),
-          wxDefaultPosition, wxDefaultSize, wxNO_BORDER );
-          border->SetBackgroundColour(wxColour(90, 5, 18, 0));
-        }
-        else if(size==wxSize(80,120)){
-          wxBitmapButton *border = new wxBitmapButton(
-            this, wxID_ANY, wxBitmap("../../res/discard.png", wxBITMAP_TYPE_PNG),
-            wxDefaultPosition, wxDefaultSize, wxNO_BORDER );
-            border->SetBackgroundColour(wxColour(90, 5, 18, 0));
 
-        }
-        else{
-          wxBitmapButton *border = new wxBitmapButton(
-            this, wxID_ANY, wxBitmap("../../res/leftBorder.png",  wxBITMAP_TYPE_PNG),
-            wxDefaultPosition, wxDefaultSize, wxNO_BORDER );
-            border->SetBackgroundColour(wxColour(90, 5, 18, 0));
-        }
+    wxBoxSizer *background = new wxBoxSizer(wxHORIZONTAL);
+    wxString bgImagePath = wxString::Format(wxT("../../res/%i.png"),size.GetWidth());
+    bgImage = new imageInsert(this, bgImagePath, wxBITMAP_TYPE_PNG,
+        size.GetHeight(),size.GetWidth());
+    background->Add(bgImage);
+    background->SetMinSize(size);
+          // background->SetItemMinSize(0,size);
 
+    cardSizer = new wxBoxSizer(wxVERTICAL);
+    cardHorizontalSizer = new wxBoxSizer(wxHORIZONTAL);
+    cardSizer->SetMinSize(size);
+    cardSizer->AddSpacer(10);
 
-      wxBoxSizer* panel =new wxBoxSizer(wxVERTICAL);
-      wxPanel *tempPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(1,50),
-                wxTAB_TRAVERSAL, wxPanelNameStr);
-    panel->Add(tempPanel);
-
-    wxString suiter = wxString::Format(wxT("../../res/%i.png"),theCards->getSuit());
-    wxBitmapButton *Suit = new wxBitmapButton(
-      this, wxID_ANY, wxBitmap(suiter, wxBITMAP_TYPE_PNG),
-      wxDefaultPosition, wxDefaultSize, wxNO_BORDER);
-      Suit->SetBackgroundColour(wxColour(90, 5, 18, 0));
-      Suit->CenterOnParent (wxBOTH);
     theCard = new Card(theCards->getSuit(),theCards->getValue());
-    wxString textT = wxString::Format(wxT("%i"),theCards->getValue());
-    wxString textU =  "\n" + textT;
-    wxStaticText *text = new wxStaticText(this, wxID_ANY, textU,
-    wxDefaultPosition,wxDefaultSize,wxALIGN_CENTRE);
-    wxFont font = text->GetFont();
-    text-> 	CenterOnParent(wxHORIZONTAL);
-        font.SetPointSize(10);
-  //      font.SetWeight(wxFONTWEIGHT_BOLD);
-        text->SetFont(font);
-     panel->Add(Suit);
-     panel->Add(text);
-       this->SetBackgroundColour(wxColour(255,255,255,0));
-//    SetSizerAndFit(this);
+
+    wxString suitPath = wxString::Format(wxT("../../res/%i.png"),theCard->getSuit());
+        imageInsert *suitImage = new imageInsert(this, suitPath, wxBITMAP_TYPE_PNG,
+              20,20);
+
+    wxString cardValue = wxString::Format(wxT("%i"),theCard->getValue());
+    wxStaticText *cardFront = new wxStaticText(this, wxID_ANY, cardValue,
+          wxDefaultPosition,wxDefaultSize,wxALIGN_CENTRE);
+    wxFont font = cardFront->GetFont();
+      font.SetPointSize(20);
+      cardFront->SetFont(font);
+      cardSizer->Add(suitImage);
+      cardSizer->Add(cardFront, wxALIGN_CENTRE);
+
+    this->SetSizerAndFit(cardSizer);
+          Connect(wxEVT_LEFT_DCLICK,
+              wxMouseEventHandler(playArea::getDeckCard));
+              Bind(wxEVT_BUTTON, [=](wxCommandEvent& event) {
+                std::cout<<"Touched the button"<<std::endl;
+                 });
 }
 
 // wxWindow *window, int proportion, int flag, int border, wxObjec
 playerCard::~playerCard(){
 
+}
+
+Card playerCard::getCard(){
+  return Card(theCard->getSuit(),theCard->getValue());
 }

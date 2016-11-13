@@ -497,6 +497,7 @@ CMakeFiles/cardiansClient.dir/crazyEightsLogic/Game.cpp.o
  /home/mad-cook/cardiansClient/source/crazyEightsLogic/Game.cpp
  /home/mad-cook/cardiansClient/source/crazyEightsLogic/Game.hpp
  /home/mad-cook/cardiansClient/source/crazyEightsLogic/Player.hpp
+ /home/mad-cook/cardiansClient/source/imageInsert.h
  /home/mad-cook/cardiansClient/source/playArea.h
  /home/mad-cook/cardiansClient/source/playerCard.h
  /usr/local/include/wx-3.1/wx/accel.h
@@ -1986,6 +1987,8 @@ CMakeFiles/cardiansClient.dir/playArea.cpp.o
 CMakeFiles/cardiansClient.dir/playerCard.cpp.o
  /home/mad-cook/cardiansClient/source/baseBackground.h
  /home/mad-cook/cardiansClient/source/crazyEightsLogic/Card.hpp
+ /home/mad-cook/cardiansClient/source/imageInsert.h
+ /home/mad-cook/cardiansClient/source/playArea.h
  /home/mad-cook/cardiansClient/source/playerCard.cpp
  /home/mad-cook/cardiansClient/source/playerCard.h
  /usr/local/include/wx-3.1/wx/accel.h

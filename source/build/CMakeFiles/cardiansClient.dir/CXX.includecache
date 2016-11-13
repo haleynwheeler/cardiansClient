@@ -91,13 +91,17 @@ login.h
 /home/mad-cook/cardiansClient/source/login.h
 button.h
 /home/mad-cook/cardiansClient/source/button.h
-imageInsert.h
-/home/mad-cook/cardiansClient/source/imageInsert.h
 playArea.h
 /home/mad-cook/cardiansClient/source/playArea.h
+imageInsert.h
+/home/mad-cook/cardiansClient/source/imageInsert.h
 
 /home/mad-cook/cardiansClient/source/login.h
 wx/wx.h
+-
+wx/textctrl.h
+-
+string
 -
 
 /home/mad-cook/cardiansClient/source/main.cpp
@@ -151,6 +155,8 @@ functional
 -
 string
 -
+vector
+-
 wx/wx.h
 -
 
@@ -159,12 +165,16 @@ playerCard.h
 /home/mad-cook/cardiansClient/source/playerCard.h
 baseBackground.h
 /home/mad-cook/cardiansClient/source/baseBackground.h
+playArea.h
+/home/mad-cook/cardiansClient/source/playArea.h
 
 /home/mad-cook/cardiansClient/source/playerCard.h
 wx/wx.h
 -
 crazyEightsLogic/Card.hpp
 /home/mad-cook/cardiansClient/source/crazyEightsLogic/Card.hpp
+imageInsert.h
+/home/mad-cook/cardiansClient/source/imageInsert.h
 
 /usr/local/include/wx-3.1/wx/accel.h
 wx/defs.h
