@@ -50,6 +50,7 @@ login::login(wxFrame* parent): wxPanel(parent,wxID_ANY,wxDefaultPosition,
   SetSizerAndFit(theSizer);
   Center();
 
+  //wxDECLARE_EVENT_TABLE();
 }
 
 void login::OnNewUser(wxCommandEvent & event)
