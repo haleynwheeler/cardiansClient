@@ -9,20 +9,15 @@ class playerCard : public wxPanel {
   Card *theCard;
   wxBoxSizer *cardSizer;
   wxBoxSizer *cardHorizontalSizer;
+  imageInsert *bgImage;
 public:
-  playerCard(wxWindow* parent, Card *theCards, wxSize size);
+  playerCard(wxWindow* parent, Card *theCards, wxSize size, int bgType);
   playerCard(wxWindow* parent, int direction, int bgType, wxSize size, bool fullCard =TRUE);
   playerCard(wxWindow* parent, int bgType, wxSize size, bool deckEmpty =FALSE);
   ~playerCard();
   Card getCard();
+  void updateCard(Card newCard);
 
-  // wxDECLARE_EVENT_TABLE();
 };
 
 #endif
-
-
-// EVT_BUTTON(loginButton, login::OnLogin)
-// tcard->Bind(wxEVT_BUTTON, [=](wxCommandEvent&) {
-//        setMadeMoveFunction(this->getCard());
-// });

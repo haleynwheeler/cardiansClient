@@ -5,6 +5,7 @@
 #include "playerCard.h"
 #include <functional>
 #include <string>
+#include <vector>
 #include <wx/wx.h>
 
 class playArea : public wxPanel {
@@ -25,6 +26,10 @@ class playArea : public wxPanel {
   wxBoxSizer *playerOne;
   wxBoxSizer *playerTwo;
   wxBoxSizer *playerThree;
+
+  playerCard *Deck;
+  playerCard *Discard;
+  std::vector<playerCard*> handCards;
 
   std::function<void()> humanDrewCard;
   std::function<void(Card)> humanMadeMove;
@@ -47,8 +52,9 @@ public:
 
   void setDrewCardFunction(std::function<void()>);
   void setMadeMoveFunction(std::function<void(Card)>);
-  void getCardPlayed(wxMouseEvent & event);
 
+  void getCardPlayed(wxMouseEvent& event);
+  void getDeckCard(wxMouseEvent& event);
   enum{
     CARD_TOUCHED = 5,
     DECK_TOUHED  = 15

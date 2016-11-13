@@ -17,7 +17,7 @@ playArea::playArea(wxFrame *parent)
   thePlayerHandSize = playerOneHandSize = playerTwoHandSize =
       playerThreeHandSize = 5;
 
-  theMainSizer = new wxBoxSizer(wxVERTICAL);
+
   upperPortion = new wxBoxSizer(wxHORIZONTAL);
   middlePortion = new wxBoxSizer(wxHORIZONTAL);
   lowerPortion = new wxBoxSizer(wxHORIZONTAL);
@@ -29,27 +29,25 @@ playArea::playArea(wxFrame *parent)
   playerOne = new wxBoxSizer(wxVERTICAL);
   playerTwo = new wxBoxSizer(wxHORIZONTAL);
   playerThree = new wxBoxSizer(wxVERTICAL);
+  theMainSizer = new wxBoxSizer(wxVERTICAL);
 
   wxBitmapButton *topLogo = new wxBitmapButton(
       this, wxID_ANY, wxBitmap("../../res/TextLogo.png", wxBITMAP_TYPE_PNG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
   topLogo->SetBackgroundColour(wxColour(90, 5, 18, 0));
 
-  // playerCard *Deck = new playerCard(this->GetParent(), cardBackType, wxSize(100, 70),
-  //     TRUE);
+  playerCard *Deck = new playerCard(this->GetParent(), cardBackType, wxSize(100, 70),
+      TRUE);
 
-
-  wxBitmapButton *Deck = new wxBitmapButton(
-      this, wxID_ANY, wxBitmap("../../res/upFull.jpg", wxBITMAP_TYPE_JPEG),
-      wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
-   Deck->Bind(wxEVT_BUTTON, [=](wxCommandEvent& event) {
-     humanDrewCard();});
-  playerCard *Discard = new playerCard(parent, dummyCard, wxSize(80, 120));
-
+  playerCard *Discard = new playerCard(parent, dummyCard, wxSize(80, 120),cardBackType);
 
   for (int i = 0; i < 13; i++) {
-    playerCard *card = new playerCard(parent, dummyCard, wxSize(70, 100));
+    playerCard *card = new playerCard(parent, dummyCard, wxSize(70, 100),cardBackType);
+    card->Raise();
     yourHand->Add(card);
+    card->Bind(wxEVT_LEFT_DOWN, [=](wxMouseEvent &event) {
+      std::cout<<"Touched Card"<<std::endl;},wxID_ANY);
+    handCards.push_back(card);
     if(i>=thePlayerHandSize){
       yourHand->Hide(i);
     }
@@ -131,24 +129,14 @@ void playArea::setMadeMoveFunction(std::function<void(Card)> f) {
 }
 
 void playArea::playerZero(std::vector<Card> hand) {
-  yourHand->Clear(true);
-  yourHand->Layout();
-//   Card *temper = new Card(hand.at(0).getSuit(), hand.at(0).getValue());
-//   playerCard *tcard =
-//       new playerCard(this->GetParent(), temper, wxSize(70, 100));
-//       tcard->Bind(wxEVT_BUTTON, [=](wxCommandEvent&) {
-//   //      setMadeMoveFunction(this->getCard());
-// });
-// //  yourHand->Remove(0);
-//   yourHand->Add(tcard);
-  for (int i = 0; i < hand.size(); i++) {
-    Card *temp = new Card(hand.at(i).getSuit(), hand.at(i).getValue());
-    playerCard *card = new playerCard(this->GetParent(), temp, wxSize(70, 100));
-//         card->Bind(EVT_LEFT_UP, &playArea::getCardPlayed, this, wxID_ANY);
-  yourHand->Add(card);
-}
+  yourHand->Show(this,false,true);
+  yourHand->ShowItems(true);
+  for(int i= hand.size() ; i< thePlayerHandSize; i++){
+        yourHand->Hide(i);
+  }
  yourHand->Layout();
  theMainSizer->Layout();
+ this->Lower();
  this->Refresh();
 }
 
@@ -206,29 +194,24 @@ void playArea::updatePlayArea(int playerId, std::vector<Card> hand,
   verticalfieldArea->Clear(true);
   fieldArea= new wxBoxSizer(wxHORIZONTAL);
   verticalfieldArea->AddSpacer(180);
-  // playerCard *Deck;
-  // if(!deckEmpty){
-  //   Deck = new playerCard(this->GetParent(), cardBackType, wxSize(80, 120),
-  //       FALSE);
-  // }
-  // else{
-  //   Deck = new playerCard(this->GetParent(), cardBackType, wxSize(80, 120));
-  // }
-  // Deck->Bind(wxEVT_LEFT_DOWN, [=](wxMouseEvent &event) {
-  //   std::cout<<"Drew Card"<<std::endl;
-  //    humanDrewCard();},wxID_ANY);
-
-     wxBitmapButton *Deck = new wxBitmapButton(
-         this, wxID_ANY, wxBitmap("../../res/upFull.jpg", wxBITMAP_TYPE_JPEG),
-         wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
-      Deck->Bind(wxEVT_BUTTON, [=](wxCommandEvent& event) {
-        humanDrewCard();});
+  if(!deckEmpty){
+    Deck = new playerCard(this->GetParent(), cardBackType, wxSize(80, 120),
+        FALSE);
+    Deck->Raise();
+  }
+  else{
+    Deck = new playerCard(this->GetParent(), cardBackType, wxSize(80, 120));
+    Deck->Raise();
+  }
+  Deck->Bind(wxEVT_LEFT_DOWN, [=](wxMouseEvent &event) {
+    std::cout<<"Drew Card"<<std::endl;
+     humanDrewCard();},wxID_ANY);
 
   fieldArea->Add(Deck);
   Card *tempest =
       new Card(topOfDiscardPile.getSuit(), topOfDiscardPile.getValue());
   playerCard *Discard =
-      new playerCard(this->GetParent(), tempest, wxSize(80, 120));
+      new playerCard(this->GetParent(), tempest, wxSize(80, 120),14);
   fieldArea->Add(Discard);
 
   verticalfieldArea->Add(fieldArea);
@@ -299,17 +282,21 @@ bool playArea::endOfRoundDialog(std::vector<int> playersRoundScores,
   }
 }
 
-void playArea::getCardPlayed(wxMouseEvent & event){
-  playerCard *cardSelected = wxDynamicCast(event.GetEventObject(),playerCard);
-  std::cout<<cardSelected<<std::endl;
-  humanMadeMove(Card(HEARTS,TWO));
+void playArea::getCardPlayed(wxMouseEvent& event){
+  // playerCard *cardSelected = wxDynamicCast(event.GetEventObject(),playerCard);
+  // std::cout<<cardSelected<<std::endl;
+  // humanMadeMove(Card(HEARTS,TWO));
   return;
+}
+
+void playArea::getDeckCard(wxMouseEvent& event){
+  humanDrewCard();
 }
 
 playArea::~playArea() {}
 
 // wxBEGIN_EVENT_TABLE (playArea, wxPanel)
-//     EVT_LEFT_DOWN(playArea::getCardPlayed)
+//     EVT_MOUSE_EVENTS(playArea::getDeckCard)
 // wxEND_EVENT_TABLE()
 
 // https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Galaxy-2048x1152.jpg/512px-Galaxy-2048x1152.jpg

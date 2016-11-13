@@ -1987,6 +1987,7 @@ CMakeFiles/cardiansClient.dir/playArea.cpp.o: /usr/local/lib/wx/include/gtk3-uni
 CMakeFiles/cardiansClient.dir/playerCard.cpp.o: ../baseBackground.h
 CMakeFiles/cardiansClient.dir/playerCard.cpp.o: ../crazyEightsLogic/Card.hpp
 CMakeFiles/cardiansClient.dir/playerCard.cpp.o: ../imageInsert.h
+CMakeFiles/cardiansClient.dir/playerCard.cpp.o: ../playArea.h
 CMakeFiles/cardiansClient.dir/playerCard.cpp.o: ../playerCard.cpp
 CMakeFiles/cardiansClient.dir/playerCard.cpp.o: ../playerCard.h
 CMakeFiles/cardiansClient.dir/playerCard.cpp.o: /usr/local/include/wx-3.1/wx/accel.h
