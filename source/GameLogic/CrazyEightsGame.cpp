@@ -1,4 +1,4 @@
-#include "Game.hpp"
+#include "CrazyEightsGame.hpp"
 #include <chrono>
 #include <random>
 #include <thread>
@@ -6,20 +6,10 @@
 
 using namespace std::chrono_literals;
 
-CrazyEightsGame::CrazyEightsGame(wxFrame *mainFrame) {
-  std::cout << "Creating Crazy Eights Game" << std::endl;
-  // Construct a Player Named "You". This will be our Human Player.
-  players.push_back(Player(0, "You"));
-
-  // Construct the AI Players.
-  for (auto i = 1; i < 4; i++) {
-    players.push_back(Player(0, "AI"));
-  }
-  gui = new playArea(mainFrame);
+CrazyEightsGame::CrazyEightsGame(wxFrame *mainFrame) : Game(mainFrame) {
+  gui->setDrewCardFunction([this]() { humanDrewCard(); });
   startNewRound();
 }
-
-CrazyEightsGame::~CrazyEightsGame() {}
 
 void CrazyEightsGame::startNewRound() {
   deck = initializeDeck();
@@ -37,8 +27,7 @@ void CrazyEightsGame::startNewRound() {
   deck.pop_back();
   turn = 0;
   gui->updatePlayArea(0, players[0].getHand(), false, topOfDiscardPile);
-  gui->setDrewCardFunction([this]() { humanDrewCard(); });
-  gui->setMadeMoveFunction([this](Card c) { humanMadeMove(c); });
+  std::cout << "Updated Play Area" << std::endl;
 }
 
 // THIS SHOULD BE CALLED WHEN THE DECK IS PRESSED
@@ -60,10 +49,9 @@ void CrazyEightsGame::humanDrewCard() {
         }
       }
     }
-      computersTurn();
-    }
+    computersTurn();
   }
-
+}
 
 // THIS SHOULD BE CALLED WHEN A CARD IN THE HAND IS PRESSED
 void CrazyEightsGame::humanMadeMove(Card c) {
@@ -173,13 +161,5 @@ void CrazyEightsGame::endRound() {
       }
     }
   }
-  std::vector<int> allPlayersTotalScores;
-  std::vector<int> allPlayersRoundScores;
-  for (auto &&player : players) {
-    allPlayersTotalScores.push_back(player.getTotalScore());
-    allPlayersRoundScores.push_back(player.getRoundScore());
-  }
-  if (gui->endOfRoundDialog(allPlayersRoundScores, allPlayersTotalScores)) {
-    startNewRound();
-  }
+  showScores();
 }
