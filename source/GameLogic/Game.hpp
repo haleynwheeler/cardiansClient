@@ -21,10 +21,10 @@ protected:
   std::vector<Player> players;
   int turn; // index in player vector
   std::vector<Card> initializeDeck();
+  virtual void startNewRound(){};
   virtual void humanMadeMove(Card){};
   void displayEndOfRoundDialogBox();
   void showScores();
-  virtual void startNewRound(){};
 
 public:
   Game(wxFrame *);

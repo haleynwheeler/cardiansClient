@@ -50,6 +50,7 @@ private:
   Value value;
 
 public:
+  Card();
   Card(Suit su);
   Card(Suit su, Value val);
   Suit getSuit() const;
