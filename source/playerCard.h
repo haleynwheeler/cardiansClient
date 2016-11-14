@@ -10,6 +10,7 @@ class playerCard : public wxPanel {
   wxBoxSizer *cardSizer;
   wxBoxSizer *cardHorizontalSizer;
   imageInsert *bgImage;
+  imageInsert *suitImage;
 public:
   playerCard(wxWindow* parent, Card *theCards, wxSize size, int bgType);
   playerCard(wxWindow* parent, int direction, int bgType, wxSize size, bool fullCard =TRUE);

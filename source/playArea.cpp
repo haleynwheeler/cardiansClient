@@ -11,11 +11,13 @@ playArea::playArea(wxFrame *parent)
   int cardHeight = 100;
   int cardBackType = 14;
   Card *dummyCard = new Card(HEARTS, TWO);
+
   int heightLeft = wxSystemSettings::GetMetric(wxSYS_SCREEN_Y) * .7;
   heightLeft -= 850;
 
   thePlayerHandSize = playerOneHandSize = playerTwoHandSize =
       playerThreeHandSize = 5;
+
 
 
   upperPortion = new wxBoxSizer(wxHORIZONTAL);
@@ -36,18 +38,19 @@ playArea::playArea(wxFrame *parent)
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
   topLogo->SetBackgroundColour(wxColour(90, 5, 18, 0));
 
-  playerCard *Deck = new playerCard(this->GetParent(), cardBackType, wxSize(100, 70),
+  Deck = new playerCard(this->GetParent(), cardBackType, wxSize(100, 70),
       TRUE);
+  Deck->Bind(wxEVT_LEFT_DOWN, [=](wxMouseEvent &event) {
+        std::cout<<"Drew Card"<<std::endl;},wxID_ANY);
 
   playerCard *Discard = new playerCard(parent, dummyCard, wxSize(80, 120),cardBackType);
 
   for (int i = 0; i < 13; i++) {
-    playerCard *card = new playerCard(parent, dummyCard, wxSize(70, 100),cardBackType);
+    playerCard *card =
+    new playerCard(this->GetParent(), dummyCard, wxSize(80, 120),14);
     card->Raise();
+      handCards.push_back(card);
     yourHand->Add(card);
-    card->Bind(wxEVT_LEFT_DOWN, [=](wxMouseEvent &event) {
-      std::cout<<"Touched Card"<<std::endl;},wxID_ANY);
-    handCards.push_back(card);
     if(i>=thePlayerHandSize){
       yourHand->Hide(i);
     }
@@ -93,8 +96,7 @@ playArea::playArea(wxFrame *parent)
   fieldArea->Add(Discard);
 
   verticalfieldArea->AddSpacer(180);
-  verticalfieldArea->Add(fieldArea);  //  Deck->Bind(wxEVT_BUTTON, [=](wxCommandEvent& event) {
-  //    humanDrewCard();});
+  verticalfieldArea->Add(fieldArea);
   verticalfieldArea->AddSpacer(180);
 
   upperPortion->Add(topLogo);
@@ -130,21 +132,23 @@ void playArea::setMadeMoveFunction(std::function<void(Card)> f) {
 
 void playArea::playerZero(std::vector<Card> hand) {
   yourHand->Clear();
-  yourHand->Show(this,false,true);
-  yourHand->ShowItems(true);
-  for(int i= 0 ; i< thePlayerHandSize; i++){
-    Card *temp = new Card(hand.at(i).getSuit(), hand.at(i).getValue());
-    playerCard *card =
-    new playerCard(this->GetParent(), temp, wxSize(80, 120),14);
-    yourHand->Add(card);
-        if(i>=hand.size()){
-          yourHand->Hide(i);
+  handCards.clear();
+//  yourHand->Show(this,false,true);
+//  yourHand->ShowItems(true);
+//this->Lower();
+  for(int i= 0 ; i< hand.size(); i++){
+          Card *temp = new Card(hand.at(i).getSuit(), hand.at(i).getValue());
+          playerCard *card =
+          new playerCard(this->GetParent(), temp, wxSize(80, 120),14);
+          handCards.push_back(card);
+          yourHand->Add(handCards.at(i));
         }
-  }
+  this->Connect(wxEVT_LEFT_UP, wxMouseEventHandler(playArea::getCardPlayed), NULL, this);
+ std::cout<<handCards.at(0)<<std::endl;
  yourHand->Layout();
  theMainSizer->Layout();
- this->Lower();
  this->Refresh();
+ this->Update();
 }
 
 void playArea::playerAi(int playerId, std::vector<Card> hand) {
@@ -168,7 +172,7 @@ void playArea::playerAi(int playerId, std::vector<Card> hand) {
       }
     }
     break;
-
+  std::cout<<handCards.at(0)<<std::endl;
   case 3:
     playerThree->Show(this,false,true);
   	playerThree->ShowItems(true);
@@ -210,7 +214,7 @@ void playArea::updatePlayArea(int playerId, std::vector<Card> hand,
     Deck = new playerCard(this->GetParent(), cardBackType, wxSize(80, 120));
     Deck->Raise();
   }
-  Deck->Bind(wxEVT_LEFT_DOWN, [=](wxMouseEvent &event) {
+  Bind(wxEVT_RIGHT_UP, [=](wxMouseEvent &event) {
     std::cout<<"Drew Card"<<std::endl;
      humanDrewCard();},wxID_ANY);
 
@@ -219,8 +223,8 @@ void playArea::updatePlayArea(int playerId, std::vector<Card> hand,
       new Card(topOfDiscardPile.getSuit(), topOfDiscardPile.getValue());
   playerCard *Discard =
       new playerCard(this->GetParent(), tempest, wxSize(80, 120),14);
+  std::cout<< tempest->getSuit() << "." << tempest->getValue() << std::endl;
   fieldArea->Add(Discard);
-
   verticalfieldArea->Add(fieldArea);
   verticalfieldArea->AddSpacer(180);
   verticalfieldArea->Layout();
@@ -252,7 +256,7 @@ Suit playArea::userPickSuitDialog() {
 }
 
 void playArea::aiPickedSuitDialog(Suit suitSpecified) {
-  std::string msg = "The computer played an eight and have chosen the suit ";
+  std::string msg = "The computer played an eight and has chosen the suit ";
   if (suitSpecified == HEARTS) {
     msg += "hearts.";
   } else if (suitSpecified == SPADES) {
@@ -290,13 +294,16 @@ bool playArea::endOfRoundDialog(std::vector<int> playersRoundScores,
 }
 
 void playArea::getCardPlayed(wxMouseEvent& event){
+    std::cout<<"Selected a card"<<std::endl;
   // playerCard *cardSelected = wxDynamicCast(event.GetEventObject(),playerCard);
-  // std::cout<<cardSelected<<std::endl;
-  // humanMadeMove(Card(HEARTS,TWO));
+  Card choice = Card(HEARTS,TWO);
+  std::cout<< choice.getSuit() << " " << choice.getValue() << std::endl;
+  humanMadeMove(Card(HEARTS,TWO));
   return;
 }
 
 void playArea::getDeckCard(wxMouseEvent& event){
+
   humanDrewCard();
 }
 
