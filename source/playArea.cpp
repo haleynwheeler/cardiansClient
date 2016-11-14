@@ -40,15 +40,15 @@ playArea::playArea(wxFrame *parent)
 
   Deck = new playerCard(this->GetParent(), cardBackType, wxSize(100, 70),
       TRUE);
-  Deck->Bind(wxEVT_LEFT_DOWN, [=](wxMouseEvent &event) {
-        std::cout<<"Drew Card"<<std::endl;},wxID_ANY);
+  // Deck->Bind(wxEVT_LEFT_DOWN, [=](wxMouseEvent &event) {
+  //       std::cout<<"Drew Card"<<std::endl;},wxID_ANY);
 
   playerCard *Discard = new playerCard(parent, dummyCard, wxSize(80, 120),cardBackType);
 
   for (int i = 0; i < 13; i++) {
     playerCard *card =
     new playerCard(this->GetParent(), dummyCard, wxSize(80, 120),14);
-    card->Raise();
+    // card->Raise();
       handCards.push_back(card);
     yourHand->Add(card);
     if(i>=thePlayerHandSize){
@@ -208,16 +208,16 @@ void playArea::updatePlayArea(int playerId, std::vector<Card> hand,
   if(!deckEmpty){
     Deck = new playerCard(this->GetParent(), cardBackType, wxSize(80, 120),
         FALSE);
-    Deck->Raise();
   }
   else{
     Deck = new playerCard(this->GetParent(), cardBackType, wxSize(80, 120));
-    Deck->Raise();
   }
-  Bind(wxEVT_RIGHT_UP, [=](wxMouseEvent &event) {
+  // this->Lower();
+  // Deck->Raise();
+  this->Bind(wxEVT_RIGHT_UP, [=](wxMouseEvent &event) {
     std::cout<<"Drew Card"<<std::endl;
      humanDrewCard();},wxID_ANY);
-
+     this->Raise();
   fieldArea->Add(Deck);
   Card *tempest =
       new Card(topOfDiscardPile.getSuit(), topOfDiscardPile.getValue());
@@ -296,14 +296,12 @@ bool playArea::endOfRoundDialog(std::vector<int> playersRoundScores,
 void playArea::getCardPlayed(wxMouseEvent& event){
     std::cout<<"Selected a card"<<std::endl;
   // playerCard *cardSelected = wxDynamicCast(event.GetEventObject(),playerCard);
-  Card choice = Card(HEARTS,TWO);
-  std::cout<< choice.getSuit() << " " << choice.getValue() << std::endl;
-  humanMadeMove(Card(HEARTS,TWO));
+  Card choice = handCards.at(0)->getCard();
+  humanMadeMove(choice);
   return;
 }
 
 void playArea::getDeckCard(wxMouseEvent& event){
-
   humanDrewCard();
 }
 

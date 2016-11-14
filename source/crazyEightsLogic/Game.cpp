@@ -141,7 +141,6 @@ bool CrazyEightsGame::checkCardValidity(Card c) {
     }
   } else if (c.getValue() == EIGHT || c.getSuit() == cardToMatch.getSuit() ||
              c.getValue() == cardToMatch.getValue()) {
-    std::cout<<"Valid Card"<<std::endl;
     return true;
   }
   return false;
@@ -153,7 +152,6 @@ bool CrazyEightsGame::removeCardFromHand(Card c) {
     discardPile.push_back(c);
     return true;
   } else {
-    std::cout<<"RemovedFailed"<<std::endl;
     return false;
   }
 }

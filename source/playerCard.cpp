@@ -78,13 +78,17 @@ playerCard::playerCard(wxWindow *parent, Card *theCards, wxSize size, int bgType
       cardSizer->Add(cardFront, wxALIGN_CENTRE);
 
     this->SetSizerAndFit(cardSizer);
-    this->Bind(wxEVT_LEFT_DOWN, [=](wxMouseEvent &event) {
-      std::cout<<"Touched Card"<<std::endl;},wxID_ANY);
+    this->Connect( wxID_ANY, wxEVT_LEFT_DOWN,
+      wxMouseEventHandler(playerCard::played), NULL, this );
 }
 
 // wxWindow *window, int proportion, int flag, int border, wxObjec
 playerCard::~playerCard(){
 
+}
+
+void playerCard::played(wxMouseEvent& event){
+  std::cout<<"Played a card?"<<std::endl;
 }
 
 Card playerCard::getCard(){
