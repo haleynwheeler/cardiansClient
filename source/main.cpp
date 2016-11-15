@@ -35,7 +35,7 @@ public:
     // Sets the background color
     wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
     theBackgroundDrawable = new baseBackground(
-        mainFrame, wxT("../../res/background.jpg"), wxBITMAP_TYPE_JPEG);
+        mainFrame, wxT("../res/background.jpg"), wxBITMAP_TYPE_JPEG);
     sizer->Add(theBackgroundDrawable, 1, wxEXPAND);
 
     // login *loginPane;
