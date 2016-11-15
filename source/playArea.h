@@ -1,7 +1,7 @@
 #ifndef playArea_H
 #define playArea_H
 
-#include "crazyEightsLogic/Card.hpp"
+#include "GameLogic/Card.hpp"
 #include "playerCard.h"
 #include <functional>
 #include <string>
@@ -29,7 +29,7 @@ class playArea : public wxPanel {
 
   playerCard *Deck;
   playerCard *Discard;
-  std::vector<playerCard*> handCards;
+  std::vector<playerCard *> handCards;
 
   std::function<void()> humanDrewCard;
   std::function<void(Card)> humanMadeMove;
@@ -53,15 +53,10 @@ public:
   void setDrewCardFunction(std::function<void()>);
   void setMadeMoveFunction(std::function<void(Card)>);
 
-  void getCardPlayed(wxMouseEvent& event);
-  void getDeckCard(wxMouseEvent& event);
-  enum{
-    CARD_TOUCHED = 5,
-    DECK_TOUHED  = 15
-  };
+  void getCardPlayed(wxMouseEvent &event);
+  void getDeckCard(wxMouseEvent &event);
+  enum { CARD_TOUCHED = 5, DECK_TOUHED = 15 };
   // wxDECLARE_EVENT_TABLE();
 };
-
-
 
 #endif

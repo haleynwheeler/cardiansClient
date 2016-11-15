@@ -26,17 +26,9 @@
 
 #include <vector>
 
-enum Suit
-{
-  HEARTS,
-  SPADES,
-  CLUBS,
-  DIAMONDS,
-  UNDEFINED
-};
+enum Suit { HEARTS, SPADES, CLUBS, DIAMONDS, UNDEFINED };
 
-enum Value
-{
+enum Value {
   TWO = 2,
   THREE = 3,
   FOUR = 4,
@@ -52,21 +44,20 @@ enum Value
   ACE = 14
 };
 
-class Card
-{
+class Card {
 private:
   Suit suit;
   Value value;
 
 public:
+  Card();
   Card(Suit su);
   Card(Suit su, Value val);
   Suit getSuit() const;
   Value getValue() const;
 };
 
-bool operator<(const Card&, const Card&);
-bool operator==(const Card&, const Card&);
-std::vector<Card> initializeDeck();
+bool operator<(const Card &, const Card &);
+bool operator==(const Card &, const Card &);
 
 #endif
