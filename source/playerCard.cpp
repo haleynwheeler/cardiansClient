@@ -40,13 +40,6 @@ playerCard::playerCard(wxWindow* parent, int bgType, wxSize size, bool deckEmpty
       size.GetHeight(),size.GetWidth());
       background->Add(bgImage);
       background->SetMinSize(size);
-
-      Connect(wxEVT_LEFT_DCLICK,
-      wxMouseEventHandler(playArea::getDeckCard));
-      Bind(wxEVT_BUTTON, [=](wxCommandEvent& event) {
-        std::cout<<"Touched the button"<<std::endl;
-      });
-
       this->SetSizerAndFit(background);
 
 }
@@ -85,16 +78,17 @@ playerCard::playerCard(wxWindow *parent, Card *theCards, wxSize size, int bgType
       cardSizer->Add(cardFront, wxALIGN_CENTRE);
 
     this->SetSizerAndFit(cardSizer);
-          Connect(wxEVT_LEFT_DCLICK,
-              wxMouseEventHandler(playArea::getDeckCard));
-              Bind(wxEVT_BUTTON, [=](wxCommandEvent& event) {
-                std::cout<<"Touched the button"<<std::endl;
-                 });
+    this->Connect( wxID_ANY, wxEVT_LEFT_DOWN,
+      wxMouseEventHandler(playerCard::played), NULL, this );
 }
 
 // wxWindow *window, int proportion, int flag, int border, wxObjec
 playerCard::~playerCard(){
 
+}
+
+void playerCard::played(wxMouseEvent& event){
+  std::cout<<"Played a card?"<<std::endl;
 }
 
 Card playerCard::getCard(){

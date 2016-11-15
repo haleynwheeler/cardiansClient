@@ -10,6 +10,8 @@ class playerCard : public wxPanel {
   wxBoxSizer *cardSizer;
   wxBoxSizer *cardHorizontalSizer;
   imageInsert *bgImage;
+  imageInsert *suitImage;
+  void played(wxMouseEvent& event);
 
 public:
   playerCard(wxWindow *parent, Card *theCards, wxSize size, int bgType);
