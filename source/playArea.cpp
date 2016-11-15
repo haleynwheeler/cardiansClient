@@ -37,8 +37,7 @@ playArea::playArea(wxFrame *parent)
   topLogo->SetBackgroundColour(wxColour(90, 5, 18, 0));
 
   Deck = new playerCard(this->GetParent(), cardBackType, wxSize(100, 70), TRUE);
-  // Deck->Bind(wxEVT_LEFT_DOWN, [=](wxMouseEvent &event) {
-  //       std::cout<<"Drew Card"<<std::endl;},wxID_ANY);
+  Deck->setDrewCardFunction(humanDrewCard);
 
   playerCard *Discard =
       new playerCard(parent, dummyCard, wxSize(80, 120), cardBackType);
@@ -131,19 +130,14 @@ void playArea::setMadeMoveFunction(std::function<void(Card)> f) {
 void playArea::playerZero(std::vector<Card> hand) {
   yourHand->Clear();
   handCards.clear();
-  //  yourHand->Show(this,false,true);
-  //  yourHand->ShowItems(true);
-  // this->Lower();
   for (int i = 0; i < hand.size(); i++) {
     Card *temp = new Card(hand.at(i).getSuit(), hand.at(i).getValue());
     playerCard *card =
         new playerCard(this->GetParent(), temp, wxSize(80, 120), 14);
+    card->setMoveFunction(humanMadeMove);
     handCards.push_back(card);
     yourHand->Add(handCards.at(i));
   }
-  // this->Connect(wxEVT_LEFT_UP, wxMouseEventHandler(playArea::getCardPlayed),
-  //               NULL, this);
-  std::cout << handCards.at(0) << std::endl;
   yourHand->Layout();
   theMainSizer->Layout();
   this->Refresh();
@@ -210,15 +204,7 @@ void playArea::updatePlayArea(int playerId, std::vector<Card> hand,
   } else {
     Deck = new playerCard(this->GetParent(), cardBackType, wxSize(80, 120));
   }
-  // this->Lower();
-  // Deck->Raise();
-  // this->Bind(wxEVT_RIGHT_UP,
-  //            [=](wxMouseEvent &event) {
-  //              std::cout << "Drew Card" << std::endl;
-  //              humanDrewCard();
-  //            },
-  //            wxID_ANY);
-  // this->Raise();
+  Deck->setDrewCardFunction(humanDrewCard);
   fieldArea->Add(Deck);
   Card *tempest =
       new Card(topOfDiscardPile.getSuit(), topOfDiscardPile.getValue());
@@ -294,21 +280,6 @@ bool playArea::endOfRoundDialog(std::vector<int> playersRoundScores,
   }
 }
 
-void playArea::getCardPlayed(wxMouseEvent &event) {
-  std::cout << "Selected a card" << std::endl;
-  // playerCard *cardSelected =
-  // wxDynamicCast(event.GetEventObject(),playerCard);
-  Card choice = handCards.at(0)->getCard();
-  humanMadeMove(choice);
-  return;
-}
-
-void playArea::getDeckCard(wxMouseEvent &event) { humanDrewCard(); }
-
 playArea::~playArea() {}
-
-// wxBEGIN_EVENT_TABLE (playArea, wxPanel)
-//     EVT_MOUSE_EVENTS(playArea::getDeckCard)
-// wxEND_EVENT_TABLE()
 
 // https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Galaxy-2048x1152.jpg/512px-Galaxy-2048x1152.jpg
