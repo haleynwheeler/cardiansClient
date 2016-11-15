@@ -3,14 +3,11 @@
 
 #include "Game.hpp"
 
-enum State { PASSING, PLAYING, ROUND_OVER, GAME_OVER };
-
 class HeartsGame : public Game {
 public:
   HeartsGame(wxFrame *);
 
 private:
-  State s;
   int playerLeadingTrick;
   int roundNumber;
   bool brokenHearts = false;

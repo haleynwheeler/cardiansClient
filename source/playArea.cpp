@@ -18,8 +18,6 @@ playArea::playArea(wxFrame *parent)
   thePlayerHandSize = playerOneHandSize = playerTwoHandSize =
       playerThreeHandSize = 5;
 
-
-
   upperPortion = new wxBoxSizer(wxHORIZONTAL);
   middlePortion = new wxBoxSizer(wxHORIZONTAL);
   lowerPortion = new wxBoxSizer(wxHORIZONTAL);
@@ -34,60 +32,60 @@ playArea::playArea(wxFrame *parent)
   theMainSizer = new wxBoxSizer(wxVERTICAL);
 
   wxBitmapButton *topLogo = new wxBitmapButton(
-      this, wxID_ANY, wxBitmap("../../res/TextLogo.png", wxBITMAP_TYPE_PNG),
+      this, wxID_ANY, wxBitmap("../res/TextLogo.png", wxBITMAP_TYPE_PNG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
   topLogo->SetBackgroundColour(wxColour(90, 5, 18, 0));
 
-  Deck = new playerCard(this->GetParent(), cardBackType, wxSize(100, 70),
-      TRUE);
+  Deck = new playerCard(this->GetParent(), cardBackType, wxSize(100, 70), TRUE);
   // Deck->Bind(wxEVT_LEFT_DOWN, [=](wxMouseEvent &event) {
   //       std::cout<<"Drew Card"<<std::endl;},wxID_ANY);
 
-  playerCard *Discard = new playerCard(parent, dummyCard, wxSize(80, 120),cardBackType);
+  playerCard *Discard =
+      new playerCard(parent, dummyCard, wxSize(80, 120), cardBackType);
 
   for (int i = 0; i < 13; i++) {
     playerCard *card =
-    new playerCard(this->GetParent(), dummyCard, wxSize(80, 120),14);
+        new playerCard(this->GetParent(), dummyCard, wxSize(80, 120), 14);
     // card->Raise();
-      handCards.push_back(card);
+    handCards.push_back(card);
     yourHand->Add(card);
-    if(i>=thePlayerHandSize){
+    if (i >= thePlayerHandSize) {
       yourHand->Hide(i);
     }
   }
 
-  playerCard *card = new playerCard(this->GetParent(), 2, cardBackType,
-    wxSize(100, 70));
+  playerCard *card =
+      new playerCard(this->GetParent(), 2, cardBackType, wxSize(100, 70));
   playerOne->Add(card);
   for (int i = 0; i < 13; i++) {
     playerCard *card = new playerCard(this->GetParent(), 2, cardBackType,
-      wxSize(100, 20),false);
+                                      wxSize(100, 20), false);
     playerOne->Add(card);
-    if(i>=playerOneHandSize){
+    if (i >= playerOneHandSize) {
       playerOne->Hide(i);
     }
   }
 
-  playerCard *card1 = new playerCard(this->GetParent(), 3, cardBackType,
-    wxSize(70, 100));
+  playerCard *card1 =
+      new playerCard(this->GetParent(), 3, cardBackType, wxSize(70, 100));
   playerTwo->Add(card1);
   for (int i = 0; i < 13; i++) {
     playerCard *card = new playerCard(this->GetParent(), 3, cardBackType,
-      wxSize(20, 100), false);
+                                      wxSize(20, 100), false);
     playerTwo->Add(card);
-    if(i>=playerTwoHandSize){
+    if (i >= playerTwoHandSize) {
       playerTwo->Hide(i);
     }
   }
 
-  playerCard *card2 = new playerCard(this->GetParent(), 4, cardBackType,
-    wxSize(100, 70));
+  playerCard *card2 =
+      new playerCard(this->GetParent(), 4, cardBackType, wxSize(100, 70));
   playerThree->Add(card2);
   for (int i = 0; i < 13; i++) {
     playerCard *card = new playerCard(this->GetParent(), 4, cardBackType,
-      wxSize(100, 20), false);
+                                      wxSize(100, 20), false);
     playerThree->Add(card);
-    if(i>=playerThreeHandSize){
+    if (i >= playerThreeHandSize) {
       playerThree->Hide(i);
     }
   }
@@ -133,51 +131,52 @@ void playArea::setMadeMoveFunction(std::function<void(Card)> f) {
 void playArea::playerZero(std::vector<Card> hand) {
   yourHand->Clear();
   handCards.clear();
-//  yourHand->Show(this,false,true);
-//  yourHand->ShowItems(true);
-//this->Lower();
-  for(int i= 0 ; i< hand.size(); i++){
-          Card *temp = new Card(hand.at(i).getSuit(), hand.at(i).getValue());
-          playerCard *card =
-          new playerCard(this->GetParent(), temp, wxSize(80, 120),14);
-          handCards.push_back(card);
-          yourHand->Add(handCards.at(i));
-        }
-  this->Connect(wxEVT_LEFT_UP, wxMouseEventHandler(playArea::getCardPlayed), NULL, this);
- std::cout<<handCards.at(0)<<std::endl;
- yourHand->Layout();
- theMainSizer->Layout();
- this->Refresh();
- this->Update();
+  //  yourHand->Show(this,false,true);
+  //  yourHand->ShowItems(true);
+  // this->Lower();
+  for (int i = 0; i < hand.size(); i++) {
+    Card *temp = new Card(hand.at(i).getSuit(), hand.at(i).getValue());
+    playerCard *card =
+        new playerCard(this->GetParent(), temp, wxSize(80, 120), 14);
+    handCards.push_back(card);
+    yourHand->Add(handCards.at(i));
+  }
+  this->Connect(wxEVT_LEFT_UP, wxMouseEventHandler(playArea::getCardPlayed),
+                NULL, this);
+  std::cout << handCards.at(0) << std::endl;
+  yourHand->Layout();
+  theMainSizer->Layout();
+  this->Refresh();
+  this->Update();
 }
 
 void playArea::playerAi(int playerId, std::vector<Card> hand) {
   switch (playerId) {
   case 1:
-      playerOne->Show(this,false,true);
-    	playerOne->ShowItems(true);
-    for(int i=0; i<13; i++){
-      if(i>=hand.size()){
+    playerOne->Show(this, false, true);
+    playerOne->ShowItems(true);
+    for (int i = 0; i < 13; i++) {
+      if (i >= hand.size()) {
         playerOne->Hide(i);
       }
     }
     break;
 
   case 2:
-    playerTwo->Show(this,false,true);
-  	playerTwo->ShowItems(true);
-    for(int i=0; i<13; i++){
-      if(i>=hand.size()){
+    playerTwo->Show(this, false, true);
+    playerTwo->ShowItems(true);
+    for (int i = 0; i < 13; i++) {
+      if (i >= hand.size()) {
         playerTwo->Hide(i);
       }
     }
     break;
-  std::cout<<handCards.at(0)<<std::endl;
+    std::cout << handCards.at(0) << std::endl;
   case 3:
-    playerThree->Show(this,false,true);
-  	playerThree->ShowItems(true);
-    for(int i=0; i<13; i++){
-      if(i>=hand.size()){
+    playerThree->Show(this, false, true);
+    playerThree->ShowItems(true);
+    for (int i = 0; i < 13; i++) {
+      if (i >= hand.size()) {
         playerThree->Hide(i);
       }
     }
@@ -199,31 +198,33 @@ void playArea::updatePlayArea(int playerId, std::vector<Card> hand,
   case 2:
   case 3:
     playerAi(playerId, hand);
-    std::cout<<"Computer Played" <<std::endl;
+    std::cout << "Computer Played" << std::endl;
     break;
   }
   verticalfieldArea->Clear(true);
-  fieldArea= new wxBoxSizer(wxHORIZONTAL);
+  fieldArea = new wxBoxSizer(wxHORIZONTAL);
   verticalfieldArea->AddSpacer(180);
-  if(!deckEmpty){
-    Deck = new playerCard(this->GetParent(), cardBackType, wxSize(80, 120),
-        FALSE);
-  }
-  else{
+  if (!deckEmpty) {
+    Deck =
+        new playerCard(this->GetParent(), cardBackType, wxSize(80, 120), FALSE);
+  } else {
     Deck = new playerCard(this->GetParent(), cardBackType, wxSize(80, 120));
   }
   // this->Lower();
   // Deck->Raise();
-  this->Bind(wxEVT_RIGHT_UP, [=](wxMouseEvent &event) {
-    std::cout<<"Drew Card"<<std::endl;
-     humanDrewCard();},wxID_ANY);
-     this->Raise();
+  this->Bind(wxEVT_RIGHT_UP,
+             [=](wxMouseEvent &event) {
+               std::cout << "Drew Card" << std::endl;
+               humanDrewCard();
+             },
+             wxID_ANY);
+  this->Raise();
   fieldArea->Add(Deck);
   Card *tempest =
       new Card(topOfDiscardPile.getSuit(), topOfDiscardPile.getValue());
   playerCard *Discard =
-      new playerCard(this->GetParent(), tempest, wxSize(80, 120),14);
-  std::cout<< tempest->getSuit() << "." << tempest->getValue() << std::endl;
+      new playerCard(this->GetParent(), tempest, wxSize(80, 120), 14);
+  std::cout << tempest->getSuit() << "." << tempest->getValue() << std::endl;
   fieldArea->Add(Discard);
   verticalfieldArea->Add(fieldArea);
   verticalfieldArea->AddSpacer(180);
@@ -293,17 +294,16 @@ bool playArea::endOfRoundDialog(std::vector<int> playersRoundScores,
   }
 }
 
-void playArea::getCardPlayed(wxMouseEvent& event){
-    std::cout<<"Selected a card"<<std::endl;
-  // playerCard *cardSelected = wxDynamicCast(event.GetEventObject(),playerCard);
+void playArea::getCardPlayed(wxMouseEvent &event) {
+  std::cout << "Selected a card" << std::endl;
+  // playerCard *cardSelected =
+  // wxDynamicCast(event.GetEventObject(),playerCard);
   Card choice = handCards.at(0)->getCard();
   humanMadeMove(choice);
   return;
 }
 
-void playArea::getDeckCard(wxMouseEvent& event){
-  humanDrewCard();
-}
+void playArea::getDeckCard(wxMouseEvent &event) { humanDrewCard(); }
 
 playArea::~playArea() {}
 
