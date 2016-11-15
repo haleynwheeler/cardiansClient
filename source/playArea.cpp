@@ -141,8 +141,8 @@ void playArea::playerZero(std::vector<Card> hand) {
     handCards.push_back(card);
     yourHand->Add(handCards.at(i));
   }
-  this->Connect(wxEVT_LEFT_UP, wxMouseEventHandler(playArea::getCardPlayed),
-                NULL, this);
+  // this->Connect(wxEVT_LEFT_UP, wxMouseEventHandler(playArea::getCardPlayed),
+  //               NULL, this);
   std::cout << handCards.at(0) << std::endl;
   yourHand->Layout();
   theMainSizer->Layout();
@@ -212,13 +212,13 @@ void playArea::updatePlayArea(int playerId, std::vector<Card> hand,
   }
   // this->Lower();
   // Deck->Raise();
-  this->Bind(wxEVT_RIGHT_UP,
-             [=](wxMouseEvent &event) {
-               std::cout << "Drew Card" << std::endl;
-               humanDrewCard();
-             },
-             wxID_ANY);
-  this->Raise();
+  // this->Bind(wxEVT_RIGHT_UP,
+  //            [=](wxMouseEvent &event) {
+  //              std::cout << "Drew Card" << std::endl;
+  //              humanDrewCard();
+  //            },
+  //            wxID_ANY);
+  // this->Raise();
   fieldArea->Add(Deck);
   Card *tempest =
       new Card(topOfDiscardPile.getSuit(), topOfDiscardPile.getValue());
