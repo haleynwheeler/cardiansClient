@@ -39,6 +39,8 @@ playerCard::playerCard(wxWindow *parent, int bgType, wxSize size,
   background->Add(bgImage);
   background->SetMinSize(size);
   this->SetSizerAndFit(background);
+  bgImage->Bind(wxEVT_LEFT_UP, [=](wxMouseEvent &event) {
+        std::cout<<"Drew Card"<<std::endl;},wxID_ANY);
 }
 
 playerCard::playerCard(wxWindow *parent, Card *theCards, wxSize size,
@@ -78,8 +80,9 @@ playerCard::playerCard(wxWindow *parent, Card *theCards, wxSize size,
   cardSizer->Add(cardFront, wxALIGN_CENTRE);
 
   this->SetSizerAndFit(cardSizer);
-  this->Connect(wxID_ANY, wxEVT_LEFT_DOWN,
-                wxMouseEventHandler(playerCard::played), NULL, this);
+  bgImage->Bind(wxEVT_LEFT_UP, [=](wxMouseEvent &event) {
+        std::cout<<"Played Card"<<theCard->getSuit()<<"]"<< theCard->getValue() <<std::endl;}
+        ,wxID_ANY);
 }
 
 // wxWindow *window, int proportion, int flag, int border, wxObjec
