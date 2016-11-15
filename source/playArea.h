@@ -37,7 +37,6 @@ class playArea : public wxPanel {
 public:
   playArea(wxFrame *parent);
   ~playArea();
-  void OnClick(wxCommandEvent &event);
   void updatePlayArea(int playerId, std::vector<Card> hand, bool deckEmpty,
                       Card topOfDiscardPile);
 
@@ -52,11 +51,6 @@ public:
 
   void setDrewCardFunction(std::function<void()>);
   void setMadeMoveFunction(std::function<void(Card)>);
-
-  void getCardPlayed(wxMouseEvent &event);
-  void getDeckCard(wxMouseEvent &event);
-  enum { CARD_TOUCHED = 5, DECK_TOUHED = 15 };
-  // wxDECLARE_EVENT_TABLE();
 };
 
 #endif

@@ -3,6 +3,7 @@
 
 #include "GameLogic/Card.hpp"
 #include "imageInsert.h"
+#include <functional>
 #include <wx/wx.h>
 
 class playerCard : public wxPanel {
@@ -11,7 +12,6 @@ class playerCard : public wxPanel {
   wxBoxSizer *cardHorizontalSizer;
   imageInsert *bgImage;
   imageInsert *suitImage;
-  void played(wxMouseEvent& event);
 
 public:
   playerCard(wxWindow *parent, Card *theCards, wxSize size, int bgType);
@@ -21,6 +21,8 @@ public:
   ~playerCard();
   Card getCard();
   void updateCard(Card newCard);
+  void setDrewCardFunction(std::function<void()>);
+  void setMoveFunction(std::function<void(Card)>);
 };
 
 #endif

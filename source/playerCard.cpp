@@ -39,8 +39,6 @@ playerCard::playerCard(wxWindow *parent, int bgType, wxSize size,
   background->Add(bgImage);
   background->SetMinSize(size);
   this->SetSizerAndFit(background);
-  bgImage->Bind(wxEVT_LEFT_UP, [=](wxMouseEvent &event) {
-        std::cout<<"Drew Card"<<std::endl;},wxID_ANY);
 }
 
 playerCard::playerCard(wxWindow *parent, Card *theCards, wxSize size,
@@ -80,18 +78,29 @@ playerCard::playerCard(wxWindow *parent, Card *theCards, wxSize size,
   cardSizer->Add(cardFront, wxALIGN_CENTRE);
 
   this->SetSizerAndFit(cardSizer);
-  bgImage->Bind(wxEVT_LEFT_UP, [=](wxMouseEvent &event) {
-        std::cout<<"Played Card"<<theCard->getSuit()<<"]"<< theCard->getValue() <<std::endl;}
-        ,wxID_ANY);
 }
 
-// wxWindow *window, int proportion, int flag, int border, wxObjec
 playerCard::~playerCard() {}
-
-void playerCard::played(wxMouseEvent &event) {
-  std::cout << "Played a card?" << std::endl;
-}
 
 Card playerCard::getCard() {
   return Card(theCard->getSuit(), theCard->getValue());
+}
+
+void playerCard::setDrewCardFunction(std::function<void()> humanDrewCard) {
+  bgImage->Bind(wxEVT_LEFT_UP,
+                [=](wxMouseEvent &event) {
+                  std::cout << "Human Drew Card" << std::endl;
+                  humanDrewCard();
+                },
+                wxID_ANY);
+}
+
+void playerCard::setMoveFunction(std::function<void(Card)> humanMadeMove) {
+  bgImage->Bind(wxEVT_LEFT_UP,
+                [=](wxMouseEvent &event) {
+                  std::cout << "Played Card" << theCard->getSuit() << " "
+                            << theCard->getValue() << std::endl;
+                  humanMadeMove(Card(theCard->getSuit(), theCard->getValue()));
+                },
+                wxID_ANY);
 }
