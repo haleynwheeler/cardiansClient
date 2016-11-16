@@ -27,7 +27,7 @@ void CrazyEightsGame::startNewRound() {
   deck.pop_back();
   turn = 0;
   gui->updatePlayArea(0, players[0].getHand(), false, topOfDiscardPile);
-  std::cout << "Updated Play Area" << std::endl;
+  std::cout << "Started New Round" << std::endl;
 }
 
 // THIS SHOULD BE CALLED WHEN THE DECK IS PRESSED
@@ -146,7 +146,9 @@ bool CrazyEightsGame::removeCardFromHand(Card c) {
 }
 
 void CrazyEightsGame::endRound() {
-  // Calculate Scores:
+  // Calculate Scores
+  gui->updatePlayArea(turn, players[turn].getHand(), deck.empty(),
+                      discardPile.back());
   for (auto &&player : players) {
     for (auto &&card : player.getHand()) {
       auto value = card.getValue();

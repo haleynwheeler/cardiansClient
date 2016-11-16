@@ -32,6 +32,7 @@ void Player::startNewRound() {
   roundScore = 0;
   bid = 0;
   tricksWon = 0;
+  hand.clear();
 }
 
 // Function called at the start of a new game. Updates the overallScore vector

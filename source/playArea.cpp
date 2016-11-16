@@ -47,7 +47,7 @@ playArea::playArea(wxFrame *parent)
         new playerCard(this->GetParent(), dummyCard, wxSize(80, 120), 14);
     handCards.push_back(card);
     yourHand->Add(card);
-    if (i >= thePlayerHandSize) {
+    if (i >= thePlayerHandSize - 1) {
       yourHand->Hide(i);
     }
   }
@@ -59,7 +59,7 @@ playArea::playArea(wxFrame *parent)
     playerCard *card = new playerCard(this->GetParent(), 2, cardBackType,
                                       wxSize(100, 20), false);
     playerOne->Add(card);
-    if (i >= playerOneHandSize) {
+    if (i >= playerOneHandSize - 1) {
       playerOne->Hide(i);
     }
   }
@@ -71,7 +71,7 @@ playArea::playArea(wxFrame *parent)
     playerCard *card = new playerCard(this->GetParent(), 3, cardBackType,
                                       wxSize(20, 100), false);
     playerTwo->Add(card);
-    if (i >= playerTwoHandSize) {
+    if (i >= playerTwoHandSize - 1) {
       playerTwo->Hide(i);
     }
   }
@@ -83,7 +83,7 @@ playArea::playArea(wxFrame *parent)
     playerCard *card = new playerCard(this->GetParent(), 4, cardBackType,
                                       wxSize(100, 20), false);
     playerThree->Add(card);
-    if (i >= playerThreeHandSize) {
+    if (i >= playerThreeHandSize - 1) {
       playerThree->Hide(i);
     }
   }
@@ -149,7 +149,7 @@ void playArea::playerAi(int playerId, std::vector<Card> hand) {
     playerOne->Show(this, false, true);
     playerOne->ShowItems(true);
     for (int i = 1; i < 13; i++) {
-      if (i >= hand.size()) {
+      if (i >= hand.size() - 1) {
         playerOne->Hide(i);
       }
     }
@@ -159,7 +159,7 @@ void playArea::playerAi(int playerId, std::vector<Card> hand) {
     playerTwo->Show(this, false, true);
     playerTwo->ShowItems(true);
     for (int i = 1; i < 13; i++) {
-      if (i >= hand.size()) {
+      if (i >= hand.size() - 1) {
         playerTwo->Hide(i);
       }
     }
@@ -169,7 +169,7 @@ void playArea::playerAi(int playerId, std::vector<Card> hand) {
     playerThree->Show(this, false, true);
     playerThree->ShowItems(true);
     for (int i = 1; i < 13; i++) {
-      if (i >= hand.size()) {
+      if (i >= hand.size() - 1) {
         playerThree->Hide(i);
       }
     }
