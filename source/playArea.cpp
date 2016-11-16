@@ -45,7 +45,6 @@ playArea::playArea(wxFrame *parent)
   for (int i = 0; i < 13; i++) {
     playerCard *card =
         new playerCard(this->GetParent(), dummyCard, wxSize(80, 120), 14);
-    // card->Raise();
     handCards.push_back(card);
     yourHand->Add(card);
     if (i >= thePlayerHandSize) {
@@ -128,20 +127,20 @@ void playArea::setMadeMoveFunction(std::function<void(Card)> f) {
 }
 
 void playArea::playerZero(std::vector<Card> hand) {
-  yourHand->Clear();
+  yourHand->Clear(true);
   handCards.clear();
-  for (int i = 0; i < hand.size(); i++) {
-    Card *temp = new Card(hand.at(i).getSuit(), hand.at(i).getValue());
+  std::cout << "My hand is of size: " << handCards.size() << std::endl;
+  // for (int i = 1; i < hand.size(); i++) {
+  for (auto &&handCard : hand) {
+    Card *temp = new Card(handCard.getSuit(), handCard.getValue());
     playerCard *card =
         new playerCard(this->GetParent(), temp, wxSize(80, 120), 14);
     card->setMoveFunction(humanMadeMove);
     handCards.push_back(card);
-    yourHand->Add(handCards.at(i));
+    yourHand->Add(card);
   }
   yourHand->Layout();
   theMainSizer->Layout();
-  this->Refresh();
-  this->Update();
 }
 
 void playArea::playerAi(int playerId, std::vector<Card> hand) {
@@ -149,7 +148,7 @@ void playArea::playerAi(int playerId, std::vector<Card> hand) {
   case 1:
     playerOne->Show(this, false, true);
     playerOne->ShowItems(true);
-    for (int i = 0; i < 13; i++) {
+    for (int i = 1; i < 13; i++) {
       if (i >= hand.size()) {
         playerOne->Hide(i);
       }
@@ -159,7 +158,7 @@ void playArea::playerAi(int playerId, std::vector<Card> hand) {
   case 2:
     playerTwo->Show(this, false, true);
     playerTwo->ShowItems(true);
-    for (int i = 0; i < 13; i++) {
+    for (int i = 1; i < 13; i++) {
       if (i >= hand.size()) {
         playerTwo->Hide(i);
       }
@@ -169,7 +168,7 @@ void playArea::playerAi(int playerId, std::vector<Card> hand) {
   case 3:
     playerThree->Show(this, false, true);
     playerThree->ShowItems(true);
-    for (int i = 0; i < 13; i++) {
+    for (int i = 1; i < 13; i++) {
       if (i >= hand.size()) {
         playerThree->Hide(i);
       }
@@ -183,6 +182,7 @@ void playArea::playerAi(int playerId, std::vector<Card> hand) {
 
 void playArea::updatePlayArea(int playerId, std::vector<Card> hand,
                               bool deckEmpty, Card topOfDiscardPile) {
+  Freeze();
   int cardBackType = 14;
   switch (playerId) {
   case 0:
@@ -219,6 +219,7 @@ void playArea::updatePlayArea(int playerId, std::vector<Card> hand,
   theMainSizer->Layout();
   this->Refresh();
   this->Update();
+  Thaw();
 }
 
 void playArea::invalidMoveDialog() {

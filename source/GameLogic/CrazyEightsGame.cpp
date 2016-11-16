@@ -49,7 +49,8 @@ void CrazyEightsGame::humanDrewCard() {
         }
       }
     }
-    computersTurn();
+    gui->updatePlayArea(0, players[0].getHand(), deck.empty(),
+                        discardPile.back());
   }
 }
 
