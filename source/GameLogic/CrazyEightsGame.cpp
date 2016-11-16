@@ -12,6 +12,7 @@ CrazyEightsGame::CrazyEightsGame(wxFrame *mainFrame) : Game(mainFrame) {
 }
 
 void CrazyEightsGame::startNewRound() {
+  roundOver = false;
   deck = initializeDeck();
   for (auto &&player : players) {
     player.startNewRound();
@@ -26,7 +27,7 @@ void CrazyEightsGame::startNewRound() {
   discardPile.push_back(topOfDiscardPile);
   deck.pop_back();
   turn = 0;
-  gui->updatePlayArea(0, players[0].getHand(), false, topOfDiscardPile);
+  gui->initializePlayArea(players[0].getHand(), topOfDiscardPile);
   std::cout << "Started New Round" << std::endl;
 }
 
@@ -58,12 +59,21 @@ void CrazyEightsGame::humanDrewCard() {
 void CrazyEightsGame::humanMadeMove(Card c) {
   std::cout << "Human Made Move" << std::endl;
   if (turn == 0) {
-    auto validMove = checkCardValidity(c) && removeCardFromHand(c);
+    bool validMove = false;
+    if (c.getValue() == EIGHT) {
+      validMove = true;
+      suitSpecified = gui->userPickSuitDialog();
+      if (suitSpecified == UNDEFINED) {
+        return;
+      }
+      removeCardFromHand(c);
+    } else {
+      validMove = checkCardValidity(c) && removeCardFromHand(c);
+    }
     if (validMove) {
       if (players[0].getHand().size() == 0) {
         endRound();
-      } else if (c.getValue() == EIGHT) {
-        suitSpecified = gui->userPickSuitDialog();
+        return;
       }
       gui->updatePlayArea(0, players[0].getHand(), deck.empty(),
                           discardPile.back());
@@ -76,6 +86,9 @@ void CrazyEightsGame::humanMadeMove(Card c) {
 
 void CrazyEightsGame::computersTurn() {
   for (int i = 1; i < 4; i++) {
+    if (roundOver) {
+      return;
+    }
     turn = i;
     computersMove();
     gui->updatePlayArea(i, players[i].getHand(), deck.empty(),
@@ -113,6 +126,7 @@ void CrazyEightsGame::performValidAiMove(Card card) {
   discardPile.push_back(card);
   if (players[turn].getHand().size() == 0) {
     endRound();
+    return;
   } else if (card.getValue() == EIGHT) {
     std::random_device rd;
     std::mt19937 mt(rd());
@@ -147,6 +161,7 @@ bool CrazyEightsGame::removeCardFromHand(Card c) {
 
 void CrazyEightsGame::endRound() {
   // Calculate Scores
+  roundOver = true;
   gui->updatePlayArea(turn, players[turn].getHand(), deck.empty(),
                       discardPile.back());
   for (auto &&player : players) {
