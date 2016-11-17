@@ -116,6 +116,7 @@ playArea::playArea(wxFrame *parent)
   theMainSizer->Add(middlePortion);
   theMainSizer->Add(lowerPortion, wxBOTTOM);
   SetSizerAndFit(theMainSizer);
+  Hide();
 }
 
 void playArea::setDrewCardFunction(std::function<void()> f) {
@@ -185,6 +186,7 @@ void playArea::playerAi(int playerId, int handSize) {
 
 void playArea::initializePlayArea(std::vector<Card> humanHand,
                                   Card topOfDiscardPile) {
+  Show();
   Freeze();
   int cardBackType = 14;
   playerZero(humanHand);
