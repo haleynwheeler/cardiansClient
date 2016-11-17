@@ -24,8 +24,8 @@ private:
   void performValidAiMove(Card);
   void humanMadeMove(Card);
   void humanDrewCard();
-  void startNewRound();
 
 public:
   CrazyEightsGame(wxFrame *);
+  void startNewRound();
 };

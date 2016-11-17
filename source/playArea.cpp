@@ -38,9 +38,11 @@ playArea::playArea(wxFrame *parent)
 
   Deck = new playerCard(this->GetParent(), cardBackType, wxSize(100, 70), TRUE);
   Deck->setDrewCardFunction(humanDrewCard);
+  Deck->Hide();
 
   playerCard *Discard =
       new playerCard(parent, dummyCard, wxSize(80, 120), cardBackType);
+  Discard->Hide();
 
   for (int i = 0; i < 13; i++) {
     playerCard *card =
@@ -51,6 +53,7 @@ playArea::playArea(wxFrame *parent)
       yourHand->Hide(i);
     }
   }
+  yourHand->ShowItems(false);
 
   playerCard *card =
       new playerCard(this->GetParent(), 2, cardBackType, wxSize(100, 70));
@@ -63,6 +66,7 @@ playArea::playArea(wxFrame *parent)
       playerOne->Hide(i);
     }
   }
+  playerOne->ShowItems(false);
 
   playerCard *card1 =
       new playerCard(this->GetParent(), 3, cardBackType, wxSize(70, 100));
@@ -75,6 +79,7 @@ playArea::playArea(wxFrame *parent)
       playerTwo->Hide(i);
     }
   }
+  playerTwo->ShowItems(false);
 
   playerCard *card2 =
       new playerCard(this->GetParent(), 4, cardBackType, wxSize(100, 70));
@@ -87,6 +92,7 @@ playArea::playArea(wxFrame *parent)
       playerThree->Hide(i);
     }
   }
+  playerThree->ShowItems(false);
 
   fieldArea->Add(Deck);
   fieldArea->Add(Discard);
@@ -116,6 +122,7 @@ playArea::playArea(wxFrame *parent)
   theMainSizer->Add(middlePortion);
   theMainSizer->Add(lowerPortion, wxBOTTOM);
   SetSizerAndFit(theMainSizer);
+  Hide();
 }
 
 void playArea::setDrewCardFunction(std::function<void()> f) {
@@ -140,6 +147,7 @@ void playArea::playerZero(std::vector<Card> hand) {
     handCards.push_back(card);
     yourHand->Add(card);
   }
+  // yourHand->ShowItems(true);
   yourHand->Layout();
   theMainSizer->Layout();
 }
@@ -185,6 +193,7 @@ void playArea::playerAi(int playerId, int handSize) {
 
 void playArea::initializePlayArea(std::vector<Card> humanHand,
                                   Card topOfDiscardPile) {
+  Show();
   Freeze();
   int cardBackType = 14;
   playerZero(humanHand);
@@ -204,6 +213,11 @@ void playArea::initializePlayArea(std::vector<Card> humanHand,
       new playerCard(this->GetParent(), tempest, wxSize(80, 120), 14);
   std::cout << tempest->getSuit() << "." << tempest->getValue() << std::endl;
   fieldArea->Add(Discard);
+
+  // yourHand->ShowItems(true);
+  // playerOne->ShowItems(true);
+  // playerTwo->ShowItems(true);
+  // playerThree->ShowItems(true);
   verticalfieldArea->Add(fieldArea);
   verticalfieldArea->AddSpacer(180);
   verticalfieldArea->Layout();

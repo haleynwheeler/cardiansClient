@@ -35,7 +35,7 @@ Simple::Simple(const wxString &title)
   newUserPane->Hide();
 
   eightsGame = new CrazyEightsGame(this);
-  eightsGame->Hide();
+
   //  SetSizer(backgroundSizer);
   Centre();
 
@@ -108,7 +108,7 @@ void Simple::switchPage(wxString buttonSwitch) {
     mainPane->Hide();
     newUserPane->Hide();
     //  pageSizer->Prepend(eightsGame, 1, wxGROW);
-    //  eightsGame->startNewRound();
+    eightsGame->startNewRound();
   } else if (buttonSwitch == "Eights Online") {
     loginPane->Hide();
     mainPane->Hide();

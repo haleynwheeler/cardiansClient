@@ -8,7 +8,8 @@ using namespace std::chrono_literals;
 
 CrazyEightsGame::CrazyEightsGame(wxFrame *mainFrame) : Game(mainFrame) {
   gui->setDrewCardFunction([this]() { humanDrewCard(); });
-  startNewRound();
+  // startNewRound();
+  gui->Hide();
 }
 
 void CrazyEightsGame::startNewRound() {
