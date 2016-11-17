@@ -41,7 +41,8 @@ set(SRCS main.cpp
     imageInsert.cpp imageInsert.h
     newUser.cpp newUser.h
     playArea.cpp playArea.h
-    playerCard.cpp playerCard.h)
+    playerCard.cpp playerCard.h
+    heartsArea.cpp heartsArea.h)
 
 add_subdirectory(GameLogic)
 
