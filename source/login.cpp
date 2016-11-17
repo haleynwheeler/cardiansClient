@@ -12,8 +12,8 @@ login::login(wxFrame *parent)
                      wxSystemSettings::GetMetric(wxSYS_SCREEN_X) * .5),
               wxTAB_TRAVERSAL, wxPanelNameStr) {
 
-  imageInsert *theLogo =
-      new imageInsert(this, wxT("logo.png"), wxBITMAP_TYPE_PNG, 300, 600);
+  imageInsert *theLogo = new imageInsert(this, wxT("../res/logo.png"),
+                                         wxBITMAP_TYPE_PNG, 300, 600);
 
   wxBoxSizer *verticalOne = new wxBoxSizer(wxVERTICAL);
   wxBoxSizer *verticalTwo = new wxBoxSizer(wxVERTICAL);
@@ -32,9 +32,11 @@ login::login(wxFrame *parent)
   login->SetForegroundColour(wxColour(wxT("WHITE")));
 
   passwordText = new wxTextCtrl(this, 0, "Password", wxDefaultPosition);
+
   wxButton *user =
       new wxButton(this, newUserButton, wxT("New User"), wxDefaultPosition,
                    wxSize(200, 100), 0, wxDefaultValidator, wxButtonNameStr);
+
   verticalTwo->Add(passwordText);
   verticalTwo->Add(user);
 
@@ -52,12 +54,10 @@ login::login(wxFrame *parent)
   SetSizerAndFit(theSizer);
   Center();
 
-  // wxDECLARE_EVENT_TABLE();
-}
-void login::OnNewUser(wxCommandEvent &event) { event.Skip(); }
-void login::OnLogin(wxCommandEvent &event) { event.Skip(); }
+  void login::OnNewUser(wxCommandEvent & event) { event.Skip(); }
+  void login::OnLogin(wxCommandEvent & event) { event.Skip(); }
 
-login::~login() {}
+  login::~login() {}
 
-wxBEGIN_EVENT_TABLE(login, wxPanel) EVT_BUTTON(loginButton, login::OnLogin)
-    EVT_BUTTON(newUserButton, login::OnNewUser) wxEND_EVENT_TABLE()
+  wxBEGIN_EVENT_TABLE(login, wxPanel) EVT_BUTTON(loginButton, login::OnLogin)
+      EVT_BUTTON(newUserButton, login::OnNewUser) wxEND_EVENT_TABLE()

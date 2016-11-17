@@ -11,8 +11,8 @@ newUser::newUser(wxFrame *parent)
                      wxSystemSettings::GetMetric(wxSYS_SCREEN_X) * .5),
               wxTAB_TRAVERSAL, wxPanelNameStr) {
 
-  imageInsert *theLogo =
-      new imageInsert(this, wxT("logo.png"), wxBITMAP_TYPE_PNG, 300, 600);
+  imageInsert *theLogo = new imageInsert(this, wxT("../res/logo.png"),
+                                         wxBITMAP_TYPE_PNG, 300, 600);
 
   // wxBoxSizer *verticalOne = new wxBoxSizer(wxVERTICAL);
   // wxBoxSizer *verticalTwo = new wxBoxSizer(wxVERTICAL);

@@ -26,7 +26,7 @@
 
 #include <vector>
 
-enum Suit { HEARTS, SPADES, CLUBS, DIAMONDS, UNDEFINED };
+enum Suit { HEARTS, SPADES, DIAMONDS, CLUBS, UNDEFINED };
 
 enum Value {
   TWO = 2,

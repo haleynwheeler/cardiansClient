@@ -15,7 +15,6 @@ public:
     wxInitAllImageHandlers();
 
     Simple *mainFrame;
-
     mainFrame = new Simple(wxT("Cardians of the Galaxy"));
 
     mainFrame->Show();
