@@ -21,8 +21,8 @@ mainMenu::mainMenu(wxFrame *parent)
   SetFont(
       wxFont(30, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
 
-  imageInsert *theLogo =
-      new imageInsert(this, wxT("textLogo.png"), wxBITMAP_TYPE_PNG, 100, 200);
+  imageInsert *theLogo = new imageInsert(this, wxT("../res/TextLogo.png"),
+                                         wxBITMAP_TYPE_PNG, 100, 200);
 
   wxButton *heartsLocal =
       new wxButton(this, heartsLocalBtn, wxT("Hearts Local"), wxDefaultPosition,

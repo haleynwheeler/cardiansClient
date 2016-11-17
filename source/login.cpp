@@ -53,11 +53,12 @@ login::login(wxFrame *parent)
 
   SetSizerAndFit(theSizer);
   Center();
+}
 
-  void login::OnNewUser(wxCommandEvent & event) { event.Skip(); }
-  void login::OnLogin(wxCommandEvent & event) { event.Skip(); }
+void login::OnNewUser(wxCommandEvent &event) { event.Skip(); }
+void login::OnLogin(wxCommandEvent &event) { event.Skip(); }
 
-  login::~login() {}
+login::~login() {}
 
-  wxBEGIN_EVENT_TABLE(login, wxPanel) EVT_BUTTON(loginButton, login::OnLogin)
-      EVT_BUTTON(newUserButton, login::OnNewUser) wxEND_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(login, wxPanel) EVT_BUTTON(loginButton, login::OnLogin)
+    EVT_BUTTON(newUserButton, login::OnNewUser) wxEND_EVENT_TABLE()

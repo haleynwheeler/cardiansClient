@@ -16,7 +16,7 @@ Simple::Simple(const wxString &title)
 
   backgroundSizer = new wxBoxSizer(wxHORIZONTAL);
   baseBackground *theBackgroundDrawable = new baseBackground(
-      this, wxT("../../res/background.jpg"), wxBITMAP_TYPE_JPEG);
+      this, wxT("../res/background.jpg"), wxBITMAP_TYPE_JPEG);
   backgroundSizer->Add(theBackgroundDrawable, 1, wxEXPAND);
 
   pageSizer = new wxBoxSizer(wxVERTICAL);
@@ -34,22 +34,24 @@ Simple::Simple(const wxString &title)
   newUserPane = new newUser(this);
   newUserPane->Hide();
 
+  eightsGame = new CrazyEightsGame(this);
+  eightsGame->Hide();
   //  SetSizer(backgroundSizer);
   Centre();
 
   Bind(wxEVT_BUTTON,
        [=](wxCommandEvent &event) {
-         std::cout << "Drew Card" << std::endl;
+         std::cout << "Caught Button" << std::endl;
          buttonText = (wxButton *)event.GetEventObject();
          wxString buttonSwitch = buttonText->GetLabel();
-         std::cout << "this is button text " << buttonSwitch << std::endl;
+         // std::cout << "this is button text " << buttonSwitch << std::endl;
          switchPage(buttonSwitch);
        },
        wxID_ANY);
 }
 
 void Simple::switchPage(wxString buttonSwitch) {
-  std::cout << "WEEEEEEEEEEE";
+
   pageSizer->Detach(0);
   // switch (pageno) {
   // case 1:
@@ -66,9 +68,10 @@ void Simple::switchPage(wxString buttonSwitch) {
 
   // switching to main screen from login button
   if (buttonSwitch == "Login") {
-    std::cout << "HERERERERE";
+    //  std::cout << "HERERERERE";
     loginPane->Hide();
     newUserPane->Hide();
+    // eightsGame->Hide();
     pageSizer->Prepend(mainPane, 1, wxGROW);
     // backgroundSizer->Prepend(theBackgroundDrawable, 1, wxEXPAND);
     mainPane->Show();
@@ -76,6 +79,7 @@ void Simple::switchPage(wxString buttonSwitch) {
     // switch to new user screen from login
     loginPane->Hide();
     mainPane->Hide();
+    // eightsGame->Hide();
     pageSizer->Prepend(newUserPane, 1, wxGROW);
     // backgroundSizer->Prepend(theBackgroundDrawable, 1, wxEXPAND);
     newUserPane->Show();
@@ -83,34 +87,39 @@ void Simple::switchPage(wxString buttonSwitch) {
     // switch to main menu screen from new user
     loginPane->Hide();
     newUserPane->Hide();
+    // eightsGame->Hide();
     pageSizer->Prepend(mainPane, 1, wxGROW);
     //  backgroundSizer->Prepend(theBackgroundDrawable, 1, wxEXPAND);
     mainPane->Show();
   } else if (buttonSwitch == "Hearts Local") {
     loginPane->Hide();
     mainPane->Hide();
+    //  eightsGame->Hide();
     pageSizer->Prepend(newUserPane, 1, wxGROW);
     newUserPane->Show();
   } else if (buttonSwitch == "Hearts Online") {
     loginPane->Hide();
     mainPane->Hide();
+    //  eightsGame->Hide();
     pageSizer->Prepend(newUserPane, 1, wxGROW);
     newUserPane->Show();
   } else if (buttonSwitch == "Eights Local") {
     loginPane->Hide();
     mainPane->Hide();
-    pageSizer->Prepend(newUserPane, 1, wxGROW);
-    newUserPane->Show();
+    newUserPane->Hide();
+    //  pageSizer->Prepend(eightsGame, 1, wxGROW);
+    //  eightsGame->startNewRound();
   } else if (buttonSwitch == "Eights Online") {
     loginPane->Hide();
     mainPane->Hide();
+    //  eightsGame->Hide();
     pageSizer->Prepend(newUserPane, 1, wxGROW);
     newUserPane->Show();
   } else {
     std::cout << "Nothing caught" << std::endl;
   }
 
-  backgroundSizer->Layout();
+  //  backgroundSizer->Layout();
   pageSizer->Layout();
   // backgroundSizer->Layout();
 }
