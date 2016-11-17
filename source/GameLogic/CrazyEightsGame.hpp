@@ -15,6 +15,7 @@ private:
   std::vector<Card> discardPile;
   std::vector<Card> deck;
   Suit suitSpecified;
+  bool roundOver;
   void computersTurn();
   bool checkCardValidity(Card);
   bool removeCardFromHand(Card);

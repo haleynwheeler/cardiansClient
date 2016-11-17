@@ -46,9 +46,13 @@ playerCard::playerCard(wxWindow *parent, Card *theCards, wxSize size,
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, size, wxTAB_TRAVERSAL,
               wxPanelNameStr) {
 
+  theCard = new Card(theCards->getSuit(), theCards->getValue());
+
   wxBoxSizer *background = new wxBoxSizer(wxHORIZONTAL);
   wxString bgImagePath =
-      wxString::Format(wxT("../res/%i.png"), size.GetWidth());
+      wxString::Format(wxT("../res/CardFaces/%i_of_%i.png"),
+                       theCard->getValue(), theCard->getSuit());
+  //    wxString::Format(wxT("../res/%i.png"), size.GetWidth());
   bgImage = new imageInsert(this, bgImagePath, wxBITMAP_TYPE_PNG,
                             size.GetHeight(), size.GetWidth());
   background->Add(bgImage);
@@ -60,22 +64,19 @@ playerCard::playerCard(wxWindow *parent, Card *theCards, wxSize size,
   cardSizer->SetMinSize(size);
   cardSizer->AddSpacer(10);
 
-  theCard = new Card(theCards->getSuit(), theCards->getValue());
+  // wxString suitPath = wxString::Format(wxT("../res/%i.png"),
+  // theCard->getSuit());
+  // imageInsert *suitImage = new imageInsert(this, suitPath, wxBITMAP_TYPE_PNG,
+  // 20, 20);
 
-  wxString suitPath =
-      wxString::Format(wxT("../res/%i.png"), theCard->getSuit());
-  imageInsert *suitImage =
-      new imageInsert(this, suitPath, wxBITMAP_TYPE_PNG, 20, 20);
-
-  wxString cardValue = wxString::Format(wxT("%i"), theCard->getValue());
-  wxStaticText *cardFront =
-      new wxStaticText(this, wxID_ANY, cardValue, wxDefaultPosition,
-                       wxDefaultSize, wxALIGN_CENTRE);
-  wxFont font = cardFront->GetFont();
-  font.SetPointSize(20);
-  cardFront->SetFont(font);
-  cardSizer->Add(suitImage);
-  cardSizer->Add(cardFront, wxALIGN_CENTRE);
+  // wxString cardValue = wxString::Format(wxT("%i"), theCard->getValue());
+  // wxStaticText *cardFront = new wxStaticText(this, wxID_ANY, cardValue,
+  // wxDefaultPosition, wxDefaultSize, wxALIGN_CENTRE);
+  // wxFont font = cardFront->GetFont();
+  // font.SetPointSize(20);
+  // cardFront->SetFont(font);
+  // cardSizer->Add(suitImage);
+  // cardSizer->Add(cardFront, wxALIGN_CENTRE);
 
   this->SetSizerAndFit(cardSizer);
 }

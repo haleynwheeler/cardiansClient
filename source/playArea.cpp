@@ -47,7 +47,7 @@ playArea::playArea(wxFrame *parent)
         new playerCard(this->GetParent(), dummyCard, wxSize(80, 120), 14);
     handCards.push_back(card);
     yourHand->Add(card);
-    if (i >= thePlayerHandSize) {
+    if (i >= thePlayerHandSize - 1) {
       yourHand->Hide(i);
     }
   }
@@ -59,7 +59,7 @@ playArea::playArea(wxFrame *parent)
     playerCard *card = new playerCard(this->GetParent(), 2, cardBackType,
                                       wxSize(100, 20), false);
     playerOne->Add(card);
-    if (i >= playerOneHandSize) {
+    if (i >= playerOneHandSize - 1) {
       playerOne->Hide(i);
     }
   }
@@ -71,7 +71,7 @@ playArea::playArea(wxFrame *parent)
     playerCard *card = new playerCard(this->GetParent(), 3, cardBackType,
                                       wxSize(20, 100), false);
     playerTwo->Add(card);
-    if (i >= playerTwoHandSize) {
+    if (i >= playerTwoHandSize - 1) {
       playerTwo->Hide(i);
     }
   }
@@ -83,7 +83,7 @@ playArea::playArea(wxFrame *parent)
     playerCard *card = new playerCard(this->GetParent(), 4, cardBackType,
                                       wxSize(100, 20), false);
     playerThree->Add(card);
-    if (i >= playerThreeHandSize) {
+    if (i >= playerThreeHandSize - 1) {
       playerThree->Hide(i);
     }
   }
@@ -129,9 +129,10 @@ void playArea::setMadeMoveFunction(std::function<void(Card)> f) {
 void playArea::playerZero(std::vector<Card> hand) {
   yourHand->Clear(true);
   handCards.clear();
-  std::cout << "My hand is of size: " << handCards.size() << std::endl;
-  // for (int i = 1; i < hand.size(); i++) {
+  std::cout << "My hand: " << std::endl;
   for (auto &&handCard : hand) {
+    std::cout << handCard.getValue() << " of " << handCard.getSuit()
+              << std::endl;
     Card *temp = new Card(handCard.getSuit(), handCard.getValue());
     playerCard *card =
         new playerCard(this->GetParent(), temp, wxSize(80, 120), 14);
@@ -143,13 +144,15 @@ void playArea::playerZero(std::vector<Card> hand) {
   theMainSizer->Layout();
 }
 
-void playArea::playerAi(int playerId, std::vector<Card> hand) {
+void playArea::playerAi(int playerId, int handSize) {
+  std::cout << "Player " << playerId << " has " << handSize << " cards."
+            << std::endl;
   switch (playerId) {
   case 1:
     playerOne->Show(this, false, true);
     playerOne->ShowItems(true);
-    for (int i = 1; i < 13; i++) {
-      if (i >= hand.size()) {
+    for (int i = 0; i < 13; i++) {
+      if (i >= handSize - 1) {
         playerOne->Hide(i);
       }
     }
@@ -158,8 +161,8 @@ void playArea::playerAi(int playerId, std::vector<Card> hand) {
   case 2:
     playerTwo->Show(this, false, true);
     playerTwo->ShowItems(true);
-    for (int i = 1; i < 13; i++) {
-      if (i >= hand.size()) {
+    for (int i = 0; i < 13; i++) {
+      if (i >= handSize - 1) {
         playerTwo->Hide(i);
       }
     }
@@ -168,8 +171,8 @@ void playArea::playerAi(int playerId, std::vector<Card> hand) {
   case 3:
     playerThree->Show(this, false, true);
     playerThree->ShowItems(true);
-    for (int i = 1; i < 13; i++) {
-      if (i >= hand.size()) {
+    for (int i = 0; i < 13; i++) {
+      if (i >= handSize - 1) {
         playerThree->Hide(i);
       }
     }
@@ -178,6 +181,37 @@ void playArea::playerAi(int playerId, std::vector<Card> hand) {
   theMainSizer->Layout();
   this->Refresh();
   this->Update();
+}
+
+void playArea::initializePlayArea(std::vector<Card> humanHand,
+                                  Card topOfDiscardPile) {
+  Freeze();
+  int cardBackType = 14;
+  playerZero(humanHand);
+  for (int i = 1; i < 4; i++) {
+    playerAi(i, humanHand.size());
+  }
+  verticalfieldArea->Clear(true);
+  fieldArea = new wxBoxSizer(wxHORIZONTAL);
+  verticalfieldArea->AddSpacer(180);
+  Deck =
+      new playerCard(this->GetParent(), cardBackType, wxSize(80, 120), FALSE);
+  Deck->setDrewCardFunction(humanDrewCard);
+  fieldArea->Add(Deck);
+  Card *tempest =
+      new Card(topOfDiscardPile.getSuit(), topOfDiscardPile.getValue());
+  playerCard *Discard =
+      new playerCard(this->GetParent(), tempest, wxSize(80, 120), 14);
+  std::cout << tempest->getSuit() << "." << tempest->getValue() << std::endl;
+  fieldArea->Add(Discard);
+  verticalfieldArea->Add(fieldArea);
+  verticalfieldArea->AddSpacer(180);
+  verticalfieldArea->Layout();
+  middlePortion->Layout();
+  theMainSizer->Layout();
+  this->Refresh();
+  this->Update();
+  Thaw();
 }
 
 void playArea::updatePlayArea(int playerId, std::vector<Card> hand,
@@ -191,7 +225,7 @@ void playArea::updatePlayArea(int playerId, std::vector<Card> hand,
   case 1:
   case 2:
   case 3:
-    playerAi(playerId, hand);
+    playerAi(playerId, hand.size());
     std::cout << "Computer Played" << std::endl;
     break;
   }
@@ -238,9 +272,13 @@ Suit playArea::userPickSuitDialog() {
   choices.Add("Diamonds");
   wxString title("Pick a Suit");
   wxSingleChoiceDialog dialog(NULL, title, title, choices);
-  dialog.ShowModal();
-  int choice = dialog.GetSelection();
-  return static_cast<Suit>(choice);
+  auto yes = dialog.ShowModal();
+  if (yes == wxID_OK) {
+    int choice = dialog.GetSelection();
+    return static_cast<Suit>(choice);
+  } else {
+    return UNDEFINED;
+  }
 }
 
 void playArea::aiPickedSuitDialog(Suit suitSpecified) {

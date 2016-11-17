@@ -37,11 +37,12 @@ class playArea : public wxPanel {
 public:
   playArea(wxFrame *parent);
   ~playArea();
+  void initializePlayArea(std::vector<Card> humanHand, Card topOfDiscardPile);
   void updatePlayArea(int playerId, std::vector<Card> hand, bool deckEmpty,
                       Card topOfDiscardPile);
 
   void playerZero(std::vector<Card> hand);
-  void playerAi(int playerId, std::vector<Card> hand);
+  void playerAi(int playerId, int handSize);
 
   void invalidMoveDialog();
   Suit userPickSuitDialog();
