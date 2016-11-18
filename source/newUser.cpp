@@ -53,13 +53,7 @@ newUser::newUser(wxFrame *parent)
   // wxDECLARE_EVENT_TABLE();
 }
 
-void newUser::OnNewUser(wxCommandEvent &event) {
-  wxString usernameVal = usernameText->GetValue();
-  wxString passwordVal = passwordText->GetValue();
-  wxString userPass = "Creating new user with values: \nUsername: " +
-                      usernameVal + "\n Password: " + passwordVal;
-  wxMessageBox(userPass);
-}
+void newUser::OnNewUser(wxCommandEvent &event) { event.Skip(); }
 
 newUser::~newUser() {}
 

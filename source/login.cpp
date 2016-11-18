@@ -32,9 +32,11 @@ login::login(wxFrame *parent)
   login->SetForegroundColour(wxColour(wxT("WHITE")));
 
   passwordText = new wxTextCtrl(this, 0, "Password", wxDefaultPosition);
-  wxButton *user = new wxButton(this, newUserButton, wxT("Create New User"),
-                                wxDefaultPosition, wxSize(200, 100), 0,
-                                wxDefaultValidator, wxButtonNameStr);
+
+  wxButton *user =
+      new wxButton(this, newUserButton, wxT("New User"), wxDefaultPosition,
+                   wxSize(200, 100), 0, wxDefaultValidator, wxButtonNameStr);
+
   verticalTwo->Add(passwordText);
   verticalTwo->Add(user);
 
@@ -51,26 +53,10 @@ login::login(wxFrame *parent)
 
   SetSizerAndFit(theSizer);
   Center();
-
-  // wxDECLARE_EVENT_TABLE();
 }
 
-void login::OnNewUser(wxCommandEvent &event) {
-  wxString usernameVal = usernameText->GetValue();
-  wxString passwordVal = passwordText->GetValue();
-  wxString userPass = "New User Button Pressed. \nUsername: " + usernameVal +
-                      "\n Password: " + passwordVal;
-  wxMessageBox(userPass);
-  // wxMessageDialog dialog(NULL, "new user click", "wxButton Click");
-  // dialog.ShowModal();
-}
-void login::OnLogin(wxCommandEvent &event) {
-  wxString usernameVal = usernameText->GetValue();
-  wxString passwordVal = passwordText->GetValue();
-  wxString userPass = "Login Button Pressed. \nUsername: " + usernameVal +
-                      "\n Password: " + passwordVal;
-  wxMessageBox(userPass);
-}
+void login::OnNewUser(wxCommandEvent &event) { event.Skip(); }
+void login::OnLogin(wxCommandEvent &event) { event.Skip(); }
 
 login::~login() {}
 

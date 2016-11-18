@@ -42,7 +42,9 @@ set(SRCS main.cpp
     newUser.cpp newUser.h
     playArea.cpp playArea.h
     playerCard.cpp playerCard.h
-    heartsArea.cpp heartsArea.h)
+    heartsArea.cpp heartsArea.h
+    Simple.cpp Simple.h
+    mainMenu.cpp mainMenu.h)
 
 add_subdirectory(GameLogic)
 
