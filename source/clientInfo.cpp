@@ -17,7 +17,7 @@ wxSize clientInfo::getClientScreenSize() {
 }
 
 wxSize clientInfo::getLargeCardSize() {
-  return wxSize((clientScreenSize->GetWidth() / 6), 100);
+  return wxSize((clientScreenSize->GetWidth() / 6), 120);
 }
 
 wxSize clientInfo::getSmallCardSize() { return wxSize(100, 20); }
