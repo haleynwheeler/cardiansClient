@@ -193,6 +193,8 @@ void playArea::playerAi(int playerId, int handSize) {
 
 void playArea::initializePlayArea(std::vector<Card> humanHand,
                                   Card topOfDiscardPile) {
+
+  std::cout << "Creating area" << std::endl;
   Show();
   Freeze();
   int cardBackType = 14;
@@ -218,10 +220,15 @@ void playArea::initializePlayArea(std::vector<Card> humanHand,
   // playerOne->ShowItems(true);
   // playerTwo->ShowItems(true);
   // playerThree->ShowItems(true);
+
   verticalfieldArea->Add(fieldArea);
   verticalfieldArea->AddSpacer(180);
   verticalfieldArea->Layout();
   middlePortion->Layout();
+  yourHand->Layout();
+  playerOne->Layout();
+  playerTwo->Layout();
+  playerThree->Layout();
   theMainSizer->Layout();
   this->Refresh();
   this->Update();
