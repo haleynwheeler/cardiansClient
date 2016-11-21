@@ -6,6 +6,7 @@
 class HeartsGame : public Game {
 public:
   HeartsGame(wxFrame *);
+  playArea *getGui() { return gui; };
 
 private:
   int playerLeadingTrick;

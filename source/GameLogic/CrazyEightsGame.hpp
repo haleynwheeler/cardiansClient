@@ -28,4 +28,14 @@ private:
 public:
   CrazyEightsGame(wxFrame *);
   void startNewRound();
+  void showGame() {
+    gui->Show(true);
+    return;
+  };
+  void hideGame() {
+    gui->hideTheField();
+    std::cout << "This is pointer" << gui << std::endl;
+    return;
+  };
+  playArea *getGui() { return gui; };
 };

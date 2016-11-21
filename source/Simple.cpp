@@ -27,24 +27,25 @@ Simple::Simple(const wxString &title)
   pageSizer->Add(loginPane, 1, wxGROW);
 
   // page 2
-  mainPane = new mainMenu(this);
-  mainPane->Hide();
-
-  // page 3
   newUserPane = new newUser(this);
+  pageSizer->Add(newUserPane, 1, wxGROW);
   newUserPane->Hide();
 
-  eightsGame = new CrazyEightsGame(this);
+  // page 3
+  mainPane = new mainMenu(this);
+  pageSizer->Add(mainPane, 1, wxGROW);
+  mainPane->Hide();
 
+  // eightsGame = new CrazyEightsGame(this);
+  // eightsGame->getGui()->Show(false);
   //  SetSizer(backgroundSizer);
   Centre();
 
   Bind(wxEVT_BUTTON,
        [=](wxCommandEvent &event) {
-         std::cout << "Caught Button" << std::endl;
          buttonText = (wxButton *)event.GetEventObject();
          wxString buttonSwitch = buttonText->GetLabel();
-         // std::cout << "this is button text " << buttonSwitch << std::endl;
+         std::cout << buttonSwitch << std::endl;
          switchPage(buttonSwitch);
        },
        wxID_ANY);
@@ -52,7 +53,7 @@ Simple::Simple(const wxString &title)
 
 void Simple::switchPage(wxString buttonSwitch) {
 
-  pageSizer->Detach(0);
+  pageSizer->ShowItems(false);
   // switch (pageno) {
   // case 1:
   //   loginPane->Hide();
@@ -68,55 +69,37 @@ void Simple::switchPage(wxString buttonSwitch) {
 
   // switching to main screen from login button
   if (buttonSwitch == "Login") {
-    //  std::cout << "HERERERERE";
-    loginPane->Hide();
-    newUserPane->Hide();
-    // eightsGame->Hide();
-    pageSizer->Prepend(mainPane, 1, wxGROW);
-    // backgroundSizer->Prepend(theBackgroundDrawable, 1, wxEXPAND);
-    mainPane->Show();
+    pageSizer->Show(2, true);
+
   } else if (buttonSwitch == "New User") {
-    // switch to new user screen from login
-    loginPane->Hide();
-    mainPane->Hide();
-    // eightsGame->Hide();
-    pageSizer->Prepend(newUserPane, 1, wxGROW);
-    // backgroundSizer->Prepend(theBackgroundDrawable, 1, wxEXPAND);
-    newUserPane->Show();
+    // // switch to new user screen from login
+    pageSizer->Show(2, true);
+    // pageSizer->Prepend(newUserPane, 1, wxGROW);
+    // // backgroundSizer->Prepend(theBackgroundDrawable, 1, wxEXPAND);
+    // newUserPane->Show();
+
   } else if (buttonSwitch == "Create New User") {
     // switch to main menu screen from new user
-    loginPane->Hide();
-    newUserPane->Hide();
-    // eightsGame->Hide();
-    pageSizer->Prepend(mainPane, 1, wxGROW);
-    //  backgroundSizer->Prepend(theBackgroundDrawable, 1, wxEXPAND);
-    mainPane->Show();
+    pageSizer->Show(1, true);
+
   } else if (buttonSwitch == "Hearts Local") {
-    loginPane->Hide();
-    mainPane->Hide();
-    //  eightsGame->Hide();
-    pageSizer->Prepend(newUserPane, 1, wxGROW);
-    newUserPane->Show();
+    eightsGame = new CrazyEightsGame(this);
+    pageSizer->Prepend(eightsGame->getGui(), 1, wxGROW);
+
   } else if (buttonSwitch == "Hearts Online") {
-    loginPane->Hide();
-    mainPane->Hide();
-    //  eightsGame->Hide();
-    pageSizer->Prepend(newUserPane, 1, wxGROW);
-    newUserPane->Show();
+    pageSizer->Show(1, true);
+
   } else if (buttonSwitch == "Eights Local") {
-    loginPane->Hide();
-    mainPane->Hide();
-    newUserPane->Hide();
-    //  pageSizer->Prepend(eightsGame, 1, wxGROW);
-    eightsGame->startNewRound();
+    heartsGame = new HeartsGame(this);
+    pageSizer->Prepend(heartsGame->getGui(), 1, wxGROW);
+
   } else if (buttonSwitch == "Eights Online") {
-    loginPane->Hide();
-    mainPane->Hide();
-    //  eightsGame->Hide();
-    pageSizer->Prepend(newUserPane, 1, wxGROW);
-    newUserPane->Show();
+    pageSizer->Show(1, true);
+
   } else {
-    std::cout << "Nothing caught" << std::endl;
+    eightsGame->hideGame();
+    std::cout << "MainScreen" << std::endl;
+    pageSizer->Show(mainPane, true, true);
   }
 
   //  backgroundSizer->Layout();
