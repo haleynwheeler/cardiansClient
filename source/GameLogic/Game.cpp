@@ -40,3 +40,7 @@ void Game::showScores() {
     startNewRound();
   }
 }
+
+void Game::showGame() { gui->Show(true); }
+
+void Game::hideGame() { std::cout << "This is pointer" << gui << std::endl; }

@@ -28,7 +28,8 @@ protected:
 
 public:
   Game(wxFrame *);
-  // void onButton(wxCommandEvent &event);
+  void showGame();
+  void hideGame();
 };
 
 #endif
