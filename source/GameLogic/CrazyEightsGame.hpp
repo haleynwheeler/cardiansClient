@@ -33,7 +33,7 @@ public:
     return;
   };
   void hideGame() {
-    gui->hideTheField();
+    // gui->hideTheField();
     std::cout << "This is pointer" << gui << std::endl;
     return;
   };
