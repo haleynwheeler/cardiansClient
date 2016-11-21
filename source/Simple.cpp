@@ -1,5 +1,6 @@
 #include "Simple.h"
 #include "button.h"
+#include "heartsArea.h"
 
 #include <wx/sizer.h>
 
@@ -37,8 +38,9 @@ Simple::Simple(const wxString &title)
   mainPane->Hide();
 
   // eightsGame = new CrazyEightsGame(this);
-  // eightsGame->getGui()->Show(false);
-  //  SetSizer(backgroundSizer);
+  // pageSizer->Add(mainPane, 1, wxGROW);
+  // eightsGame->getGui()->Hide();
+  // //  SetSizer(backgroundSizer);
   Centre();
 
   Bind(wxEVT_BUTTON,
@@ -54,18 +56,6 @@ Simple::Simple(const wxString &title)
 void Simple::switchPage(wxString buttonSwitch) {
 
   pageSizer->ShowItems(false);
-  // switch (pageno) {
-  // case 1:
-  //   loginPane->Hide();
-  //   pageSizer->Prepend(mainPane, 1, wxGROW);
-  //   mainPane->Show();
-  //   break;
-  // case 2:
-  //   mainPane->Hide();
-  //   pageSizer->Prepend(loginPane, 1, wxGROW);
-  //   loginPane->Show();
-  //   break;
-  // }
 
   // switching to main screen from login button
   if (buttonSwitch == "Login") {
@@ -73,7 +63,7 @@ void Simple::switchPage(wxString buttonSwitch) {
 
   } else if (buttonSwitch == "New User") {
     // // switch to new user screen from login
-    pageSizer->Show(2, true);
+    pageSizer->Show(1, true);
     // pageSizer->Prepend(newUserPane, 1, wxGROW);
     // // backgroundSizer->Prepend(theBackgroundDrawable, 1, wxEXPAND);
     // newUserPane->Show();
@@ -83,15 +73,15 @@ void Simple::switchPage(wxString buttonSwitch) {
     pageSizer->Show(1, true);
 
   } else if (buttonSwitch == "Hearts Local") {
-    eightsGame = new CrazyEightsGame(this);
-    pageSizer->Prepend(eightsGame->getGui(), 1, wxGROW);
+    heartsArea *hField = new heartsArea(this);
+    pageSizer->Prepend(hField, 1, wxGROW);
 
   } else if (buttonSwitch == "Hearts Online") {
     pageSizer->Show(1, true);
 
   } else if (buttonSwitch == "Eights Local") {
-    heartsGame = new HeartsGame(this);
-    pageSizer->Prepend(heartsGame->getGui(), 1, wxGROW);
+    eightsGame = new CrazyEightsGame(this);
+    pageSizer->Prepend(eightsGame->getGui(), 1, wxGROW);
 
   } else if (buttonSwitch == "Eights Online") {
     pageSizer->Show(1, true);
