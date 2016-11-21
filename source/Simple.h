@@ -2,6 +2,7 @@
 #define SIMPLE_H
 
 #include "GameLogic/CrazyEightsGame.hpp"
+#include "GameLogic/HeartsGame.hpp"
 #include "baseBackground.h"
 #include "imageInsert.h"
 #include "login.h"
@@ -22,6 +23,7 @@ public:
   wxButton *buttonText;
   newUser *newUserPane;
   CrazyEightsGame *eightsGame;
+  HeartsGame *heartsGame;
 };
 
 #endif
