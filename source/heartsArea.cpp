@@ -198,10 +198,10 @@ void heartsArea::initializePlayArea(std::vector<Card> hand) {
   playerAi(1, hand);
   playerAi(2, hand);
   playerAi(3, hand);
-  playerZeroChoice->Hide();
-  playerOneChoice->Hide();
-  playerTwoChoice->Hide();
-  playerThreeChoice->Hide();
+  // playerZeroChoice->Hide();
+  // playerOneChoice->Hide();
+  // playerTwoChoice->Hide();
+  // playerThreeChoice->Hide();
   this->Refresh();
   this->Update();
 }
@@ -223,34 +223,45 @@ void heartsArea::updatePlayArea(int playerId, std::vector<Card> hand,
 void heartsArea::updateMiddleCards(std::array<Card, 4> centerPile) {
   if (centerPile[0].getSuit() == UNDEFINED) {
     playerZeroChoice->Hide();
+    std::cout << "Hasn't played" << std::endl;
   } else {
-    Card *tempest = new Card(centerPile[0].getSuit(), centerPile[0].getValue());
-    playerZeroChoice =
-        new playerCard(this->GetParent(), tempest, wxSize(70, 100), 14);
+    playerZeroChoice->Show();
+    // Card *tempest = new Card(centerPile[0].getSuit(),
+    // centerPile[0].getValue());
+    // playerZeroChoice =
+    // new playerCard(this->GetParent(), tempest, wxSize(70, 100), 14);
+    playerZeroChoice->updateCard(centerPile[0]);
+    playerZeroChoice->Layout();
   }
 
   if (centerPile[1].getSuit() == UNDEFINED) {
     playerOneChoice->Hide();
+    std::cout << "Hasn't played" << std::endl;
+
   } else {
-    Card *tempest = new Card(centerPile[1].getSuit(), centerPile[1].getValue());
-    playerOneChoice =
-        new playerCard(this->GetParent(), tempest, wxSize(100, 70), 14);
+    playerOneChoice->Show();
+    playerOneChoice->updateCard(centerPile[1]);
+    playerOneChoice->Layout();
   }
 
   if (centerPile[2].getSuit() == UNDEFINED) {
     playerTwoChoice->Hide();
+    std::cout << "Hasn't played" << std::endl;
+
   } else {
-    Card *tempest = new Card(centerPile[2].getSuit(), centerPile[2].getValue());
-    playerTwoChoice =
-        new playerCard(this->GetParent(), tempest, wxSize(70, 100), 14);
+    playerTwoChoice->Show();
+    playerTwoChoice->updateCard(centerPile[2]);
+    playerTwoChoice->Layout();
   }
 
   if (centerPile[3].getSuit() == UNDEFINED) {
     playerThreeChoice->Hide();
+    std::cout << "Hasn't played" << std::endl;
+
   } else {
-    Card *tempest = new Card(centerPile[3].getSuit(), centerPile[3].getValue());
-    playerThreeChoice =
-        new playerCard(this->GetParent(), tempest, wxSize(100, 70), 14);
+    playerThreeChoice->Show();
+    playerThreeChoice->updateCard(centerPile[3]);
+    playerThreeChoice->Layout();
   }
 
   leftFieldArea->Layout();

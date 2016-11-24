@@ -6,7 +6,7 @@ playerCard::playerCard(wxWindow *parent, int direction, int bgType, wxSize size,
                        bool fullCard)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, size, wxTAB_TRAVERSAL,
               wxPanelNameStr) {
-  wxBoxSizer *background = new wxBoxSizer(wxHORIZONTAL);
+  background = new wxBoxSizer(wxHORIZONTAL);
   wxString bgImagePath;
   if (fullCard) {
     bgImagePath =
@@ -27,7 +27,7 @@ playerCard::playerCard(wxWindow *parent, int bgType, wxSize size,
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, size, wxTAB_TRAVERSAL,
               wxPanelNameStr) {
 
-  wxBoxSizer *background = new wxBoxSizer(wxHORIZONTAL);
+  background = new wxBoxSizer(wxHORIZONTAL);
   wxString bgImagePath;
   if (deckEmpty) {
     bgImagePath = wxString::Format(wxT("../res/CardBacks/%i/0.png"), bgType);
@@ -48,35 +48,19 @@ playerCard::playerCard(wxWindow *parent, Card *theCards, wxSize size,
 
   theCard = new Card(theCards->getSuit(), theCards->getValue());
 
-  wxBoxSizer *background = new wxBoxSizer(wxHORIZONTAL);
+  background = new wxBoxSizer(wxHORIZONTAL);
   wxString bgImagePath =
       wxString::Format(wxT("../res/CardFaces/%i_of_%i.png"),
                        theCard->getValue(), theCard->getSuit());
-  //    wxString::Format(wxT("../res/%i.png"), size.GetWidth());
   bgImage = new imageInsert(this, bgImagePath, wxBITMAP_TYPE_PNG,
                             size.GetHeight(), size.GetWidth());
   background->Add(bgImage);
   background->SetMinSize(size);
-  // background->SetItemMinSize(0,size);
 
   cardSizer = new wxBoxSizer(wxVERTICAL);
   cardHorizontalSizer = new wxBoxSizer(wxHORIZONTAL);
   cardSizer->SetMinSize(size);
   cardSizer->AddSpacer(10);
-
-  // wxString suitPath = wxString::Format(wxT("../res/%i.png"),
-  // theCard->getSuit());
-  // imageInsert *suitImage = new imageInsert(this, suitPath, wxBITMAP_TYPE_PNG,
-  // 20, 20);
-
-  // wxString cardValue = wxString::Format(wxT("%i"), theCard->getValue());
-  // wxStaticText *cardFront = new wxStaticText(this, wxID_ANY, cardValue,
-  // wxDefaultPosition, wxDefaultSize, wxALIGN_CENTRE);
-  // wxFont font = cardFront->GetFont();
-  // font.SetPointSize(20);
-  // cardFront->SetFont(font);
-  // cardSizer->Add(suitImage);
-  // cardSizer->Add(cardFront, wxALIGN_CENTRE);
 
   this->SetSizerAndFit(cardSizer);
 }
@@ -104,4 +88,18 @@ void playerCard::setMoveFunction(std::function<void(Card)> humanMadeMove) {
                   humanMadeMove(Card(theCard->getSuit(), theCard->getValue()));
                 },
                 wxID_ANY);
+}
+
+void playerCard::updateCard(Card c) {
+  theCard = new Card(c.getSuit(), c.getValue());
+  wxString bgImagePath =
+      wxString::Format(wxT("../res/CardFaces/%i_of_%i.png"),
+                       theCard->getValue(), theCard->getSuit());
+  bgImage =
+      new imageInsert(this, bgImagePath, wxBITMAP_TYPE_PNG,
+                      this->GetSize().GetHeight(), this->GetSize().GetWidth());
+  background->Clear(true);
+  background->Add(bgImage);
+  Update();
+  Refresh();
 }

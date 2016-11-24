@@ -39,6 +39,7 @@ void HeartsGame::startNewTrick(int startingPlayer) {
   for (auto &&card : centerPile) {
     card = Card();
   }
+  gui->updatePlayArea(turn, players[turn].getHand(), centerPile);
   if (turn > 0) {
     computersTurn();
   }
