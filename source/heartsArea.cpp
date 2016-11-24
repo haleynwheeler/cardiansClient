@@ -16,7 +16,7 @@ heartsArea::heartsArea(wxFrame *parent)
   heightLeft -= 850;
 
   thePlayerHandSize = playerOneHandSize = playerTwoHandSize =
-      playerThreeHandSize = 11;
+      playerThreeHandSize = 13;
 
   upperPortion = new wxBoxSizer(wxHORIZONTAL);
   middlePortion = new wxBoxSizer(wxHORIZONTAL);
@@ -75,7 +75,7 @@ heartsArea::heartsArea(wxFrame *parent)
   playerCard *card2 =
       new playerCard(this->GetParent(), 4, cardBackType, wxSize(100, 70));
   playerThree->Add(card2);
-  for (int i = 0; i < 13; i++) {
+  for (int i = 0; i < 12; i++) {
     playerCard *card = new playerCard(this->GetParent(), 4, cardBackType,
                                       wxSize(100, 20), false);
     playerThree->Add(card);
@@ -103,7 +103,7 @@ heartsArea::heartsArea(wxFrame *parent)
   midFieldArea->AddSpacer(10);
 
   rightFieldArea->AddSpacer(180);
-  rightFieldArea->Add(playerThreeChoice);
+  rightFieldArea->Add(playerThreeChoice, wxALIGN_RIGHT);
   rightFieldArea->AddSpacer(180);
 
   fieldArea->Add(leftFieldArea);
@@ -135,10 +135,6 @@ heartsArea::heartsArea(wxFrame *parent)
   SetSizerAndFit(theMainSizer);
 }
 
-// void heartsArea::setDrewCardFunction(std::function<void()> f) {
-//   humanDrewCard = f;
-// }
-
 void heartsArea::setMadeMoveFunction(std::function<void(Card)> f) {
   humanMadeMove = f;
 }
@@ -146,7 +142,6 @@ void heartsArea::setMadeMoveFunction(std::function<void(Card)> f) {
 void heartsArea::playerZero(std::vector<Card> hand) {
   yourHand->Clear(true);
   handCards.clear();
-  std::cout << "My hand is of size: " << handCards.size() << std::endl;
   for (auto &&handCard : hand) {
     Card *temp = new Card(handCard.getSuit(), handCard.getValue());
     playerCard *card =
@@ -164,7 +159,7 @@ void heartsArea::playerAi(int playerId, std::vector<Card> hand) {
   case 1:
     playerOne->Show(this, false, true);
     playerOne->ShowItems(true);
-    for (int i = 1; i < 13; i++) {
+    for (int i = 0; i < 13; i++) {
       if (i >= hand.size()) {
         playerOne->Hide(i);
       }
@@ -174,7 +169,7 @@ void heartsArea::playerAi(int playerId, std::vector<Card> hand) {
   case 2:
     playerTwo->Show(this, false, true);
     playerTwo->ShowItems(true);
-    for (int i = 1; i < 13; i++) {
+    for (int i = 0; i < 13; i++) {
       if (i >= hand.size()) {
         playerTwo->Hide(i);
       }
@@ -184,7 +179,7 @@ void heartsArea::playerAi(int playerId, std::vector<Card> hand) {
   case 3:
     playerThree->Show(this, false, true);
     playerThree->ShowItems(true);
-    for (int i = 1; i < 13; i++) {
+    for (int i = 0; i < 13; i++) {
       if (i >= hand.size()) {
         playerThree->Hide(i);
       }
@@ -196,12 +191,118 @@ void heartsArea::playerAi(int playerId, std::vector<Card> hand) {
   this->Update();
 }
 
-void heartsArea::updatePlayArea(int playerId, std::vector<Card> hand) {}
+void heartsArea::initializePlayArea(std::vector<Card> hand) {
+  std::cout << "initializePlayArea" << std::endl;
+  int cardBackType = 14;
+  playerZero(hand);
+  playerAi(1, hand);
+  playerAi(2, hand);
+  playerAi(3, hand);
+  // playerZeroChoice->Hide();
+  // playerOneChoice->Hide();
+  // playerTwoChoice->Hide();
+  // playerThreeChoice->Hide();
+  this->Refresh();
+  this->Update();
+}
+
+void heartsArea::updatePlayArea(int playerId, std::vector<Card> hand,
+                                std::array<Card, 4> centerPile) {
+  std::cout << "Updating play area" << std::endl;
+  if (playerId == 0) {
+    playerZero(hand);
+  } else {
+    playerAi(playerId, hand);
+  }
+  updateMiddleCards(centerPile);
+  theMainSizer->Layout();
+  this->Refresh();
+  this->Update();
+}
+
+void heartsArea::updateMiddleCards(std::array<Card, 4> centerPile) {
+  if (centerPile[0].getSuit() == UNDEFINED) {
+    playerZeroChoice->Hide();
+    std::cout << "Hasn't played" << std::endl;
+  } else {
+    playerZeroChoice->Show();
+    // Card *tempest = new Card(centerPile[0].getSuit(),
+    // centerPile[0].getValue());
+    // playerZeroChoice =
+    // new playerCard(this->GetParent(), tempest, wxSize(70, 100), 14);
+    playerZeroChoice->updateCard(centerPile[0]);
+    playerZeroChoice->Layout();
+  }
+
+  if (centerPile[1].getSuit() == UNDEFINED) {
+    playerOneChoice->Hide();
+    std::cout << "Hasn't played" << std::endl;
+
+  } else {
+    playerOneChoice->Show();
+    playerOneChoice->updateCard(centerPile[1]);
+    playerOneChoice->Layout();
+  }
+
+  if (centerPile[2].getSuit() == UNDEFINED) {
+    playerTwoChoice->Hide();
+    std::cout << "Hasn't played" << std::endl;
+
+  } else {
+    playerTwoChoice->Show();
+    playerTwoChoice->updateCard(centerPile[2]);
+    playerTwoChoice->Layout();
+  }
+
+  if (centerPile[3].getSuit() == UNDEFINED) {
+    playerThreeChoice->Hide();
+    std::cout << "Hasn't played" << std::endl;
+
+  } else {
+    playerThreeChoice->Show();
+    playerThreeChoice->updateCard(centerPile[3]);
+    playerThreeChoice->Layout();
+  }
+
+  leftFieldArea->Layout();
+  midFieldArea->Layout();
+  rightFieldArea->Layout();
+}
+
+std::vector<Card> heartsArea::requestCardsPassed(std::vector<Card> hand) {
+  wxArrayString choices;
+  std::vector<Card> selection;
+  for (auto &&card : hand) {
+    std::string c = std::to_string(card.getValue()) + " of " +
+                    std::to_string(card.getSuit());
+    choices.Add(c);
+  }
+  wxString title("Pick 3 Cards to Pass");
+  wxMultiChoiceDialog dialog(NULL, title, title, choices);
+  auto yes = dialog.ShowModal();
+  if (yes == wxID_OK) {
+    auto choices = dialog.GetSelections();
+    int numChoices = 0;
+    for (auto &&c : choices) {
+      std::cout << "Picked: " << hand[c].getValue() << " of "
+                << hand[c].getSuit() << std::endl;
+      selection.push_back(hand[c]);
+      numChoices++;
+    }
+    if (numChoices == 3) {
+      return selection;
+    } else {
+      return requestCardsPassed(hand);
+    }
+  } else {
+    return requestCardsPassed(hand);
+  }
+}
 
 void heartsArea::invalidMoveDialog() {
-  wxMessageDialog dialog(NULL, "You played an invalid card. You must match "
-                               "either the suit or the value of the card at "
-                               "the top of the discard pile. Please try again.",
+  wxMessageDialog dialog(NULL, "You played an invalid card. If possible, you "
+                               "must match the suit of the card lead. Please "
+                               "try again.",
                          "Invalid Move", wxICON_EXCLAMATION);
   dialog.ShowModal();
 }

@@ -12,6 +12,7 @@
 
 class CrazyEightsGame : public Game {
 private:
+  playArea *gui;
   std::vector<Card> discardPile;
   std::vector<Card> deck;
   Suit suitSpecified;
@@ -24,18 +25,13 @@ private:
   void performValidAiMove(Card);
   void humanMadeMove(Card);
   void humanDrewCard();
+  void displayEndOfRoundDialogBox();
+  void showScores();
 
 public:
   CrazyEightsGame(wxFrame *);
-  void startNewRound();
-  void showGame() {
-    gui->Show(true);
-    return;
-  };
-  void hideGame() {
-    // gui->hideTheField();
-    std::cout << "This is pointer" << gui << std::endl;
-    return;
-  };
+  void startNewRound(bool newGame);
   playArea *getGui() { return gui; };
+  void showGame();
+  void hideGame();
 };

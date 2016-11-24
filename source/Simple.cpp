@@ -1,6 +1,6 @@
 #include "Simple.h"
+#include "GameLogic/HeartsGame.hpp"
 #include "button.h"
-#include "heartsArea.h"
 
 #include <wx/sizer.h>
 
@@ -73,8 +73,9 @@ void Simple::switchPage(wxString buttonSwitch) {
     pageSizer->Show(1, true);
 
   } else if (buttonSwitch == "Hearts Local") {
-    heartsArea *hField = new heartsArea(this);
-    pageSizer->Prepend(hField, 1, wxGROW);
+    // heartsArea *hField = new heartsArea(this);
+    heartsGame = new HeartsGame(this);
+    pageSizer->Prepend(heartsGame->getGui(), 1, wxGROW);
 
   } else if (buttonSwitch == "Hearts Online") {
     pageSizer->Show(1, true);

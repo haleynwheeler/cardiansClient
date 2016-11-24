@@ -12,6 +12,7 @@ class playerCard : public wxPanel {
   wxBoxSizer *cardHorizontalSizer;
   imageInsert *bgImage;
   imageInsert *suitImage;
+  wxBoxSizer *background;
 
 public:
   playerCard(wxWindow *parent, Card *theCards, wxSize size, int bgType);
