@@ -8,7 +8,6 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
-#include "../playArea.h"
 #include "Card.hpp"
 #include "Player.hpp"
 
@@ -17,19 +16,14 @@
 
 class Game {
 protected:
-  playArea *gui;
   std::vector<Player> players;
   int turn; // index in player vector
   std::vector<Card> initializeDeck();
   virtual void startNewRound(){};
   virtual void humanMadeMove(Card){};
-  void displayEndOfRoundDialogBox();
-  void showScores();
 
 public:
-  Game(wxFrame *);
-  void showGame();
-  void hideGame();
+  Game();
 };
 
 #endif

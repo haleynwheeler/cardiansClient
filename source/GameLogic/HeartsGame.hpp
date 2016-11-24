@@ -1,14 +1,18 @@
 #ifndef HEARTS_GAME_HPP
 #define HEARTS_GAME_HPP
 
+#include "../heartsArea.h"
 #include "Game.hpp"
 
 class HeartsGame : public Game {
 public:
   HeartsGame(wxFrame *);
-  playArea *getGui() { return gui; };
+  heartsArea *getGui() { return gui; };
+  void showGame();
+  void hideGame();
 
 private:
+  heartsArea *gui;
   int playerLeadingTrick;
   int roundNumber;
   bool brokenHearts = false;
@@ -32,6 +36,7 @@ private:
   void assignTrick();
   void assignPoints(int);
   void endRound();
+  void showScores();
   // bool setPassCards(std::vector<Card> cards, std::string name);
   // void passCards(int round);
   int endTurn(int currentPlayer);

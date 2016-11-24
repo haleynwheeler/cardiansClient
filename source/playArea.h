@@ -9,6 +9,9 @@
 #include <wx/wx.h>
 
 class playArea : public wxPanel {
+  int maxHandSize;
+  int cardBackType;
+
   int thePlayerHandSize;
   int playerOneHandSize;
   int playerTwoHandSize;
@@ -33,6 +36,10 @@ class playArea : public wxPanel {
 
   std::function<void()> humanDrewCard;
   std::function<void(Card)> humanMadeMove;
+  void updateFieldArea(bool deckEmpty, Card topOfDiscardPile, bool initialize);
+  void updatePlayerOne(int handSize);
+  void updatePlayerTwo(int handSize);
+  void updatePlayerThree(int handSize);
 
 public:
   playArea(wxFrame *parent);
@@ -49,6 +56,8 @@ public:
   void aiPickedSuitDialog(Suit suitSpecified);
   bool endOfRoundDialog(std::vector<int> allPlayersRoundScores,
                         std::vector<int> allPlayersTotalScores);
+  bool endOfGameDialog(std::vector<int> allPlayersRoundScores,
+                       std::vector<int> allPlayersTotalScores);
 
   void setDrewCardFunction(std::function<void()>);
   void setMadeMoveFunction(std::function<void(Card)>);

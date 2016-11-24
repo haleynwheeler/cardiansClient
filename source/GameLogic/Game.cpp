@@ -1,6 +1,7 @@
 #include "Game.hpp"
+#include <iostream>
 
-Game::Game(wxFrame *mainFrame) {
+Game::Game() {
   std::cout << "Creating Crazy Eights Game" << std::endl;
   // Construct a Player Named "You". This will be our Human Player.
   players.push_back(Player(0, "You"));
@@ -9,9 +10,6 @@ Game::Game(wxFrame *mainFrame) {
   for (auto i = 1; i < 4; i++) {
     players.push_back(Player(0, "AI"));
   }
-  gui = new playArea(mainFrame);
-  gui->setMadeMoveFunction([this](Card c) { humanMadeMove(c); });
-  std::cout << "Created Play Area" << std::endl;
 }
 
 std::vector<Card> Game::initializeDeck() {
@@ -28,19 +26,3 @@ std::vector<Card> Game::initializeDeck() {
   std::shuffle(deck.begin(), deck.end(), generator);
   return deck;
 }
-
-void Game::showScores() {
-  std::vector<int> allPlayersTotalScores;
-  std::vector<int> allPlayersRoundScores;
-  for (auto &&player : players) {
-    allPlayersTotalScores.push_back(player.getTotalScore());
-    allPlayersRoundScores.push_back(player.getRoundScore());
-  }
-  if (gui->endOfRoundDialog(allPlayersRoundScores, allPlayersTotalScores)) {
-    startNewRound();
-  }
-}
-
-void Game::showGame() { gui->Show(true); }
-
-void Game::hideGame() { std::cout << "This is pointer" << gui << std::endl; }

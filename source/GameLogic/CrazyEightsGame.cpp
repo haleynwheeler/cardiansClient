@@ -6,17 +6,24 @@
 
 using namespace std::chrono_literals;
 
-CrazyEightsGame::CrazyEightsGame(wxFrame *mainFrame) : Game(mainFrame) {
+CrazyEightsGame::CrazyEightsGame(wxFrame *mainFrame) : Game() {
+  gui = new playArea(mainFrame);
+  gui->setMadeMoveFunction([this](Card c) { humanMadeMove(c); });
   gui->setDrewCardFunction([this]() { humanDrewCard(); });
-  startNewRound();
-  // gui->Hide();
+  std::cout << "Created Play Area" << std::endl;
+  startNewRound(true);
 }
 
-void CrazyEightsGame::startNewRound() {
+void CrazyEightsGame::startNewRound(bool newGame) {
   roundOver = false;
+  turn = 0;
   deck = initializeDeck();
   for (auto &&player : players) {
-    player.startNewRound();
+    if (newGame) {
+      player.startNewGame();
+    } else {
+      player.startNewRound();
+    }
     player.initializeHand(deck, 5);
   }
   int i = 0;
@@ -27,7 +34,6 @@ void CrazyEightsGame::startNewRound() {
   auto topOfDiscardPile = deck.back();
   discardPile.push_back(topOfDiscardPile);
   deck.pop_back();
-  turn = 0;
   gui->initializePlayArea(players[0].getHand(), topOfDiscardPile);
   std::cout << "Started New Round" << std::endl;
 }
@@ -35,31 +41,33 @@ void CrazyEightsGame::startNewRound() {
 // THIS SHOULD BE CALLED WHEN THE DECK IS PRESSED
 void CrazyEightsGame::humanDrewCard() {
   std::cout << "Human Drew Card" << std::endl;
-  if (turn == 0) {
+  if (turn == 0 && !roundOver) {
     if (!deck.empty()) {
       players[0].insertCardToHand(deck.back());
       deck.pop_back();
       gui->updatePlayArea(0, players[0].getHand(), deck.empty(),
                           discardPile.back());
     } else {
+      std::cout << "You passed" << std::endl;
       auto hand = players[0].getHand();
       for (auto &&card : hand) {
         auto validMove = checkCardValidity(card);
-        if (!validMove) {
+        if (validMove) {
           gui->invalidMoveDialog();
           return;
         }
       }
+      gui->updatePlayArea(0, players[0].getHand(), deck.empty(),
+                          discardPile.back());
+      computersTurn();
     }
-    gui->updatePlayArea(0, players[0].getHand(), deck.empty(),
-                        discardPile.back());
   }
 }
 
 // THIS SHOULD BE CALLED WHEN A CARD IN THE HAND IS PRESSED
 void CrazyEightsGame::humanMadeMove(Card c) {
   std::cout << "Human Made Move" << std::endl;
-  if (turn == 0) {
+  if (turn == 0 && !roundOver) {
     bool validMove = false;
     if (c.getValue() == EIGHT) {
       validMove = true;
@@ -87,16 +95,17 @@ void CrazyEightsGame::humanMadeMove(Card c) {
 
 void CrazyEightsGame::computersTurn() {
   for (int i = 1; i < 4; i++) {
-    if (roundOver) {
-      return;
-    }
     turn = i;
     computersMove();
-    gui->updatePlayArea(i, players[i].getHand(), deck.empty(),
+    if (roundOver) {
+      endRound();
+      return;
+    }
+    gui->updatePlayArea(turn, players[turn].getHand(), deck.empty(),
                         discardPile.back());
     gui->Refresh();
     gui->Update();
-    std::this_thread::sleep_for(2s);
+    std::this_thread::sleep_for(1s);
   }
   turn = 0;
 }
@@ -111,9 +120,15 @@ void CrazyEightsGame::computersMove() {
     }
   }
   while (deck.size() > 0) {
+    std::cout << "Drew new card" << std::endl;
     auto newCard = deck.back();
     deck.pop_back();
     players[turn].insertCardToHand(newCard);
+    gui->updatePlayArea(turn, players[turn].getHand(), deck.empty(),
+                        discardPile.back());
+    gui->Refresh();
+    gui->Update();
+    std::this_thread::sleep_for(500ms);
     auto validMove = checkCardValidity(newCard);
     if (validMove) {
       performValidAiMove(newCard);
@@ -126,7 +141,7 @@ void CrazyEightsGame::performValidAiMove(Card card) {
   players[turn].removeCardFromHand(card);
   discardPile.push_back(card);
   if (players[turn].getHand().size() == 0) {
-    endRound();
+    roundOver = true;
     return;
   } else if (card.getValue() == EIGHT) {
     std::random_device rd;
@@ -163,8 +178,11 @@ bool CrazyEightsGame::removeCardFromHand(Card c) {
 void CrazyEightsGame::endRound() {
   // Calculate Scores
   roundOver = true;
+  bool gameOver = false;
   gui->updatePlayArea(turn, players[turn].getHand(), deck.empty(),
                       discardPile.back());
+  gui->Refresh();
+  gui->Update();
   for (auto &&player : players) {
     for (auto &&card : player.getHand()) {
       auto value = card.getValue();
@@ -181,4 +199,33 @@ void CrazyEightsGame::endRound() {
     }
   }
   showScores();
+}
+
+void CrazyEightsGame::showScores() {
+  bool winner = false;
+  std::vector<int> allPlayersTotalScores;
+  std::vector<int> allPlayersRoundScores;
+  for (auto &&player : players) {
+    auto totalScore = player.getTotalScore();
+    if (totalScore > 200) {
+      winner = true;
+    }
+    allPlayersTotalScores.push_back(totalScore);
+    allPlayersRoundScores.push_back(player.getRoundScore());
+  }
+  if (winner) {
+    if (gui->endOfGameDialog(allPlayersRoundScores, allPlayersTotalScores)) {
+      startNewRound(true);
+    }
+  } else {
+    if (gui->endOfRoundDialog(allPlayersRoundScores, allPlayersTotalScores)) {
+      startNewRound(false);
+    }
+  }
+}
+
+void CrazyEightsGame::showGame() { gui->Show(true); }
+
+void CrazyEightsGame::hideGame() {
+  std::cout << "This is pointer" << gui << std::endl;
 }
