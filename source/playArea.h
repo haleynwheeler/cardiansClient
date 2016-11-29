@@ -2,6 +2,7 @@
 #define playArea_H
 
 #include "GameLogic/Card.hpp"
+#include "clientInfo.h"
 #include "playerCard.h"
 #include <functional>
 #include <string>
@@ -34,6 +35,8 @@ class playArea : public wxPanel {
   playerCard *Discard;
   std::vector<playerCard *> handCards;
 
+  clientInfo *screenInfo;
+
   std::function<void()> humanDrewCard;
   std::function<void(Card)> humanMadeMove;
   void updateFieldArea(bool deckEmpty, Card topOfDiscardPile, bool initialize);
@@ -61,6 +64,7 @@ public:
 
   void setDrewCardFunction(std::function<void()>);
   void setMadeMoveFunction(std::function<void(Card)>);
+  void hideGame();
 };
 
 #endif

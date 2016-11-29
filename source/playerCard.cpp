@@ -20,6 +20,7 @@ playerCard::playerCard(wxWindow *parent, int direction, int bgType, wxSize size,
   background->Add(bgImage);
   background->SetMinSize(size);
   this->SetSizerAndFit(background);
+  SetBackgroundColour(wxColour(120, 120, 20));
 }
 
 playerCard::playerCard(wxWindow *parent, int bgType, wxSize size,
@@ -29,40 +30,40 @@ playerCard::playerCard(wxWindow *parent, int bgType, wxSize size,
 
   background = new wxBoxSizer(wxHORIZONTAL);
   wxString bgImagePath;
-  if (deckEmpty) {
-    bgImagePath = wxString::Format(wxT("../res/CardBacks/%i/0.png"), bgType);
-  } else {
-    bgImagePath = wxString::Format(wxT("../res/CardBacks/%i/1.png"), bgType);
-  }
+  bgImagePath = wxString::Format(wxT("../res/CardBacks/%i/0.png"), bgType);
   bgImage = new imageInsert(this, bgImagePath, wxBITMAP_TYPE_PNG,
                             size.GetHeight(), size.GetWidth());
   background->Add(bgImage);
   background->SetMinSize(size);
-  this->SetSizerAndFit(background);
+  SetSizerAndFit(background);
 }
 
 playerCard::playerCard(wxWindow *parent, Card *theCards, wxSize size,
-                       int bgType)
+                       int bgType, bool largeCard)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, size, wxTAB_TRAVERSAL,
               wxPanelNameStr) {
-
   theCard = new Card(theCards->getSuit(), theCards->getValue());
-
   background = new wxBoxSizer(wxHORIZONTAL);
-  wxString bgImagePath =
-      wxString::Format(wxT("../res/CardFaces/%i_of_%i.png"),
-                       theCard->getValue(), theCard->getSuit());
+  wxString bgImagePath;
+  if (!largeCard) {
+    bgImagePath = wxString::Format(wxT("../res/CardFaces/small/%i_of_%i.png"),
+                                   theCard->getValue(), theCard->getSuit());
+  } else {
+    bgImagePath = wxString::Format(wxT("../res/CardFaces/%i_of_%i.png"),
+                                   theCard->getValue(), theCard->getSuit());
+  }
+
   bgImage = new imageInsert(this, bgImagePath, wxBITMAP_TYPE_PNG,
                             size.GetHeight(), size.GetWidth());
   background->Add(bgImage);
   background->SetMinSize(size);
-
   cardSizer = new wxBoxSizer(wxVERTICAL);
   cardHorizontalSizer = new wxBoxSizer(wxHORIZONTAL);
   cardSizer->SetMinSize(size);
-  cardSizer->AddSpacer(10);
-
+  // cardSizer->AddSpacer(10);
   this->SetSizerAndFit(cardSizer);
+  Update();
+  Refresh();
 }
 
 playerCard::~playerCard() {}
@@ -90,11 +91,17 @@ void playerCard::setMoveFunction(std::function<void(Card)> humanMadeMove) {
                 wxID_ANY);
 }
 
-void playerCard::updateCard(Card c) {
+void playerCard::updateCard(Card c, bool largeSize) {
   theCard = new Card(c.getSuit(), c.getValue());
-  wxString bgImagePath =
-      wxString::Format(wxT("../res/CardFaces/%i_of_%i.png"),
-                       theCard->getValue(), theCard->getSuit());
+  wxString bgImagePath;
+  if (!largeSize) {
+    bgImagePath = wxString::Format(wxT("../res/CardFaces/small/%i_of_%i.png"),
+                                   theCard->getValue(), theCard->getSuit());
+  } else {
+    bgImagePath = wxString::Format(wxT("../res/CardFaces/%i_of_%i.png"),
+                                   theCard->getValue(), theCard->getSuit());
+  }
+
   bgImage =
       new imageInsert(this, bgImagePath, wxBITMAP_TYPE_PNG,
                       this->GetSize().GetHeight(), this->GetSize().GetWidth());
@@ -102,4 +109,21 @@ void playerCard::updateCard(Card c) {
   background->Add(bgImage);
   Update();
   Refresh();
+}
+
+void playerCard::updateDeck(bool deckEmpty, int bgType) {
+  wxString bgImagePath;
+  if (!deckEmpty) {
+    bgImagePath = wxString::Format(wxT("../res/CardBacks/%i/1.png"), bgType);
+  } else {
+    bgImagePath = wxString::Format(wxT("../res/CardBacks/%i/0.png"), bgType);
+  }
+  std::cout << bgImagePath << std::endl;
+  bgImage =
+      new imageInsert(this, bgImagePath, wxBITMAP_TYPE_PNG,
+                      this->GetSize().GetHeight(), this->GetSize().GetWidth());
+  background->Clear(true);
+  background->Add(bgImage);
+  SetBackgroundColour(wxColour(100, 100, 100));
+  Update();
 }

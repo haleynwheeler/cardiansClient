@@ -4,10 +4,10 @@
 
 #include <wx/sizer.h>
 
-Simple::Simple(const wxString &title)
+Simple::Simple(const wxString &title, clientInfo *theClientScreen)
     : wxFrame(NULL, wxID_ANY, title, wxDefaultPosition,
-              wxSize(wxSystemSettings::GetMetric(wxSYS_SCREEN_X) * .5,
-                     wxSystemSettings::GetMetric(wxSYS_SCREEN_Y) * .7)) {
+              theClientScreen->getClientScreenSize()) {
+  screenInfo = theClientScreen;
   // SetMaxSize(
   // wxSize(wxSize(wxSystemSettings::GetMetric(wxSYS_SCREEN_X) * .5,
   // wxSystemSettings::GetMetric(wxSYS_SCREEN_Y) * .7)));
@@ -15,10 +15,10 @@ Simple::Simple(const wxString &title)
   // wxSize(wxSize(wxSystemSettings::GetMetric(wxSYS_SCREEN_X) * .5,
   // wxSystemSettings::GetMetric(wxSYS_SCREEN_Y) * .7)));
 
-  backgroundSizer = new wxBoxSizer(wxHORIZONTAL);
-  baseBackground *theBackgroundDrawable = new baseBackground(
-      this, wxT("../res/background.jpg"), wxBITMAP_TYPE_JPEG);
-  backgroundSizer->Add(theBackgroundDrawable, 1, wxEXPAND);
+  // backgroundSizer = new wxBoxSizer(wxHORIZONTAL);
+  // baseBackground *theBackgroundDrawable = new baseBackground(
+  //     this, wxT("../res/background.jpg"), wxBITMAP_TYPE_JPEG);
+  // backgroundSizer->Add(theBackgroundDrawable, 1, wxEXPAND);
 
   pageSizer = new wxBoxSizer(wxVERTICAL);
   this->SetSizer(pageSizer);
@@ -37,12 +37,11 @@ Simple::Simple(const wxString &title)
   pageSizer->Add(mainPane, 1, wxGROW);
   mainPane->Hide();
 
-  // eightsGame = new CrazyEightsGame(this);
-  // pageSizer->Add(mainPane, 1, wxGROW);
-  // eightsGame->getGui()->Hide();
+  eightsGame = nullptr;
+  heartsGame = nullptr;
   // //  SetSizer(backgroundSizer);
   Centre();
-
+  SetBackgroundColour(wxColour(0, 0, 0));
   Bind(wxEVT_BUTTON,
        [=](wxCommandEvent &event) {
          buttonText = (wxButton *)event.GetEventObject();
@@ -70,12 +69,13 @@ void Simple::switchPage(wxString buttonSwitch) {
 
   } else if (buttonSwitch == "Create New User") {
     // switch to main menu screen from new user
-    pageSizer->Show(1, true);
+    pageSizer->Show(2, true);
 
   } else if (buttonSwitch == "Hearts Local") {
-    // heartsArea *hField = new heartsArea(this);
     heartsGame = new HeartsGame(this);
-    pageSizer->Prepend(heartsGame->getGui(), 1, wxGROW);
+    pageSizer->Add(heartsGame->getGui(), 1, wxGROW);
+    //  heartsGame->hideGame();
+    heartsGame->startGame();
 
   } else if (buttonSwitch == "Hearts Online") {
     pageSizer->Show(1, true);
@@ -88,7 +88,13 @@ void Simple::switchPage(wxString buttonSwitch) {
     pageSizer->Show(1, true);
 
   } else {
-    eightsGame->hideGame();
+    if (heartsGame) {
+      heartsGame->hideGame();
+    }
+    if (eightsGame) {
+      eightsGame->hideGame();
+    }
+
     std::cout << "MainScreen" << std::endl;
     pageSizer->Show(mainPane, true, true);
   }

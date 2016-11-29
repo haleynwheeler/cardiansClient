@@ -228,4 +228,5 @@ void CrazyEightsGame::showGame() { gui->Show(true); }
 
 void CrazyEightsGame::hideGame() {
   std::cout << "This is pointer" << gui << std::endl;
+  gui->hideGame();
 }
