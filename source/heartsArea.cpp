@@ -37,6 +37,7 @@ heartsArea::heartsArea(wxFrame *parent)
   wxBitmapButton *topLogo = new wxBitmapButton(
       this, wxID_ANY, wxBitmap("../res/TextLogo.png", wxBITMAP_TYPE_PNG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
+  topLogo->SetLabel("topLogo");
   topLogo->SetBackgroundColour(wxColour(90, 5, 18, 0));
 
   playerCard *yourCard =
