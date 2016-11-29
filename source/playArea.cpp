@@ -7,14 +7,12 @@
 playArea::playArea(wxFrame *parent)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
               wxTAB_TRAVERSAL, wxPanelNameStr) {
+  screenInfo = new clientInfo();
   int cardWidth = 20;
   int cardHeight = 100;
   cardBackType = 14;
   Card *dummyCard = new Card(HEARTS, TWO);
   maxHandSize = 31;
-
-  int heightLeft = wxSystemSettings::GetMetric(wxSYS_SCREEN_Y) * .7;
-  heightLeft -= 850;
 
   thePlayerHandSize = playerOneHandSize = playerTwoHandSize =
       playerThreeHandSize = 5;
@@ -37,16 +35,25 @@ playArea::playArea(wxFrame *parent)
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
   topLogo->SetBackgroundColour(wxColour(90, 5, 18, 0));
 
-  Deck = new playerCard(this->GetParent(), cardBackType, wxSize(100, 70), TRUE);
+  Deck = new playerCard(this->GetParent(), cardBackType,
+                        screenInfo->getLargeCardSize(), TRUE);
   Deck->setDrewCardFunction(humanDrewCard);
   Deck->Hide();
 
-  Discard = new playerCard(parent, dummyCard, wxSize(80, 120), cardBackType);
+  Discard = new playerCard(parent, dummyCard, screenInfo->getLargeCardSize(),
+                           cardBackType, TRUE);
   Discard->Hide();
+
+  playerCard *yourCard =
+      new playerCard(this->GetParent(), dummyCard,
+                     screenInfo->getLargeCardSize(), cardBackType, TRUE);
+  handCards.push_back(yourCard);
+  yourHand->Add(yourCard);
 
   for (int i = 0; i < maxHandSize; i++) {
     playerCard *card =
-        new playerCard(this->GetParent(), dummyCard, wxSize(80, 120), 14);
+        new playerCard(this->GetParent(), dummyCard,
+                       screenInfo->getSmallCardSize(), 14, FALSE);
     handCards.push_back(card);
     yourHand->Add(card);
     if (i >= thePlayerHandSize) {
@@ -55,12 +62,12 @@ playArea::playArea(wxFrame *parent)
   }
   yourHand->ShowItems(false);
 
-  playerCard *card =
-      new playerCard(this->GetParent(), 2, cardBackType, wxSize(100, 70));
-  playerOne->Add(card);
+  playerCard *card = new playerCard(this->GetParent(), 2, cardBackType,
+                                    screenInfo->getLargeHorCardSize());
+  playerOne->Add(card, wxRESERVE_SPACE_EVEN_IF_HIDDEN);
   for (int i = 0; i < maxHandSize - 1; i++) {
     playerCard *card = new playerCard(this->GetParent(), 2, cardBackType,
-                                      wxSize(100, 20), false);
+                                      screenInfo->getSmallHorCardSize(), false);
     playerOne->Add(card);
     if (i >= playerOneHandSize) {
       playerOne->Hide(i);
@@ -68,25 +75,27 @@ playArea::playArea(wxFrame *parent)
   }
   playerOne->ShowItems(false);
 
-  playerCard *card1 =
-      new playerCard(this->GetParent(), 3, cardBackType, wxSize(70, 100));
-  playerTwo->Add(card1);
+  std::cout << "PlayerTwo Set Up" << std::endl;
+  playerCard *card1 = new playerCard(this->GetParent(), 3, cardBackType,
+                                     screenInfo->getLargeCardSize());
+  playerTwo->Add(card1, wxRESERVE_SPACE_EVEN_IF_HIDDEN);
   for (int i = 0; i < maxHandSize - 1; i++) {
     playerCard *card = new playerCard(this->GetParent(), 3, cardBackType,
-                                      wxSize(20, 100), false);
+                                      screenInfo->getSmallCardSize(), false);
     playerTwo->Add(card);
     if (i >= playerTwoHandSize) {
       playerTwo->Hide(i);
     }
   }
   playerTwo->ShowItems(false);
+  std::cout << "Player Two Done" << std::endl;
 
-  playerCard *card2 =
-      new playerCard(this->GetParent(), 4, cardBackType, wxSize(100, 70));
-  playerThree->Add(card2);
+  playerCard *card2 = new playerCard(this->GetParent(), 4, cardBackType,
+                                     screenInfo->getLargeHorCardSize());
+  playerThree->Add(card2, wxRESERVE_SPACE_EVEN_IF_HIDDEN);
   for (int i = 0; i < maxHandSize - 1; i++) {
     playerCard *card = new playerCard(this->GetParent(), 4, cardBackType,
-                                      wxSize(100, 20), false);
+                                      screenInfo->getSmallHorCardSize(), false);
     playerThree->Add(card);
     if (i >= playerThreeHandSize) {
       playerThree->Hide(i);
@@ -94,31 +103,32 @@ playArea::playArea(wxFrame *parent)
   }
   playerThree->ShowItems(false);
 
+  int temporary = screenInfo->c8middleVerSpace();
+
   fieldArea->Add(Deck);
   fieldArea->Add(Discard);
 
-  verticalfieldArea->AddSpacer(180);
+  verticalfieldArea->AddSpacer(screenInfo->c8middleVerSpace());
   verticalfieldArea->Add(fieldArea);
-  verticalfieldArea->AddSpacer(180);
+  verticalfieldArea->AddSpacer(screenInfo->c8middleVerSpace());
 
   upperPortion->Add(topLogo);
-  upperPortion->AddSpacer(20);
+  upperPortion->AddSpacer(screenInfo->c8StrandardBorder()); //
   upperPortion->Add(playerTwo, wxALIGN_CENTRE_VERTICAL);
-  upperPortion->AddSpacer(80);
 
-  middlePortion->AddSpacer(20);
+  middlePortion->AddSpacer(screenInfo->c8StrandardBorder()); //
   middlePortion->Add(playerOne, wxALIGN_BOTTOM);
-  middlePortion->AddSpacer(270);
+  middlePortion->AddSpacer(screenInfo->c8MiddleHorSpace());
   middlePortion->Add(verticalfieldArea);
-  middlePortion->AddSpacer(270);
+  middlePortion->AddSpacer(screenInfo->c8MiddleHorSpace());
   middlePortion->Add(playerThree, wxALIGN_BOTTOM);
 
-  lowerPortion->AddSpacer(100);
+  lowerPortion->AddSpacer(screenInfo->c8LogoDifference()); //
   lowerPortion->Add(yourHand);
 
-  theMainSizer->AddSpacer(10);
+  theMainSizer->AddSpacer(10); //
   theMainSizer->Add(upperPortion);
-  theMainSizer->AddSpacer(20);
+  theMainSizer->AddSpacer(20); //
   theMainSizer->Add(middlePortion);
   theMainSizer->Add(lowerPortion, wxBOTTOM);
   SetSizerAndFit(theMainSizer);
@@ -136,17 +146,22 @@ void playArea::setMadeMoveFunction(std::function<void(Card)> f) {
 void playArea::playerZero(std::vector<Card> hand) {
   yourHand->Clear(true);
   handCards.clear();
-  std::cout << "My hand: " << std::endl;
+  auto firstCard = hand.back();
+  hand.pop_back();
   for (auto &&handCard : hand) {
-    std::cout << handCard.getValue() << " of " << handCard.getSuit()
-              << std::endl;
     Card *temp = new Card(handCard.getSuit(), handCard.getValue());
-    playerCard *card =
-        new playerCard(this->GetParent(), temp, wxSize(80, 120), 14);
+    playerCard *card = new playerCard(
+        this->GetParent(), temp, screenInfo->getSmallCardFront(), 14, false);
     card->setMoveFunction(humanMadeMove);
     handCards.push_back(card);
     yourHand->Add(card);
   }
+  Card *temp = new Card(firstCard.getSuit(), firstCard.getValue());
+  playerCard *card = new playerCard(this->GetParent(), temp,
+                                    screenInfo->getCardFront(), 14, TRUE);
+  card->setMoveFunction(humanMadeMove);
+  handCards.push_back(card);
+  yourHand->Add(card);
   yourHand->Layout();
   theMainSizer->Layout();
 }
@@ -239,27 +254,31 @@ void playArea::updatePlayArea(int playerId, std::vector<Card> hand,
 
 void playArea::updateFieldArea(bool deckEmpty, Card topOfDiscardPile,
                                bool initialize) {
-  if (initialize) {
-    fieldArea->Clear(true);
-  } else {
-    fieldArea->Clear();
-  }
+  // if (initialize) {
+  //   fieldArea->Clear(true);
+  // } else {
+  //   fieldArea->Clear();
+  // }
+  // if (!deckEmpty) {
+  //   Deck =
+  //       new playerCard(this->GetParent(), cardBackType, wxSize(80, 120),
+  //       false);
+  // } else {
+  //   Deck =
+  //       new playerCard(this->GetParent(), cardBackType, wxSize(80, 120),
+  //       true);
+  // }
+  // Deck->setDrewCardFunction(humanDrewCard);
 
-  if (!deckEmpty) {
-    Deck =
-        new playerCard(this->GetParent(), cardBackType, wxSize(80, 120), false);
-  } else {
-    Deck =
-        new playerCard(this->GetParent(), cardBackType, wxSize(80, 120), true);
-  }
+  // Card *tempest =
+  //     new Card(topOfDiscardPile.getSuit(), topOfDiscardPile.getValue());
+  Deck->updateDeck(deckEmpty, screenInfo->getcardBackType());
   Deck->setDrewCardFunction(humanDrewCard);
-
-  Card *tempest =
-      new Card(topOfDiscardPile.getSuit(), topOfDiscardPile.getValue());
-  Discard = new playerCard(this->GetParent(), tempest, wxSize(80, 120), 14);
-  fieldArea->Add(Deck);
-  fieldArea->Add(Discard);
-  fieldArea->Layout();
+  Discard->updateCard(topOfDiscardPile, TRUE);
+  fieldArea->Show(true);
+  // fieldArea->Add(Deck);
+  // fieldArea->Add(Discard);
+  // fieldArea->Layout();
 }
 
 void playArea::invalidMoveDialog() {
@@ -349,6 +368,8 @@ bool playArea::endOfGameDialog(std::vector<int> playersRoundScores,
     return false;
   }
 }
+
+void playArea::hideGame() { theMainSizer->Show(false); }
 
 playArea::~playArea() {}
 

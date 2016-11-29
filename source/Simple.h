@@ -4,6 +4,7 @@
 #include "GameLogic/CrazyEightsGame.hpp"
 #include "GameLogic/HeartsGame.hpp"
 #include "baseBackground.h"
+#include "clientInfo.h"
 #include "imageInsert.h"
 #include "login.h"
 #include "mainMenu.h"
@@ -13,7 +14,7 @@
 
 class Simple : public wxFrame {
 public:
-  Simple(const wxString &title);
+  Simple(const wxString &title, clientInfo *theClientScreen);
   void switchPage(wxString buttonSwitch);
   wxBoxSizer *pageSizer;
   wxBoxSizer *backgroundSizer;
@@ -24,6 +25,7 @@ public:
   newUser *newUserPane;
   CrazyEightsGame *eightsGame;
   HeartsGame *heartsGame;
+  clientInfo *screenInfo;
 };
 
 #endif

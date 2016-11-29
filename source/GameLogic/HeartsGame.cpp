@@ -11,7 +11,7 @@ HeartsGame::HeartsGame(wxFrame *mainFrame) : Game() {
   gui->setMadeMoveFunction([this](Card c) { humanMadeMove(c); });
   roundNumber = 0;
   cardsToPass.resize(4);
-  startNewRound();
+  // startNewRound();
 }
 
 void HeartsGame::startNewRound() {
@@ -282,8 +282,8 @@ void HeartsGame::showScores() {
   }
 }
 
-void HeartsGame::showGame() { gui->Show(true); }
+void HeartsGame::showGame() { gui->showGame(); }
 
-void HeartsGame::hideGame() {
-  std::cout << "This is pointer" << gui << std::endl;
-}
+void HeartsGame::hideGame() { gui->hideGame(); }
+
+void HeartsGame::startGame() { startNewRound(); }
