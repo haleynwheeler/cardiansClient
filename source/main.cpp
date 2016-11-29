@@ -16,6 +16,7 @@ public:
 
     Simple *mainFrame;
     mainFrame = new Simple(wxT("Cardians of the Galaxy"));
+    mainFrame->SetBackgroundColour(wxColour(0, 0, 0));
 
     mainFrame->Show();
 

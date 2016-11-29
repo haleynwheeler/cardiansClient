@@ -16,10 +16,9 @@ mainMenu::mainMenu(wxFrame *parent)
 
   wxBoxSizer *paneSizer = new wxBoxSizer(wxHORIZONTAL);
 
-  // wxBoxSizer *wholeSizer = new wxBoxSizer(wxHORIZONTAL);
-
   SetFont(
-      wxFont(30, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
+      wxFont(20, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
+  // wxBoxSizer *wholeSizer = new wxBoxSizer(wxHORIZONTAL);
 
   imageInsert *theLogo = new imageInsert(this, wxT("../res/TextLogo.png"),
                                          wxBITMAP_TYPE_PNG, 100, 200);
@@ -40,7 +39,12 @@ mainMenu::mainMenu(wxFrame *parent)
       this, eightsOnlineBtn, wxT("Eights Online"), wxDefaultPosition,
       wxSize(200, 200), 0, wxDefaultValidator, wxButtonNameStr);
 
-  wxCollapsiblePane *sidePane = new wxCollapsiblePane(this, wxID_ANY, "Menu");
+  wxCollapsiblePane *sidePane =
+      new wxCollapsiblePane(this, wxID_ANY, "Menu", wxDefaultPosition,
+                            wxSize(800, 800), wxCP_NO_TLW_RESIZE);
+
+  sidePane->SetFont(
+      wxFont(40, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
 
   heartsLabel = new wxStaticText(this, wxID_ANY, "HEARTS", wxDefaultPosition,
                                  wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);
@@ -58,6 +62,49 @@ mainMenu::mainMenu(wxFrame *parent)
   heartsContainer->Add(heartsOnline, wxEXPAND);
   eightsContainer->Add(eightsLocal, wxEXPAND);
   eightsContainer->Add(eightsOnline, wxEXPAND);
+
+  // COLLAPSIBLE PANE///////////////////////////////////////////////////
+
+  wxWindow *win = sidePane->GetPane();
+  wxSizer *paneSz = new wxBoxSizer(wxVERTICAL);
+
+  wxButton *settingsBtn =
+      new wxButton(win, wxID_ANY, wxT("Settings"), wxDefaultPosition,
+                   wxSize(660, 163), 0, wxDefaultValidator, wxButtonNameStr);
+
+  wxButton *friendsBtn =
+      new wxButton(win, wxID_ANY, wxT("Friends"), wxDefaultPosition,
+                   wxSize(600, 163), 0, wxDefaultValidator, wxButtonNameStr);
+
+  wxButton *statsBtn =
+      new wxButton(win, wxID_ANY, wxT("Stats"), wxDefaultPosition,
+                   wxSize(600, 163), 0, wxDefaultValidator, wxButtonNameStr);
+
+  wxButton *logOutBtn =
+      new wxButton(win, wxID_ANY, wxT("Log Out"), wxDefaultPosition,
+                   wxSize(660, 163), 0, wxDefaultValidator, wxButtonNameStr);
+
+  settingsBtn->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
+  settingsBtn->SetForegroundColour(wxColour(255, 255, 255));
+
+  friendsBtn->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
+  friendsBtn->SetForegroundColour(wxColour(255, 255, 255));
+
+  statsBtn->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
+  statsBtn->SetForegroundColour(wxColour(255, 255, 255));
+
+  logOutBtn->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
+  logOutBtn->SetForegroundColour(wxColour(255, 255, 255));
+
+  paneSz->Add(settingsBtn);
+  paneSz->Add(friendsBtn);
+  paneSz->Add(statsBtn);
+  paneSz->Add(logOutBtn);
+
+  win->SetSizer(paneSz);
+  paneSz->SetSizeHints(win);
+
+  // END COLLAPSIBLE PANE/////////////////////////////////////////////////////
 
   heartsLocal->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
   heartsLocal->SetForegroundColour(wxColour(wxT("WHITE")));
@@ -83,7 +130,9 @@ mainMenu::mainMenu(wxFrame *parent)
   theSizer->AddSpacer(20);
   theSizer->Add(eightsContainer);
 
+  paneSizer->AddSpacer(50);
   paneSizer->Add(theSizer);
+  paneSizer->AddSpacer(50);
   paneSizer->Add(sidePane);
 
   // paneSizer->Add(sidePane);

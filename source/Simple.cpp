@@ -70,7 +70,36 @@ void Simple::switchPage(wxString buttonSwitch) {
 
   } else if (buttonSwitch == "Create New User") {
     // switch to main menu screen from new user
-    pageSizer->Show(1, true);
+    pageSizer->Show(2, true);
+
+  } else if (buttonSwitch == "topLogo") {
+    // switch to main menu screen from new user
+    heartsGame->hideGame();
+    pageSizer->Show(mainPane, true, true);
+
+  } else if (buttonSwitch == "Settings") {
+    pageSizer->Show(2, true);
+    wxMessageBox(wxT("sup homie bro"));
+
+  } else if (buttonSwitch == "Friends") {
+    pageSizer->Show(2, true);
+
+  } else if (buttonSwitch == "Stats") {
+    pageSizer->Show(2, true);
+
+  } else if (buttonSwitch == "Log Out") {
+    pageSizer->Show(2, true);
+    std::string msg = "Are you sure you want to log out?\n\n";
+
+    wxMessageDialog dialog(NULL, msg, "Log Out", wxYES_NO);
+    auto decision = dialog.ShowModal();
+    if (decision == wxID_YES) {
+      // pageSizer->Show(2, false);
+      pageSizer->ShowItems(false);
+      pageSizer->Show(loginPane, true);
+    } else {
+      pageSizer->Show(2, true);
+    }
 
   } else if (buttonSwitch == "Hearts Local") {
     // heartsArea *hField = new heartsArea(this);
