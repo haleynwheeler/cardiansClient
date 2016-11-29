@@ -10,6 +10,7 @@ public:
   heartsArea *getGui() { return gui; };
   void showGame();
   void hideGame();
+  void startGame();
 
 private:
   heartsArea *gui;

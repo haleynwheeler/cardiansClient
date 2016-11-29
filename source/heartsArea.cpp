@@ -7,6 +7,7 @@
 heartsArea::heartsArea(wxFrame *parent)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
               wxTAB_TRAVERSAL, wxPanelNameStr) {
+  screenInfo = new clientInfo();
   int cardWidth = 20;
   int cardHeight = 100;
   int cardBackType = 14;
@@ -36,100 +37,111 @@ heartsArea::heartsArea(wxFrame *parent)
   wxBitmapButton *topLogo = new wxBitmapButton(
       this, wxID_ANY, wxBitmap("../res/TextLogo.png", wxBITMAP_TYPE_PNG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
+  topLogo->SetLabel("topLogo");
   topLogo->SetBackgroundColour(wxColour(90, 5, 18, 0));
 
-  for (int i = 0; i < 12; i++) {
+  playerCard *yourCard =
+      new playerCard(this->GetParent(), dummyCard,
+                     screenInfo->getLargeCardSize(), cardBackType, TRUE);
+  handCards.push_back(yourCard);
+  yourHand->Add(yourCard);
+
+  for (int i = 0; i < 13; i++) {
     playerCard *card =
-        new playerCard(this->GetParent(), dummyCard, wxSize(80, 120), 14);
+        new playerCard(this->GetParent(), dummyCard,
+                       screenInfo->getSmallCardSize(), 14, FALSE);
     handCards.push_back(card);
     yourHand->Add(card);
     if (i >= thePlayerHandSize) {
       yourHand->Hide(i);
     }
   }
+  yourHand->ShowItems(false);
 
-  playerCard *card =
-      new playerCard(this->GetParent(), 2, cardBackType, wxSize(100, 70));
+  playerCard *card = new playerCard(this->GetParent(), 2, cardBackType,
+                                    screenInfo->getLargeHorCardSize(), TRUE);
   playerOne->Add(card);
   for (int i = 0; i < 12; i++) {
     playerCard *card = new playerCard(this->GetParent(), 2, cardBackType,
-                                      wxSize(100, 20), false);
+                                      screenInfo->getSmallHorCardSize(), false);
     playerOne->Add(card);
     if (i >= playerOneHandSize) {
       playerOne->Hide(i);
     }
   }
 
-  playerCard *card1 =
-      new playerCard(this->GetParent(), 3, cardBackType, wxSize(70, 100));
+  playerCard *card1 = new playerCard(this->GetParent(), 3, cardBackType,
+                                     screenInfo->getLargeCardSize(), TRUE);
   playerTwo->Add(card1);
   for (int i = 0; i < 12; i++) {
     playerCard *card = new playerCard(this->GetParent(), 3, cardBackType,
-                                      wxSize(20, 100), false);
+                                      screenInfo->getSmallCardSize(), false);
     playerTwo->Add(card);
     if (i >= playerTwoHandSize) {
       playerTwo->Hide(i);
     }
   }
 
-  playerCard *card2 =
-      new playerCard(this->GetParent(), 4, cardBackType, wxSize(100, 70));
+  playerCard *card2 = new playerCard(this->GetParent(), 4, cardBackType,
+                                     screenInfo->getLargeHorCardSize(), TRUE);
   playerThree->Add(card2);
   for (int i = 0; i < 12; i++) {
     playerCard *card = new playerCard(this->GetParent(), 4, cardBackType,
-                                      wxSize(100, 20), false);
+                                      screenInfo->getSmallHorCardSize(), false);
     playerThree->Add(card);
     if (i >= playerThreeHandSize) {
       playerThree->Hide(i);
     }
   }
 
-  playerZeroChoice =
-      new playerCard(this->GetParent(), 1, cardBackType, wxSize(70, 100));
-  playerOneChoice =
-      new playerCard(this->GetParent(), 2, cardBackType, wxSize(100, 70));
-  playerTwoChoice =
-      new playerCard(this->GetParent(), 3, cardBackType, wxSize(70, 100));
-  playerThreeChoice =
-      new playerCard(this->GetParent(), 4, cardBackType, wxSize(100, 70));
+  playerZeroChoice = new playerCard(this->GetParent(), 1, cardBackType,
+                                    screenInfo->getLargeCardSize(), TRUE);
+  playerOneChoice = new playerCard(this->GetParent(), 2, cardBackType,
+                                   screenInfo->getLargeCardSize(), TRUE);
+  playerTwoChoice = new playerCard(this->GetParent(), 3, cardBackType,
+                                   screenInfo->getLargeCardSize(), TRUE);
+  playerThreeChoice = new playerCard(this->GetParent(), 4, cardBackType,
+                                     screenInfo->getLargeCardSize(), TRUE);
 
-  leftFieldArea->AddSpacer(180);
-  leftFieldArea->Add(playerOneChoice, wxALIGN_LEFT);
-  leftFieldArea->AddSpacer(180);
+  leftFieldArea->AddSpacer(screenInfo->hSideVFieldSpacer());
+  leftFieldArea->Add(playerOneChoice,
+                     wxALIGN_LEFT | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
+  leftFieldArea->AddSpacer(screenInfo->hSideVFieldSpacer());
 
-  midFieldArea->Add(playerTwoChoice);
-  midFieldArea->AddSpacer(250);
-  midFieldArea->Add(playerZeroChoice);
-  midFieldArea->AddSpacer(10);
+  midFieldArea->Add(playerTwoChoice, wxSizerFlags().ReserveSpaceEvenIfHidden());
+  midFieldArea->AddSpacer(120);
+  midFieldArea->Add(playerZeroChoice,
+                    wxALIGN_LEFT | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
+  midFieldArea->AddSpacer(screenInfo->hSpaceBetweenCardAndHand());
 
-  rightFieldArea->AddSpacer(180);
-  rightFieldArea->Add(playerThreeChoice, wxALIGN_RIGHT);
-  rightFieldArea->AddSpacer(180);
+  rightFieldArea->AddSpacer(screenInfo->hSideVFieldSpacer());
+  rightFieldArea->Add(playerThreeChoice,
+                      wxALIGN_LEFT | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
+  rightFieldArea->AddSpacer(screenInfo->hSideVFieldSpacer());
 
   fieldArea->Add(leftFieldArea);
-  fieldArea->AddSpacer(150);
+  fieldArea->AddSpacer(screenInfo->hSideFieldSpacer());
   fieldArea->Add(midFieldArea);
-  fieldArea->AddSpacer(150);
+  fieldArea->AddSpacer(screenInfo->hSideFieldSpacer());
   fieldArea->Add(rightFieldArea);
 
   upperPortion->Add(topLogo);
-  upperPortion->AddSpacer(20);
+  upperPortion->AddSpacer(screenInfo->hSpaceBetweenCardAndHand());
   upperPortion->Add(playerTwo, wxALIGN_CENTRE_VERTICAL);
-  upperPortion->AddSpacer(80);
 
-  middlePortion->AddSpacer(20);
+  middlePortion->AddSpacer(screenInfo->hSpaceBetweenCardAndHand());
   middlePortion->Add(playerOne, wxALIGN_BOTTOM);
-  middlePortion->AddSpacer(50);
+  middlePortion->AddSpacer(2 * screenInfo->hSpaceBetweenCardAndHand());
   middlePortion->Add(fieldArea);
-  middlePortion->AddSpacer(50);
+  middlePortion->AddSpacer(2 * screenInfo->hSpaceBetweenCardAndHand());
   middlePortion->Add(playerThree, wxALIGN_BOTTOM);
 
-  lowerPortion->AddSpacer(100);
+  lowerPortion->AddSpacer(screenInfo->c8LogoDifference());
   lowerPortion->Add(yourHand);
 
   theMainSizer->AddSpacer(10);
   theMainSizer->Add(upperPortion);
-  theMainSizer->AddSpacer(20);
+  theMainSizer->AddSpacer(screenInfo->hSpaceBetweenCardAndHand());
   theMainSizer->Add(middlePortion);
   theMainSizer->Add(lowerPortion, wxBOTTOM);
   SetSizerAndFit(theMainSizer);
@@ -142,14 +154,22 @@ void heartsArea::setMadeMoveFunction(std::function<void(Card)> f) {
 void heartsArea::playerZero(std::vector<Card> hand) {
   yourHand->Clear(true);
   handCards.clear();
+  auto firstCard = hand.back();
+  hand.pop_back();
   for (auto &&handCard : hand) {
     Card *temp = new Card(handCard.getSuit(), handCard.getValue());
-    playerCard *card =
-        new playerCard(this->GetParent(), temp, wxSize(80, 120), 14);
+    playerCard *card = new playerCard(
+        this->GetParent(), temp, screenInfo->getSmallCardFront(), 14, false);
     card->setMoveFunction(humanMadeMove);
     handCards.push_back(card);
     yourHand->Add(card);
   }
+  Card *temp = new Card(firstCard.getSuit(), firstCard.getValue());
+  playerCard *card = new playerCard(this->GetParent(), temp,
+                                    screenInfo->getCardFront(), 14, TRUE);
+  card->setMoveFunction(humanMadeMove);
+  handCards.push_back(card);
+  yourHand->Add(card);
   yourHand->Layout();
   theMainSizer->Layout();
 }
@@ -230,7 +250,7 @@ void heartsArea::updateMiddleCards(std::array<Card, 4> centerPile) {
     // centerPile[0].getValue());
     // playerZeroChoice =
     // new playerCard(this->GetParent(), tempest, wxSize(70, 100), 14);
-    playerZeroChoice->updateCard(centerPile[0]);
+    playerZeroChoice->updateCard(centerPile[0], TRUE);
     playerZeroChoice->Layout();
   }
 
@@ -240,7 +260,7 @@ void heartsArea::updateMiddleCards(std::array<Card, 4> centerPile) {
 
   } else {
     playerOneChoice->Show();
-    playerOneChoice->updateCard(centerPile[1]);
+    playerOneChoice->updateCard(centerPile[1], TRUE);
     playerOneChoice->Layout();
   }
 
@@ -250,7 +270,7 @@ void heartsArea::updateMiddleCards(std::array<Card, 4> centerPile) {
 
   } else {
     playerTwoChoice->Show();
-    playerTwoChoice->updateCard(centerPile[2]);
+    playerTwoChoice->updateCard(centerPile[2], TRUE);
     playerTwoChoice->Layout();
   }
 
@@ -260,13 +280,15 @@ void heartsArea::updateMiddleCards(std::array<Card, 4> centerPile) {
 
   } else {
     playerThreeChoice->Show();
-    playerThreeChoice->updateCard(centerPile[3]);
+    playerThreeChoice->updateCard(centerPile[3], TRUE);
     playerThreeChoice->Layout();
   }
 
   leftFieldArea->Layout();
   midFieldArea->Layout();
   rightFieldArea->Layout();
+  Refresh();
+  Update();
 }
 
 std::vector<Card> heartsArea::requestCardsPassed(std::vector<Card> hand) {
@@ -354,6 +376,10 @@ bool heartsArea::endOfGameDialog(std::vector<int> playersRoundScores,
     return false;
   }
 }
+
+void heartsArea::showGame() { theMainSizer->ShowItems(true); }
+
+void heartsArea::hideGame() { theMainSizer->ShowItems(false); }
 
 heartsArea::~heartsArea() {}
 

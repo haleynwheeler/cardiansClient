@@ -2,6 +2,7 @@
 #define heartsArea_H
 
 #include "GameLogic/Card.hpp"
+#include "clientInfo.h"
 #include "playerCard.h"
 #include <functional>
 #include <string>
@@ -34,6 +35,7 @@ class heartsArea : public wxPanel {
   playerCard *playerTwoChoice;
   playerCard *playerThreeChoice;
   std::vector<playerCard *> handCards;
+  clientInfo *screenInfo;
 
   std::function<void(Card)> humanMadeMove;
   void updateMiddleCards(std::array<Card, 4> centerPile);
@@ -55,6 +57,8 @@ public:
                        std::vector<int> allPlayersTotalScores);
   void setMadeMoveFunction(std::function<void(Card)>);
   std::vector<Card> requestCardsPassed(std::vector<Card> hand);
+  void hideGame();
+  void showGame();
 };
 
 #endif

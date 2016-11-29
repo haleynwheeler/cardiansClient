@@ -31,8 +31,7 @@ find_package(wxWidgets COMPONENTS core base REQUIRED)
 #find_package(Boost 1.58.0 REQUIRED COMPONENTS system)
 find_package(Boost 1.62.0 REQUIRED COMPONENTS system)
 if (Boost_FOUND)
-  include_directories(${Boost_INCLUDE_DIRS})
-endif()
+  #include_directories(${Boost_INCLUDE_DIRS})
 
 # wxWidgets include (this will do all the magic to configure everything)
 include( "${wxWidgets_USE_FILE}" )
@@ -50,7 +49,8 @@ set(SRCS main.cpp
     playerCard.cpp playerCard.h
     heartsArea.cpp heartsArea.h
     Simple.cpp Simple.h
-    mainMenu.cpp mainMenu.h)
+    mainMenu.cpp mainMenu.h
+    clientInfo.cpp clientInfo.h)
 
 add_subdirectory(GameLogic)
 add_subdirectory(Networking)
@@ -75,3 +75,5 @@ add_executable(cardiansClient WIN32 ${SRCS})
 # set for us by the find script. If you need other libraries, you
 # can add them here as well.
 target_link_libraries(cardiansClient ${Boost_LIBRARIES} ${wxWidgets_LIBRARIES})
+
+endif()
