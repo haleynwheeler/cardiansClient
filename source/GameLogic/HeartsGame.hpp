@@ -19,7 +19,7 @@ private:
   int tricksAssigned;
   std::array<Card, 4> centerPile;
   std::vector<std::vector<Card>> cardsToPass;
-  void startNewRound();
+  void startNewRound(bool);
   void startNewTrick(int);
   void setCardsAiWillPass();
   void humanPassedCards(std::vector<Card>);
@@ -29,7 +29,8 @@ private:
   void computersMove();
   int findTwoOfClubs();
   bool allHearts();
-  bool noLeadSuit(Suit s); // sees if hand holds lead suit
+  void checkBrokenHearts(Card c);
+  bool noLeadSuit(Suit s);
   bool checkCardValidity(Card);
   bool checkLeadPlayersCard(Card);
   bool checkFollowingPlayersCard(Card);
@@ -37,8 +38,6 @@ private:
   void assignPoints(int);
   void endRound();
   void showScores();
-  // bool setPassCards(std::vector<Card> cards, std::string name);
-  // void passCards(int round);
   int endTurn(int currentPlayer);
 };
 

@@ -51,6 +51,8 @@ public:
   void invalidMoveDialog();
   bool endOfRoundDialog(std::vector<int> allPlayersRoundScores,
                         std::vector<int> allPlayersTotalScores);
+  bool endOfGameDialog(std::vector<int> allPlayersRoundScores,
+                       std::vector<int> allPlayersTotalScores);
   void setMadeMoveFunction(std::function<void(Card)>);
   std::vector<Card> requestCardsPassed(std::vector<Card> hand);
 };

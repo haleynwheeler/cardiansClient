@@ -28,6 +28,12 @@ find_package(wxWidgets COMPONENTS core base REQUIRED)
 ## Actual config file starts here
 ##---------------------------------------------------
 
+#find_package(Boost 1.58.0 REQUIRED COMPONENTS system)
+find_package(Boost 1.62.0 REQUIRED COMPONENTS system)
+if (Boost_FOUND)
+  include_directories(${Boost_INCLUDE_DIRS})
+endif()
+
 # wxWidgets include (this will do all the magic to configure everything)
 include( "${wxWidgets_USE_FILE}" )
 
@@ -47,6 +53,7 @@ set(SRCS main.cpp
     mainMenu.cpp mainMenu.h)
 
 add_subdirectory(GameLogic)
+add_subdirectory(Networking)
 
 set(CMAKE_C++_FLAGS "-g -Wall")
 
@@ -67,4 +74,4 @@ add_executable(cardiansClient WIN32 ${SRCS})
 # We add to our target 'cardiansClient' the wxWidgets libraries. These are
 # set for us by the find script. If you need other libraries, you
 # can add them here as well.
-target_link_libraries(cardiansClient ${wxWidgets_LIBRARIES})
+target_link_libraries(cardiansClient ${Boost_LIBRARIES} ${wxWidgets_LIBRARIES})
