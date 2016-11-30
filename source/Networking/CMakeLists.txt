@@ -1,16 +1,20 @@
-set (SRCS
-${SRCS}
-${CMAKE_CURRENT_SOURCE_DIR}/ClientNetworkInterface.hpp
-${CMAKE_CURRENT_SOURCE_DIR}/ClientNetworkInterface.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/CrazyEightsOnline.hpp
-${CMAKE_CURRENT_SOURCE_DIR}/CrazyEightsOnline.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/NetworkInterface.hpp
-${CMAKE_CURRENT_SOURCE_DIR}/NetworkInterface.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/OnlineGame.hpp
-${CMAKE_CURRENT_SOURCE_DIR}/OnlineGame.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/GeneralMessage.hpp
-${CMAKE_CURRENT_SOURCE_DIR}/GeneralMessage.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/TCPConnection.hpp
-${CMAKE_CURRENT_SOURCE_DIR}/TCPConnection.cpp
-PARENT_SCOPE
+
+xpGetExtern(externIncs externLibs PUBLIC boost wxWidgets)
+include_directories(${externIncs} ${CMAKE_SOURCE_DIR})
+
+add_library(Networking
+ClientNetworkInterface.cpp
+ClientNetworkInterface.hpp
+GeneralMessage.cpp
+GeneralMessage.hpp
+NetworkInterface.cpp
+NetworkInterface.hpp
+OnlineGame.hpp
+OnlineGame.cpp
+CrazyEightsOnline.cpp
+CrazyEightsOnline.hpp
+TCPConnection.cpp
+TCPConnection.hpp
 )
+
+link_libraries(Networking ${externLibs})

@@ -1,15 +1,16 @@
-set (SRCS
-${SRCS}
-${CMAKE_CURRENT_SOURCE_DIR}/Card.hpp
-${CMAKE_CURRENT_SOURCE_DIR}/Card.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/Player.hpp
-${CMAKE_CURRENT_SOURCE_DIR}/Player.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/Game.hpp
-${CMAKE_CURRENT_SOURCE_DIR}/Game.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/CrazyEightsGame.hpp
-${CMAKE_CURRENT_SOURCE_DIR}/CrazyEightsGame.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/HeartsGame.hpp
-${CMAKE_CURRENT_SOURCE_DIR}/HeartsGame.cpp
 
-PARENT_SCOPE
+xpGetExtern(externIncs externLibs PUBLIC boost wxWidgets)
+include_directories(${externIncs} ${CMAKE_SOURCE_DIR})
+add_library(GameLogic
+Card.hpp
+Card.cpp
+Player.hpp
+Player.cpp
+Game.hpp
+Game.cpp
+CrazyEightsGame.hpp
+CrazyEightsGame.cpp
+HeartsGame.hpp
+HeartsGame.cpp
 )
+link_libraries(GameLogic ${externLibs})
