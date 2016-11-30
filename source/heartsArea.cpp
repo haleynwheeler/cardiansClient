@@ -295,9 +295,7 @@ std::vector<Card> heartsArea::requestCardsPassed(std::vector<Card> hand) {
   wxArrayString choices;
   std::vector<Card> selection;
   for (auto &&card : hand) {
-    std::string c = std::to_string(card.getValue()) + " of " +
-                    std::to_string(card.getSuit());
-    choices.Add(c);
+    choices.Add(card.printCard());
   }
   wxString title("Pick 3 Cards to Pass");
   wxMultiChoiceDialog dialog(NULL, title, title, choices);

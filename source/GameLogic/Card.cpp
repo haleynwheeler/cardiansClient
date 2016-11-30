@@ -40,15 +40,30 @@ Suit Card::getSuit() const { return suit; }
 // Returns a value of a card.
 Value Card::getValue() const { return value; }
 
+std::string Card::printCard() const {
+  std::string card = std::to_string(value) + " of ";
+  if (suit == HEARTS) {
+    card += "Hearts";
+  } else if (suit == SPADES) {
+    card += "Spades";
+  } else if (suit == CLUBS) {
+    card += "Clubs";
+  } else {
+    card += "Diamonds";
+  }
+  return card;
+}
+
 // Allows for the '<' comparison of two Card objects.
 // Will potentially be used to sort the hand.
 bool operator<(const Card &a, const Card &b) {
   if (a.getSuit() < b.getSuit()) {
     return true;
-  } else if (a.getSuit() > b.getSuit()) {
-    return false;
-  } else
+  } else if (a.getSuit() == b.getSuit()) {
     return a.getValue() < b.getValue();
+  } else {
+    return false;
+  }
 }
 
 // Allows for the '==' comparison of two Card objects.

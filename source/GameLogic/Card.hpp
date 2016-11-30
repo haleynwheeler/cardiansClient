@@ -24,9 +24,10 @@
 #ifndef CARD_HPP
 #define CARD_HPP
 
+#include <string>
 #include <vector>
 
-enum Suit { HEARTS, SPADES, DIAMONDS, CLUBS, UNDEFINED };
+enum Suit { HEARTS, SPADES, CLUBS, DIAMONDS, UNDEFINED };
 
 enum Value {
   TWO = 2,
@@ -53,6 +54,7 @@ public:
   Card();
   Card(Suit su);
   Card(Suit su, Value val);
+  std::string printCard() const;
   Suit getSuit() const;
   Value getValue() const;
 };
