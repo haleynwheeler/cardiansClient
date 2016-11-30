@@ -218,10 +218,10 @@ void heartsArea::initializePlayArea(std::vector<Card> hand) {
   playerAi(1, hand);
   playerAi(2, hand);
   playerAi(3, hand);
-  // playerZeroChoice->Hide();
-  // playerOneChoice->Hide();
-  // playerTwoChoice->Hide();
-  // playerThreeChoice->Hide();
+  playerZeroChoice->Hide();
+  playerOneChoice->Hide();
+  playerTwoChoice->Hide();
+  playerThreeChoice->Hide();
   this->Refresh();
   this->Update();
 }
@@ -344,6 +344,31 @@ bool heartsArea::endOfRoundDialog(std::vector<int> playersRoundScores,
   }
 
   wxMessageDialog dialog(NULL, msg, "Round Over", wxYES_NO);
+  auto decision = dialog.ShowModal();
+  if (decision == wxID_YES) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+bool heartsArea::endOfGameDialog(std::vector<int> playersRoundScores,
+                                 std::vector<int> playersOverallScores) {
+  std::string msg = "The Game is over! Here are the final scores:\n \n";
+  msg += "SCORES:\n";
+  msg += "YOU:\t";
+  msg += "Round Score: " + std::to_string(playersRoundScores[0]) + "\n";
+  msg += "\t\tOverall Score: " + std::to_string(playersOverallScores[0]);
+
+  for (int i = 1; i < 4; i++) {
+    msg += "\nAI " + std::to_string(i) + ":\t";
+    msg += "Round Score: " + std::to_string(playersRoundScores[i]) + "\n";
+    msg += "\t\tOverall Score: " + std::to_string(playersOverallScores[i]);
+  }
+
+  msg += "\n\nWould you like to play again?";
+
+  wxMessageDialog dialog(NULL, msg, "Game Over", wxYES_NO);
   auto decision = dialog.ShowModal();
   if (decision == wxID_YES) {
     return true;

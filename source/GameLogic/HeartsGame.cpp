@@ -1,3 +1,8 @@
+/* This class was written with the help of the Hearts Group in CS 3450 at USU.
+*  Most of the code has been changed from their work, but some artifacts of
+* their code still remain.
+*/
+
 #include "HeartsGame.hpp"
 #include <chrono>
 #include <iostream>
@@ -11,10 +16,10 @@ HeartsGame::HeartsGame(wxFrame *mainFrame) : Game() {
   gui->setMadeMoveFunction([this](Card c) { humanMadeMove(c); });
   roundNumber = 0;
   cardsToPass.resize(4);
-  // startNewRound();
+  // startNewRound(true);
 }
 
-void HeartsGame::startNewRound() {
+void HeartsGame::startNewRound(bool newGame) {
   std::cout << "Starting a new round" << std::endl;
   roundNumber++;
   brokenHearts = false;
@@ -24,7 +29,11 @@ void HeartsGame::startNewRound() {
   }
   std::vector<Card> deck = initializeDeck();
   for (auto &&player : players) {
-    player.startNewRound();
+    if (newGame) {
+      player.startNewGame();
+    } else {
+      player.startNewRound();
+    }
     player.initializeHand(deck, 13);
   }
   gui->initializePlayArea(players[0].getHand());
@@ -216,14 +225,19 @@ bool HeartsGame::checkFollowingPlayersCard(Card c) {
   }
 
   if (leadSuit == thisSuit) {
+    checkBrokenHearts(c);
     return true;
   } else if (!doesntHaveLeadSuit && thisSuit != leadSuit) {
     return false;
   } else {
-    if (thisSuit == HEARTS) {
-      brokenHearts = true;
-    }
+    checkBrokenHearts(c);
     return true;
+  }
+}
+
+void HeartsGame::checkBrokenHearts(Card c) {
+  if (c.getSuit() == HEARTS || c.getSuit() == SPADES && c.getValue() == QUEEN) {
+    brokenHearts = true;
   }
 }
 
@@ -261,6 +275,7 @@ void HeartsGame::assignPoints(int i) {
 void HeartsGame::endRound() {
   for (int i = 0; i < players.size(); i++) {
     if (players[i].getRoundScore() == 26) {
+      players[i].setRoundScore(0);
       players[(i + 1) % 4].setRoundScore(26);
       players[(i + 2) % 4].setRoundScore(26);
       players[(i + 3) % 4].setRoundScore(26);
@@ -271,14 +286,25 @@ void HeartsGame::endRound() {
 }
 
 void HeartsGame::showScores() {
+  bool winner = false;
   std::vector<int> allPlayersTotalScores;
   std::vector<int> allPlayersRoundScores;
   for (auto &&player : players) {
+    auto totalScore = player.getTotalScore();
+    if (totalScore >= 100) {
+      winner = true;
+    }
     allPlayersTotalScores.push_back(player.getTotalScore());
     allPlayersRoundScores.push_back(player.getRoundScore());
   }
-  if (gui->endOfRoundDialog(allPlayersRoundScores, allPlayersTotalScores)) {
-    startNewRound();
+  if (winner) {
+    if (gui->endOfGameDialog(allPlayersRoundScores, allPlayersTotalScores)) {
+      startNewRound(true);
+    }
+  } else {
+    if (gui->endOfRoundDialog(allPlayersRoundScores, allPlayersTotalScores)) {
+      startNewRound(false);
+    }
   }
 }
 
@@ -286,4 +312,4 @@ void HeartsGame::showGame() { gui->showGame(); }
 
 void HeartsGame::hideGame() { gui->hideGame(); }
 
-void HeartsGame::startGame() { startNewRound(); }
+void HeartsGame::startGame() { startNewRound(true); }
