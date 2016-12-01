@@ -68,18 +68,33 @@ wxSize clientInfo::getSmallHorCardSize() {
 
 wxSize clientInfo::getCardFront() {
   wxSize *wantedSize =
-      new wxSize((clientScreenSize.GetWidth() * (1.0 / 13.5)), 1000);
+      new wxSize((clientScreenSize.GetWidth() * (1.0 / 10.5)), 1000);
   return ratioHandlingDetermineHeight(cardFrontSize, wantedSize);
 }
 
 wxSize clientInfo::getSmallCardFront() {
   wxSize *wantedSize = new wxSize(
-      (clientScreenSize.GetWidth() * (1.0 / 13.5)) * (100.0 / 500.0), 1000);
+      (clientScreenSize.GetWidth() * (1.0 / 10.5)) * (100.0 / 500.0), 1000);
   return ratioHandlingDetermineHeight(cardSliverSize, wantedSize);
 }
 
+wxSize clientInfo::lobbyButton() {
+  wxSize *wantedWidth =
+      new wxSize((clientScreenSize.GetWidth() * .35) / 2.5, 1000);
+  wxSize ratio = wxSize(40, 20);
+  return ratioHandlingDetermineHeight(ratio, wantedWidth);
+}
+
+int clientInfo::lobbyButtonSpacer() {
+  int one = clientScreenSize.GetWidth() * .35;
+  int two = 2 * ((clientScreenSize.GetWidth() * .35) / 2.5);
+  int spacer = one - two;
+  std::cout << spacer << std::endl;
+  return spacer;
+}
+
 int clientInfo::c8middleVerSpace() {
-  return (clientScreenSize.GetHeight() * .2);
+  return (clientScreenSize.GetHeight() * .18);
 } // 180
 int clientInfo::c8StrandardBorder() {
   return (clientScreenSize.GetHeight() * .02);

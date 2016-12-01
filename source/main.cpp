@@ -22,7 +22,6 @@ public:
     mainFrame->SetBackgroundColour(wxColour(0, 0, 0));
     SetTopWindow(mainFrame);
     mainFrame->Show();
-
     return true;
   }
 };

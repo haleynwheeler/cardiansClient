@@ -62,8 +62,8 @@ playerCard::playerCard(wxWindow *parent, Card *theCards, wxSize size,
   cardSizer->SetMinSize(size);
   // cardSizer->AddSpacer(10);
   this->SetSizerAndFit(cardSizer);
-  Update();
-  Refresh();
+  // Update();
+  // Refresh();
 }
 
 playerCard::~playerCard() {}
@@ -107,8 +107,8 @@ void playerCard::updateCard(Card c, bool largeSize) {
                       this->GetSize().GetHeight(), this->GetSize().GetWidth());
   background->Clear(true);
   background->Add(bgImage);
-  Update();
-  Refresh();
+  // Update();
+  // Refresh();
 }
 
 void playerCard::updateDeck(bool deckEmpty, int bgType) {
@@ -125,5 +125,5 @@ void playerCard::updateDeck(bool deckEmpty, int bgType) {
   background->Clear(true);
   background->Add(bgImage);
   SetBackgroundColour(wxColour(100, 100, 100));
-  Update();
+  // Update();
 }
