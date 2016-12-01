@@ -10,6 +10,9 @@ Simple::Simple(const wxString &title, clientInfo *theClientScreen)
       NI(0, ioService, std::cout) {
 
   NI.connect("127.0.0.1", 12000);
+  // if got connected - set some sort of bool. Then we can play in an offline
+  // mode
+
   screenInfo = theClientScreen;
 
   pageSizer = new wxBoxSizer(wxVERTICAL);
@@ -81,13 +84,19 @@ void Simple::switchPage(wxString buttonSwitch) {
 
   } else if (buttonSwitch == "Settings") {
     pageSizer->Show(2, true);
-    wxMessageBox(wxT("sup homie bro"));
+    wxMessageBox(wxT("Settings"));
 
-  } else if (buttonSwitch == "Friends") {
+  } else if (buttonSwitch == "Hearts Rules") {
     pageSizer->Show(2, true);
+    wxMessageBox(wxT("Hearts rullleeesss"));
 
-  } else if (buttonSwitch == "Stats") {
+  } else if (buttonSwitch == "Crazy Eights Rules") {
     pageSizer->Show(2, true);
+    wxMessageBox(wxT("Crazy Eights RUlesssss"));
+
+  } else if (buttonSwitch == "Game Stats") {
+    pageSizer->Show(2, true);
+    wxMessageBox(wxT("Game Stats"));
 
   } else if (buttonSwitch == "Log Out") {
     pageSizer->Show(2, true);
