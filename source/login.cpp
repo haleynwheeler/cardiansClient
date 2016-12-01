@@ -1,7 +1,10 @@
 #include "login.h"
+#include "Simple.h"
 #include "button.h"
 #include "imageInsert.h"
 #include "playArea.h"
+
+#include <boost/algorithm/string.hpp>
 
 // This panel sets up the panel to log in. It has 2 input boxes and 2 buttons
 // It also has the main logo.
@@ -48,15 +51,35 @@ login::login(wxFrame *parent)
 
   theSizer->Add(theLogo);
   theSizer->Add(horizontalContainer);
-  // theSizer->Add(verticalOne, wxLEFT, 0);
-  // theSizer->Add(verticalTwo, wxRIGHT, 0);
 
   SetSizerAndFit(theSizer);
   Center();
 }
 
 void login::OnNewUser(wxCommandEvent &event) { event.Skip(); }
-void login::OnLogin(wxCommandEvent &event) { event.Skip(); }
+
+void login::OnLogin(wxCommandEvent &event) {
+  Simple *mainFrame = (Simple *)GetParent();
+  mainFrame->sendServerMsg(std::string("LOGIN"));
+  auto msg = mainFrame->getResponse();
+  receivedLoginFromServer(msg, event);
+}
+
+void login::receivedLoginFromServer(std::string msg, wxCommandEvent &event) {
+  std::cout << msg << std::endl;
+  if (boost::algorithm::starts_with(msg, "SUCCESS")) {
+    std::cout << "Successful Login" << std::endl;
+    event.Skip();
+  } else if (boost::algorithm::starts_with(msg, "PASSWORD INCORRECT")) {
+    std::cout << "Incorrect Password" << std::endl;
+    // Prompt again with dialog box?
+  } else if (boost::algorithm::starts_with(msg, "USER NOT FOUND")) {
+    std::cout << "User Not Found" << std::endl;
+    // Prompt to create a new user?
+  } else {
+    std::cout << "Unknown Message" << std::endl;
+  }
+}
 
 login::~login() {}
 
