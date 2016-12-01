@@ -1,6 +1,8 @@
 #include "newUser.h"
+#include "Simple.h"
 #include "button.h"
 #include "imageInsert.h"
+#include <boost/algorithm/string.hpp>
 
 // This panel sets up the panel to log in. It has 2 input boxes and 2 buttons
 // It also has the main logo.
@@ -53,7 +55,28 @@ newUser::newUser(wxFrame *parent)
   // wxDECLARE_EVENT_TABLE();
 }
 
-void newUser::OnNewUser(wxCommandEvent &event) { event.Skip(); }
+void newUser::OnNewUser(wxCommandEvent &event) {
+  Simple *mainFrame = (Simple *)GetParent();
+  std::string userName = usernameText->GetLineText(0).ToStdString();
+  std::string password = passwordText->GetLineText(0).ToStdString();
+  std::string sendMsg = "REGISTER " + userName + " " + password;
+  mainFrame->sendServerMsg(sendMsg);
+  auto receivedMsg = mainFrame->getResponse();
+  receivedNewUserFromServer(receivedMsg, event);
+}
+
+void newUser::receivedNewUserFromServer(std::string msg,
+                                        wxCommandEvent &event) {
+  if (boost::algorithm::starts_with(msg, "SUCCESS")) {
+    std::cout << "Created new user successfully" << std::endl;
+    event.Skip();
+  } else if (boost::algorithm::starts_with(msg, "USERNAME TAKEN")) {
+    std::cout << "Please pick a different username. This one already exists"
+              << std::endl;
+  } else {
+    std::cout << "Unknown Message" << std::endl;
+  }
+}
 
 newUser::~newUser() {}
 
