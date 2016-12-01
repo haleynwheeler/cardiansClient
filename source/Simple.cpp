@@ -6,19 +6,11 @@
 
 Simple::Simple(const wxString &title, clientInfo *theClientScreen)
     : wxFrame(NULL, wxID_ANY, title, wxDefaultPosition,
-              theClientScreen->getClientScreenSize()) {
-  screenInfo = theClientScreen;
-  // SetMaxSize(
-  // wxSize(wxSize(wxSystemSettings::GetMetric(wxSYS_SCREEN_X) * .5,
-  // wxSystemSettings::GetMetric(wxSYS_SCREEN_Y) * .7)));
-  // SetMinSize(
-  // wxSize(wxSize(wxSystemSettings::GetMetric(wxSYS_SCREEN_X) * .5,
-  // wxSystemSettings::GetMetric(wxSYS_SCREEN_Y) * .7)));
+              theClientScreen->getClientScreenSize()),
+      NI(0, ioService, std::cout) {
 
-  // backgroundSizer = new wxBoxSizer(wxHORIZONTAL);
-  // baseBackground *theBackgroundDrawable = new baseBackground(
-  //     this, wxT("../res/background.jpg"), wxBITMAP_TYPE_JPEG);
-  // backgroundSizer->Add(theBackgroundDrawable, 1, wxEXPAND);
+  NI.connect("127.0.0.1", 12000);
+  screenInfo = theClientScreen;
 
   pageSizer = new wxBoxSizer(wxVERTICAL);
   this->SetSizer(pageSizer);
@@ -125,3 +117,12 @@ void Simple::switchPage(wxString buttonSwitch) {
   pageSizer->Layout();
   // backgroundSizer->Layout();
 }
+
+void Simple::sendServerMsg(std::string msg) { NI.send(msg); }
+
+// void Simple::setServerReceivedMsgFunc(std::function<void(std::string)> func)
+// {
+//   auto msg = NI.recieve();
+//   func(); }
+
+std::string Simple::getResponse() { return NI.recieve(); }

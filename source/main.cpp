@@ -17,9 +17,10 @@ public:
     clientInfo *screenInfo;
     screenInfo = new clientInfo();
     Simple *mainFrame;
+
     mainFrame = new Simple(wxT("Cardians of the Galaxy"), screenInfo);
     mainFrame->SetBackgroundColour(wxColour(0, 0, 0));
-
+    SetTopWindow(mainFrame);
     mainFrame->Show();
     return true;
   }

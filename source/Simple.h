@@ -3,6 +3,7 @@
 
 #include "GameLogic/CrazyEightsGame.hpp"
 #include "GameLogic/HeartsGame.hpp"
+#include "Networking/ClientNetworkInterface.hpp"
 #include "baseBackground.h"
 #include "clientInfo.h"
 #include "imageInsert.h"
@@ -16,6 +17,8 @@ class Simple : public wxFrame {
 public:
   Simple(const wxString &title, clientInfo *theClientScreen);
   void switchPage(wxString buttonSwitch);
+  io_service ioService;
+  ClientNetworkInterface NI;
   wxBoxSizer *pageSizer;
   wxBoxSizer *backgroundSizer;
 
@@ -26,6 +29,9 @@ public:
   CrazyEightsGame *eightsGame;
   HeartsGame *heartsGame;
   clientInfo *screenInfo;
+  void sendServerMsg(std::string);
+  // void setServerReceivedMsgFunc(std::function<void(std::string)>);
+  std::string getResponse();
 };
 
 #endif
