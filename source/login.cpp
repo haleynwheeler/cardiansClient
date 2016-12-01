@@ -60,7 +60,7 @@ void login::OnNewUser(wxCommandEvent &event) { event.Skip(); }
 
 void login::OnLogin(wxCommandEvent &event) {
   Simple *mainFrame = (Simple *)GetParent();
-  mainFrame->sendServerMsg(std::string("LOGIN"));
+  mainFrame->sendServerMsg(std::string("LOGIN katie password"));
   auto msg = mainFrame->getResponse();
   receivedLoginFromServer(msg, event);
 }
