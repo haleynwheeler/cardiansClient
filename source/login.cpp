@@ -34,8 +34,11 @@ login::login(wxFrame *parent)
   login->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
   login->SetForegroundColour(wxColour(wxT("WHITE")));
 
-  passwordText = new wxTextCtrl(this, 0, "Password", wxDefaultPosition);
-  passwordText->SetDefaultStyle(wxTextAttr(wxTE_PASSWORD));
+  passwordText =
+      new wxTextCtrl(this, 0, "", wxDefaultPosition, wxDefaultSize,
+                     wxTE_PASSWORD, wxDefaultValidator, wxButtonNameStr);
+  // passwordText = new wxTextCtrl(this, 0, "Password", wxDefaultPosition);
+  // passwordText->SetStyle(0, 100, wxTextAttr(wxTE_PASSWORD));
 
   wxButton *user =
       new wxButton(this, newUserButton, wxT("New User"), wxDefaultPosition,
@@ -61,9 +64,12 @@ void login::OnNewUser(wxCommandEvent &event) { event.Skip(); }
 
 void login::OnLogin(wxCommandEvent &event) {
   Simple *mainFrame = (Simple *)GetParent();
-  mainFrame->sendServerMsg(std::string("LOGIN"));
-  auto msg = mainFrame->getResponse();
-  receivedLoginFromServer(msg, event);
+  std::string userName = usernameText->GetLineText(0).ToStdString();
+  std::string password = passwordText->GetLineText(0).ToStdString();
+  std::string sendMsg = "LOGIN " + userName + " " + password;
+  mainFrame->sendServerMsg(sendMsg);
+  auto receivedMsg = mainFrame->getResponse();
+  receivedLoginFromServer(receivedMsg, event);
 }
 
 void login::receivedLoginFromServer(std::string msg, wxCommandEvent &event) {

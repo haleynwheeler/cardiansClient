@@ -10,8 +10,6 @@ Simple::Simple(const wxString &title, clientInfo *theClientScreen)
       NI(0, ioService, std::cout) {
 
   NI.connect("127.0.0.1", 12000);
-  // if got connected - set some sort of bool. Then we can play in an offline
-  // mode
 
   screenInfo = theClientScreen;
 
