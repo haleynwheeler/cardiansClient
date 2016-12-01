@@ -68,18 +68,18 @@ wxSize clientInfo::getSmallHorCardSize() {
 
 wxSize clientInfo::getCardFront() {
   wxSize *wantedSize =
-      new wxSize((clientScreenSize.GetWidth() * (1.0 / 13.5)), 1000);
+      new wxSize((clientScreenSize.GetWidth() * (1.0 / 10.5)), 1000);
   return ratioHandlingDetermineHeight(cardFrontSize, wantedSize);
 }
 
 wxSize clientInfo::getSmallCardFront() {
   wxSize *wantedSize = new wxSize(
-      (clientScreenSize.GetWidth() * (1.0 / 13.5)) * (100.0 / 500.0), 1000);
+      (clientScreenSize.GetWidth() * (1.0 / 10.5)) * (100.0 / 500.0), 1000);
   return ratioHandlingDetermineHeight(cardSliverSize, wantedSize);
 }
 
 int clientInfo::c8middleVerSpace() {
-  return (clientScreenSize.GetHeight() * .2);
+  return (clientScreenSize.GetHeight() * .18);
 } // 180
 int clientInfo::c8StrandardBorder() {
   return (clientScreenSize.GetHeight() * .02);

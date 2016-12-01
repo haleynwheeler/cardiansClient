@@ -32,6 +32,7 @@ login::login(wxFrame *parent)
   login->SetForegroundColour(wxColour(wxT("WHITE")));
 
   passwordText = new wxTextCtrl(this, 0, "Password", wxDefaultPosition);
+  passwordText->SetDefaultStyle(wxTextAttr(wxTE_PASSWORD));
 
   wxButton *user =
       new wxButton(this, newUserButton, wxT("New User"), wxDefaultPosition,

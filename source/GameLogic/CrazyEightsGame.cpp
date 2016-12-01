@@ -103,8 +103,8 @@ void CrazyEightsGame::computersTurn() {
     }
     gui->updatePlayArea(turn, players[turn].getHand(), deck.empty(),
                         discardPile.back());
-    gui->Refresh();
-    gui->Update();
+    // gui->Refresh();
+    // gui->Update();
     std::this_thread::sleep_for(1s);
   }
   turn = 0;
@@ -126,8 +126,8 @@ void CrazyEightsGame::computersMove() {
     players[turn].insertCardToHand(newCard);
     gui->updatePlayArea(turn, players[turn].getHand(), deck.empty(),
                         discardPile.back());
-    gui->Refresh();
-    gui->Update();
+    // gui->Refresh();
+    // gui->Update();
     std::this_thread::sleep_for(500ms);
     auto validMove = checkCardValidity(newCard);
     if (validMove) {
@@ -181,8 +181,8 @@ void CrazyEightsGame::endRound() {
   bool gameOver = false;
   gui->updatePlayArea(turn, players[turn].getHand(), deck.empty(),
                       discardPile.back());
-  gui->Refresh();
-  gui->Update();
+  // gui->Refresh();
+  // gui->Update();
   for (auto &&player : players) {
     for (auto &&card : player.getHand()) {
       auto value = card.getValue();

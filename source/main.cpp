@@ -21,7 +21,6 @@ public:
     mainFrame->SetBackgroundColour(wxColour(0, 0, 0));
 
     mainFrame->Show();
-
     return true;
   }
 };
