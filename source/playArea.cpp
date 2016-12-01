@@ -146,23 +146,28 @@ void playArea::setMadeMoveFunction(std::function<void(Card)> f) {
 void playArea::playerZero(std::vector<Card> hand) {
   yourHand->Clear(true);
   handCards.clear();
-  auto firstCard = hand.back();
-  hand.pop_back();
-  for (auto &&handCard : hand) {
-    Card *temp = new Card(handCard.getSuit(), handCard.getValue());
-    playerCard *card = new playerCard(
-        this->GetParent(), temp, screenInfo->getSmallCardFront(), 14, false);
+  if (hand.size() > 0) {
+    auto firstCard = hand.back();
+    hand.pop_back();
+    for (auto &&handCard : hand) {
+      Card *temp = new Card(handCard.getSuit(), handCard.getValue());
+      playerCard *card = new playerCard(
+          this->GetParent(), temp, screenInfo->getSmallCardFront(), 14, false);
+      card->setMoveFunction(humanMadeMove);
+      handCards.push_back(card);
+      yourHand->Add(card);
+    }
+    Card *temp = new Card(firstCard.getSuit(), firstCard.getValue());
+    playerCard *card = new playerCard(this->GetParent(), temp,
+                                      screenInfo->getCardFront(), 14, TRUE);
     card->setMoveFunction(humanMadeMove);
     handCards.push_back(card);
     yourHand->Add(card);
+    yourHand->Layout();
   }
-  Card *temp = new Card(firstCard.getSuit(), firstCard.getValue());
-  playerCard *card = new playerCard(this->GetParent(), temp,
-                                    screenInfo->getCardFront(), 14, TRUE);
-  card->setMoveFunction(humanMadeMove);
-  handCards.push_back(card);
-  yourHand->Add(card);
-  yourHand->Layout();
+  // yourHand->Update();
+  // yourHand->Refresh();
+  lowerPortion->Layout();
   theMainSizer->Layout();
 }
 
@@ -194,7 +199,10 @@ void playArea::updatePlayerOne(int handSize) {
     }
   }
   playerOne->Layout();
-  // middlePortion->Layout();
+  middlePortion->Layout();
+  theMainSizer->Layout();
+  // playerOne->Update();
+  // playerOne->Refresh();
 }
 
 void playArea::updatePlayerTwo(int handSize) {
@@ -205,6 +213,8 @@ void playArea::updatePlayerTwo(int handSize) {
     }
   }
   playerTwo->Layout();
+  upperPortion->Layout();
+  theMainSizer->Layout();
 }
 
 void playArea::updatePlayerThree(int handSize) {
@@ -215,6 +225,8 @@ void playArea::updatePlayerThree(int handSize) {
     }
   }
   playerThree->Layout();
+  middlePortion->Layout();
+  theMainSizer->Layout();
 }
 
 void playArea::initializePlayArea(std::vector<Card> humanHand,
@@ -227,8 +239,8 @@ void playArea::initializePlayArea(std::vector<Card> humanHand,
     playerAi(i, humanHand.size());
   }
   updateFieldArea(false, topOfDiscardPile, true);
-  this->Refresh();
-  this->Update();
+  // this->Refresh();
+  // this->Update();
   Thaw();
 }
 
@@ -247,8 +259,9 @@ void playArea::updatePlayArea(int playerId, std::vector<Card> hand,
     break;
   }
   updateFieldArea(deckEmpty, topOfDiscardPile, false);
-  this->Refresh();
-  this->Update();
+  Refresh();
+  Update();
+  // this->Update();
   Thaw();
 }
 
@@ -278,7 +291,9 @@ void playArea::updateFieldArea(bool deckEmpty, Card topOfDiscardPile,
   fieldArea->Show(true);
   // fieldArea->Add(Deck);
   // fieldArea->Add(Discard);
-  // fieldArea->Layout();
+  fieldArea->Layout();
+  middlePortion->Layout();
+  theMainSizer->Layout();
 }
 
 void playArea::invalidMoveDialog() {
