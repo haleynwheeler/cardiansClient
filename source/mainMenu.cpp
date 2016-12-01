@@ -70,25 +70,35 @@ mainMenu::mainMenu(wxFrame *parent)
 
   wxButton *settingsBtn =
       new wxButton(win, wxID_ANY, wxT("Settings"), wxDefaultPosition,
-                   wxSize(660, 163), 0, wxDefaultValidator, wxButtonNameStr);
+                   wxSize(660, 100), 0, wxDefaultValidator, wxButtonNameStr);
 
-  wxButton *friendsBtn =
-      new wxButton(win, wxID_ANY, wxT("Friends"), wxDefaultPosition,
-                   wxSize(600, 163), 0, wxDefaultValidator, wxButtonNameStr);
+  wxButton *heartsRulesBtn =
+      new wxButton(win, wxID_ANY, wxT("Hearts Rules"), wxDefaultPosition,
+                   wxSize(600, 100), 0, wxDefaultValidator, wxButtonNameStr);
+
+  wxButton *eightsRulesBtn =
+      new wxButton(win, wxID_ANY, wxT("Crazy Eights Rules"), wxDefaultPosition,
+                   wxSize(600, 100), 0, wxDefaultValidator, wxButtonNameStr);
 
   wxButton *statsBtn =
-      new wxButton(win, wxID_ANY, wxT("Stats"), wxDefaultPosition,
-                   wxSize(600, 163), 0, wxDefaultValidator, wxButtonNameStr);
+      new wxButton(win, wxID_ANY, wxT("Game Stats"), wxDefaultPosition,
+                   wxSize(600, 100), 0, wxDefaultValidator, wxButtonNameStr);
 
   wxButton *logOutBtn =
       new wxButton(win, wxID_ANY, wxT("Log Out"), wxDefaultPosition,
-                   wxSize(660, 163), 0, wxDefaultValidator, wxButtonNameStr);
+                   wxSize(660, 100), 0, wxDefaultValidator, wxButtonNameStr);
+
+  win->SetBackgroundColour(wxColour(0, 0, 0));
+  sidePane->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
 
   settingsBtn->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
   settingsBtn->SetForegroundColour(wxColour(255, 255, 255));
 
-  friendsBtn->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
-  friendsBtn->SetForegroundColour(wxColour(255, 255, 255));
+  heartsRulesBtn->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
+  heartsRulesBtn->SetForegroundColour(wxColour(255, 255, 255));
+
+  eightsRulesBtn->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
+  eightsRulesBtn->SetForegroundColour(wxColour(255, 255, 255));
 
   statsBtn->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
   statsBtn->SetForegroundColour(wxColour(255, 255, 255));
@@ -97,7 +107,8 @@ mainMenu::mainMenu(wxFrame *parent)
   logOutBtn->SetForegroundColour(wxColour(255, 255, 255));
 
   paneSz->Add(settingsBtn);
-  paneSz->Add(friendsBtn);
+  paneSz->Add(heartsRulesBtn);
+  paneSz->Add(eightsRulesBtn);
   paneSz->Add(statsBtn);
   paneSz->Add(logOutBtn);
 
