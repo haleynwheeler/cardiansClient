@@ -34,6 +34,8 @@ add_executable(cardiansClient main.cpp
     heartsArea.cpp heartsArea.h
     Simple.cpp Simple.h
     mainMenu.cpp mainMenu.h
-    clientInfo.cpp clientInfo.h)
+    clientInfo.cpp clientInfo.h
+    lobby.cpp lobby.h
+    availableGames.cpp availableGames.h)
 
 target_link_libraries(cardiansClient GameLogic Networking ${externLibs})

@@ -15,8 +15,6 @@ imageInsert::imageInsert(wxPanel *parent, const wxString file,
   width = theImage.GetWidth();
   height = theImage.GetHeight();
   this->SetMaxSize(wxSize(height, width));
-  Update();
-  Refresh();
 }
 
 void imageInsert::paintEvent(wxPaintEvent &event) {
@@ -30,6 +28,7 @@ void imageInsert::paintNow() {
   wxPaintDC dc(this);
   if (theImage.Ok()) {
     dc.DrawBitmap(theImage, 0, 0);
+    std::cout << "In Paint Now" << std::endl;
   }
 }
 

@@ -40,6 +40,8 @@ public:
   int hSideVFieldSpacer();
   int hMiddleSpacer();
 
+  int lobbyButtonSpacer();
+
   wxSize getClientScreenSize();
   wxSize getLargeCardSize();
   wxSize getSmallCardSize();
@@ -47,6 +49,7 @@ public:
   wxSize getSmallHorCardSize();
   wxSize getCardFront();
   wxSize getSmallCardFront();
+  wxSize lobbyButton();
 
   int getcardBackType() { return cardBackType; };
 };

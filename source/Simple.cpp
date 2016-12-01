@@ -30,6 +30,16 @@ Simple::Simple(const wxString &title, clientInfo *theClientScreen)
   pageSizer->Add(mainPane, 1, wxGROW);
   mainPane->Hide();
 
+  // page 4
+  heartsLobby = new lobby(this, wxT("Hearts"));
+  pageSizer->Add(heartsLobby);
+  heartsLobby->Show(false);
+
+  // page 5
+  eightsLobby = new lobby(this, wxT("Crazy Eights"));
+  pageSizer->Add(eightsLobby);
+  eightsLobby->Hide();
+
   eightsGame = nullptr;
   heartsGame = nullptr;
   // //  SetSizer(backgroundSizer);
@@ -71,24 +81,30 @@ void Simple::switchPage(wxString buttonSwitch) {
     heartsGame->startGame();
 
   } else if (buttonSwitch == "Hearts Online") {
-    pageSizer->Show(1, true);
+    pageSizer->Show(3, true);
 
   } else if (buttonSwitch == "Eights Local") {
     eightsGame = new CrazyEightsGame(this);
     pageSizer->Prepend(eightsGame->getGui(), 1, wxGROW);
 
   } else if (buttonSwitch == "Eights Online") {
-    pageSizer->Show(1, true);
+    pageSizer->Show(4, true);
 
   } else if (buttonSwitch == "Settings") {
     pageSizer->Show(2, true);
-    wxMessageBox(wxT("sup homie bro"));
+    wxMessageBox(wxT("Settings"));
 
-  } else if (buttonSwitch == "Friends") {
+  } else if (buttonSwitch == "Hearts Rules") {
     pageSizer->Show(2, true);
+    wxMessageBox(wxT("Hearts rullleeesss"));
 
-  } else if (buttonSwitch == "Stats") {
+  } else if (buttonSwitch == "Crazy Eights Rules") {
     pageSizer->Show(2, true);
+    wxMessageBox(wxT("Crazy Eights RUlesssss"));
+
+  } else if (buttonSwitch == "Game Stats") {
+    pageSizer->Show(2, true);
+    wxMessageBox(wxT("Game Stats"));
 
   } else if (buttonSwitch == "Log Out") {
     pageSizer->Show(2, true);
