@@ -1,5 +1,6 @@
 #include "mainMenu.h"
 #include "button.h"
+
 #include "imageInsert.h"
 
 // This panel is the main menu screen
@@ -17,34 +18,36 @@ mainMenu::mainMenu(wxFrame *parent)
   wxBoxSizer *paneSizer = new wxBoxSizer(wxHORIZONTAL);
 
   SetFont(
-      wxFont(20, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
+      wxFont(15, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
   // wxBoxSizer *wholeSizer = new wxBoxSizer(wxHORIZONTAL);
 
-  imageInsert *theLogo = new imageInsert(this, wxT("../res/TextLogo.png"),
-                                         wxBITMAP_TYPE_PNG, 100, 200);
+  imageInsert *theLogo =
+      new imageInsert(this, wxT("../res/TextLogo.png"), wxBITMAP_TYPE_PNG,
+                      screenInfo->getClientScreenSize().GetHeight() * .12,
+                      screenInfo->getClientScreenSize().GetWidth() * .30);
 
-  wxButton *heartsLocal =
-      new wxButton(this, heartsLocalBtn, wxT("Hearts Local"), wxDefaultPosition,
-                   wxSize(200, 200), 0, wxDefaultValidator, wxButtonNameStr);
+  wxButton *heartsLocal = new wxButton(
+      this, heartsLocalBtn, wxT("Hearts Local"), wxDefaultPosition,
+      screenInfo->gamePlayBtnSize(), 0, wxDefaultValidator, wxButtonNameStr);
 
   wxButton *heartsOnline = new wxButton(
       this, heartsOnlineBtn, wxT("Hearts Online"), wxDefaultPosition,
-      wxSize(200, 200), 0, wxDefaultValidator, wxButtonNameStr);
+      screenInfo->gamePlayBtnSize(), 0, wxDefaultValidator, wxButtonNameStr);
 
-  wxButton *eightsLocal =
-      new wxButton(this, eightsLocalBtn, wxT("Eights Local"), wxDefaultPosition,
-                   wxSize(200, 200), 0, wxDefaultValidator, wxButtonNameStr);
+  wxButton *eightsLocal = new wxButton(
+      this, eightsLocalBtn, wxT("Eights Local"), wxDefaultPosition,
+      screenInfo->gamePlayBtnSize(), 0, wxDefaultValidator, wxButtonNameStr);
 
   wxButton *eightsOnline = new wxButton(
       this, eightsOnlineBtn, wxT("Eights Online"), wxDefaultPosition,
-      wxSize(200, 200), 0, wxDefaultValidator, wxButtonNameStr);
+      screenInfo->gamePlayBtnSize(), 0, wxDefaultValidator, wxButtonNameStr);
 
   wxCollapsiblePane *sidePane =
       new wxCollapsiblePane(this, wxID_ANY, "Menu", wxDefaultPosition,
-                            wxSize(800, 800), wxCP_NO_TLW_RESIZE);
+                            screenInfo->sidePanelSize(), wxCP_NO_TLW_RESIZE);
 
   sidePane->SetFont(
-      wxFont(40, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
+      wxFont(20, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
 
   heartsLabel = new wxStaticText(this, wxID_ANY, "HEARTS", wxDefaultPosition,
                                  wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);
@@ -68,25 +71,25 @@ mainMenu::mainMenu(wxFrame *parent)
   wxWindow *win = sidePane->GetPane();
   wxSizer *paneSz = new wxBoxSizer(wxVERTICAL);
 
-  wxButton *settingsBtn =
-      new wxButton(win, wxID_ANY, wxT("Settings"), wxDefaultPosition,
-                   wxSize(660, 100), 0, wxDefaultValidator, wxButtonNameStr);
+  wxButton *settingsBtn = new wxButton(
+      win, wxID_ANY, wxT("Settings"), wxDefaultPosition,
+      screenInfo->sidePaneBtnSize(), 0, wxDefaultValidator, wxButtonNameStr);
 
-  wxButton *heartsRulesBtn =
-      new wxButton(win, wxID_ANY, wxT("Hearts Rules"), wxDefaultPosition,
-                   wxSize(600, 100), 0, wxDefaultValidator, wxButtonNameStr);
+  wxButton *heartsRulesBtn = new wxButton(
+      win, wxID_ANY, wxT("Hearts Rules"), wxDefaultPosition,
+      screenInfo->sidePaneBtnSize(), 0, wxDefaultValidator, wxButtonNameStr);
 
-  wxButton *eightsRulesBtn =
-      new wxButton(win, wxID_ANY, wxT("Crazy Eights Rules"), wxDefaultPosition,
-                   wxSize(600, 100), 0, wxDefaultValidator, wxButtonNameStr);
+  wxButton *eightsRulesBtn = new wxButton(
+      win, wxID_ANY, wxT("Eights Rules"), wxDefaultPosition,
+      screenInfo->sidePaneBtnSize(), 0, wxDefaultValidator, wxButtonNameStr);
 
-  wxButton *statsBtn =
-      new wxButton(win, wxID_ANY, wxT("Game Stats"), wxDefaultPosition,
-                   wxSize(600, 100), 0, wxDefaultValidator, wxButtonNameStr);
+  wxButton *statsBtn = new wxButton(
+      win, wxID_ANY, wxT("Game Stats"), wxDefaultPosition,
+      screenInfo->sidePaneBtnSize(), 0, wxDefaultValidator, wxButtonNameStr);
 
-  wxButton *logOutBtn =
-      new wxButton(win, wxID_ANY, wxT("Log Out"), wxDefaultPosition,
-                   wxSize(660, 100), 0, wxDefaultValidator, wxButtonNameStr);
+  wxButton *logOutBtn = new wxButton(
+      win, wxID_ANY, wxT("Log Out"), wxDefaultPosition,
+      screenInfo->sidePaneBtnSize(), 0, wxDefaultValidator, wxButtonNameStr);
 
   win->SetBackgroundColour(wxColour(0, 0, 0));
   sidePane->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
@@ -130,7 +133,7 @@ mainMenu::mainMenu(wxFrame *parent)
   eightsOnline->SetForegroundColour(wxColour(wxT("WHITE")));
 
   theSizer->Add(theLogo);
-
+  theSizer->AddSpacer(20);
   theSizer->Add(heartsLabelCont,
                 wxSizerFlags(0).Align(wxALIGN_CENTER_HORIZONTAL));
   theSizer->AddSpacer(20);

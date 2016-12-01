@@ -47,6 +47,13 @@ public:
   wxSize getSmallHorCardSize();
   wxSize getCardFront();
   wxSize getSmallCardFront();
+  wxSize sidePaneBtnSize();
+  wxSize gamePlayBtnSize();
+  wxSize sidePanelSize();
+  wxSize loginBtnSize();
+  wxSize loginTextSize();
+  wxSize newUserBtnSize();
+  wxSize newUserTextSize();
 
   int getcardBackType() { return cardBackType; };
 };

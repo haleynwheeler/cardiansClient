@@ -15,18 +15,24 @@ login::login(wxFrame *parent)
                      wxSystemSettings::GetMetric(wxSYS_SCREEN_X) * .5),
               wxTAB_TRAVERSAL, wxPanelNameStr) {
 
-  imageInsert *theLogo = new imageInsert(this, wxT("../res/logo.png"),
-                                         wxBITMAP_TYPE_PNG, 300, 600);
+  clientInfo *screenInfo = new clientInfo();
+
+  imageInsert *theLogo =
+      new imageInsert(this, wxT("../res/logo.png"), wxBITMAP_TYPE_PNG,
+                      screenInfo->getClientScreenSize().GetWidth() * .25,
+                      screenInfo->getClientScreenSize().GetHeight() * .7);
 
   wxBoxSizer *verticalOne = new wxBoxSizer(wxVERTICAL);
   wxBoxSizer *verticalTwo = new wxBoxSizer(wxVERTICAL);
   wxBoxSizer *horizontalContainer = new wxBoxSizer(wxHORIZONTAL);
+  wxBoxSizer *logoHolder = new wxBoxSizer(wxHORIZONTAL);
   wxBoxSizer *theSizer = new wxBoxSizer(wxVERTICAL);
 
-  usernameText = new wxTextCtrl(this, 0, "Username", wxDefaultPosition);
-  wxButton *login =
-      new wxButton(this, loginButton, wxT("Login"), wxDefaultPosition,
-                   wxSize(200, 100), 0, wxDefaultValidator, wxButtonNameStr);
+  usernameText = new wxTextCtrl(this, 0, "Username", wxDefaultPosition,
+                                screenInfo->loginTextSize());
+  wxButton *login = new wxButton(this, loginButton, wxT("Login"),
+                                 wxDefaultPosition, screenInfo->loginBtnSize(),
+                                 0, wxDefaultValidator, wxButtonNameStr);
   // Button *login = new Button(wxT("Login"),parent, wxSize(100,100));
   verticalOne->Add(usernameText);
   verticalOne->Add(login);
@@ -34,11 +40,12 @@ login::login(wxFrame *parent)
   login->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
   login->SetForegroundColour(wxColour(wxT("WHITE")));
 
-  passwordText = new wxTextCtrl(this, 0, "Password", wxDefaultPosition);
+  passwordText = new wxTextCtrl(this, 0, "Password", wxDefaultPosition,
+                                screenInfo->loginTextSize());
 
-  wxButton *user =
-      new wxButton(this, newUserButton, wxT("New User"), wxDefaultPosition,
-                   wxSize(200, 100), 0, wxDefaultValidator, wxButtonNameStr);
+  wxButton *user = new wxButton(this, newUserButton, wxT("New User"),
+                                wxDefaultPosition, screenInfo->loginBtnSize(),
+                                0, wxDefaultValidator, wxButtonNameStr);
 
   verticalTwo->Add(passwordText);
   verticalTwo->Add(user);
@@ -46,10 +53,18 @@ login::login(wxFrame *parent)
   user->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
   user->SetForegroundColour(wxColour(wxT("WHITE")));
 
+  horizontalContainer->AddSpacer(screenInfo->getClientScreenSize().GetWidth() *
+                                 .145);
   horizontalContainer->Add(verticalOne);
+  // horizontalContainer->AddSpacer(screenInfo->getClientScreenSize().GetWidth()
+  // *
+  //.5);
   horizontalContainer->Add(verticalTwo);
 
-  theSizer->Add(theLogo);
+  // theSizer->AddSpacer(screenInfo->getClientScreenSize().GetWidth() * .5);
+  logoHolder->AddSpacer(screenInfo->getClientScreenSize().GetWidth() * .3);
+  logoHolder->Add(theLogo);
+  theSizer->Add(logoHolder);
   theSizer->Add(horizontalContainer);
 
   SetSizerAndFit(theSizer);

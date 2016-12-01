@@ -90,9 +90,25 @@ void Simple::switchPage(wxString buttonSwitch) {
     pageSizer->Show(2, true);
     wxMessageBox(wxT("Hearts rullleeesss"));
 
-  } else if (buttonSwitch == "Crazy Eights Rules") {
+  } else if (buttonSwitch == "Eights Rules") {
     pageSizer->Show(2, true);
-    wxMessageBox(wxT("Crazy Eights RUlesssss"));
+    wxMessageBox(
+        wxT("Crazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
+            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
+            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
+            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
+            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
+            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
+            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
+            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
+            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
+            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
+            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
+            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
+            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
+            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
+            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
+            "RUlesssss"));
 
   } else if (buttonSwitch == "Game Stats") {
     pageSizer->Show(2, true);

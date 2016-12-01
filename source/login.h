@@ -1,6 +1,7 @@
 #ifndef LOGIN_H
 #define LOGIN_H
 
+#include "clientInfo.h"
 #include <string>
 #include <wx/textctrl.h>
 #include <wx/wx.h>

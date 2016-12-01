@@ -104,3 +104,38 @@ int clientInfo::hSideFieldSpacer() {
   return (clientScreenSize.GetWidth() * .25);
 }
 int clientInfo::hMiddleSpacer() { return (clientScreenSize.GetHeight() * .18); }
+
+wxSize clientInfo::sidePaneBtnSize() {
+  return wxSize((clientScreenSize.GetWidth() * 0.4),
+                clientScreenSize.GetHeight() / 5.2);
+}
+
+wxSize clientInfo::gamePlayBtnSize() {
+  return wxSize((clientScreenSize.GetWidth() * 0.26),
+                clientScreenSize.GetHeight() * .25);
+}
+
+wxSize clientInfo::sidePanelSize() {
+  return wxSize((clientScreenSize.GetWidth() * 0.40),
+                clientScreenSize.GetHeight());
+}
+
+wxSize clientInfo::loginBtnSize() {
+  return wxSize((clientScreenSize.GetWidth() * 0.35),
+                clientScreenSize.GetHeight() * .20);
+}
+
+wxSize clientInfo::loginTextSize() {
+  return wxSize((clientScreenSize.GetWidth() * 0.35),
+                clientScreenSize.GetHeight() * .25);
+}
+
+wxSize clientInfo::newUserBtnSize() {
+  return wxSize((clientScreenSize.GetWidth() * 0.50),
+                clientScreenSize.GetHeight() * .20);
+}
+
+wxSize clientInfo::newUserTextSize() {
+  return wxSize((clientScreenSize.GetWidth() * 0.25),
+                clientScreenSize.GetHeight() * .20);
+}
