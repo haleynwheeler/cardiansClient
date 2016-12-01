@@ -7,6 +7,7 @@
 #include "baseBackground.h"
 #include "clientInfo.h"
 #include "imageInsert.h"
+#include "lobby.h"
 #include "login.h"
 #include "mainMenu.h"
 #include "newUser.h"
@@ -28,6 +29,8 @@ public:
   newUser *newUserPane;
   CrazyEightsGame *eightsGame;
   HeartsGame *heartsGame;
+  lobby *heartsLobby;
+  lobby *eightsLobby;
   clientInfo *screenInfo;
   void sendServerMsg(std::string);
   // void setServerReceivedMsgFunc(std::function<void(std::string)>);

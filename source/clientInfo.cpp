@@ -78,6 +78,21 @@ wxSize clientInfo::getSmallCardFront() {
   return ratioHandlingDetermineHeight(cardSliverSize, wantedSize);
 }
 
+wxSize clientInfo::lobbyButton() {
+  wxSize *wantedWidth =
+      new wxSize((clientScreenSize.GetWidth() * .35) / 2.5, 1000);
+  wxSize ratio = wxSize(40, 20);
+  return ratioHandlingDetermineHeight(ratio, wantedWidth);
+}
+
+int clientInfo::lobbyButtonSpacer() {
+  int one = clientScreenSize.GetWidth() * .35;
+  int two = 2 * ((clientScreenSize.GetWidth() * .35) / 2.5);
+  int spacer = one - two;
+  std::cout << spacer << std::endl;
+  return spacer;
+}
+
 int clientInfo::c8middleVerSpace() {
   return (clientScreenSize.GetHeight() * .18);
 } // 180
