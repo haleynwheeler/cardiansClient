@@ -90,6 +90,7 @@ void Simple::switchPage(wxString buttonSwitch) {
 
   } else if (buttonSwitch == "Hearts Online") {
     pageSizer->Show(3, true);
+    heartsLobby->requestGames();
 
   } else if (buttonSwitch == "Eights Local") {
     eightsGame = new CrazyEightsGame(this);
@@ -97,6 +98,7 @@ void Simple::switchPage(wxString buttonSwitch) {
 
   } else if (buttonSwitch == "Eights Online") {
     pageSizer->Show(4, true);
+    eightsLobby->requestGames();
 
   } else if (buttonSwitch == "Settings") {
     pageSizer->Show(mainPane, true);
