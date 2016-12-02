@@ -19,8 +19,7 @@ playerCard::playerCard(wxWindow *parent, int direction, int bgType, wxSize size,
                             size.GetHeight(), size.GetWidth());
   background->Add(bgImage);
   background->SetMinSize(size);
-  this->SetSizerAndFit(background);
-  SetBackgroundColour(wxColour(120, 120, 20));
+  SetSizerAndFit(background);
 }
 
 playerCard::playerCard(wxWindow *parent, int bgType, wxSize size,
@@ -57,13 +56,7 @@ playerCard::playerCard(wxWindow *parent, Card *theCards, wxSize size,
                             size.GetHeight(), size.GetWidth());
   background->Add(bgImage);
   background->SetMinSize(size);
-  cardSizer = new wxBoxSizer(wxVERTICAL);
-  cardHorizontalSizer = new wxBoxSizer(wxHORIZONTAL);
-  cardSizer->SetMinSize(size);
-  // cardSizer->AddSpacer(10);
-  this->SetSizerAndFit(cardSizer);
-  // Update();
-  // Refresh();
+  SetSizerAndFit(background);
 }
 
 playerCard::~playerCard() {}
@@ -102,13 +95,13 @@ void playerCard::updateCard(Card c, bool largeSize) {
                                    theCard->getValue(), theCard->getSuit());
   }
 
-  bgImage =
-      new imageInsert(this, bgImagePath, wxBITMAP_TYPE_PNG,
-                      this->GetSize().GetHeight(), this->GetSize().GetWidth());
-  background->Clear(true);
-  background->Add(bgImage);
-  // Update();
+  bgImage = new imageInsert(this, bgImagePath, wxBITMAP_TYPE_PNG,
+                            GetSize().GetHeight(), GetSize().GetWidth());
+  // background->ShowItems(false);
+  // background->Layout();
+  // background->ShowItems(true);
   // Refresh();
+  // Update();
 }
 
 void playerCard::updateDeck(bool deckEmpty, int bgType) {
@@ -119,11 +112,9 @@ void playerCard::updateDeck(bool deckEmpty, int bgType) {
     bgImagePath = wxString::Format(wxT("../res/CardBacks/%i/0.png"), bgType);
   }
   std::cout << bgImagePath << std::endl;
-  bgImage =
-      new imageInsert(this, bgImagePath, wxBITMAP_TYPE_PNG,
-                      this->GetSize().GetHeight(), this->GetSize().GetWidth());
-  background->Clear(true);
-  background->Add(bgImage);
-  SetBackgroundColour(wxColour(100, 100, 100));
+  bgImage = new imageInsert(this, bgImagePath, wxBITMAP_TYPE_PNG,
+                            GetSize().GetHeight(), GetSize().GetWidth());
+  // background->Layout();
+  // Refresh();
   // Update();
 }
