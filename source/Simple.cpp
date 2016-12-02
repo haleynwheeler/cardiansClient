@@ -10,7 +10,7 @@ Simple::Simple(const wxString &title, clientInfo *theClientScreen)
       NI(0, ioService, std::cout) {
 
   NI.connect("127.0.0.1", 12000);
-
+  isConnected = NI.isConnected();
   screenInfo = theClientScreen;
 
   pageSizer = new wxBoxSizer(wxVERTICAL);
@@ -73,6 +73,7 @@ void Simple::switchPage(wxString buttonSwitch) {
   } else if (buttonSwitch == "Offline Only") {
     // // switch to main screen  from login. Don't connect to server
     pageSizer->Show(mainPane, true);
+    isConnected = false;
 
   } else if (buttonSwitch == "Create New User") {
     // switch to main menu screen from new user
@@ -89,14 +90,24 @@ void Simple::switchPage(wxString buttonSwitch) {
     heartsGame->startGame();
 
   } else if (buttonSwitch == "Hearts Online") {
-    pageSizer->Show(3, true);
+    if (isConnected) {
+      pageSizer->Show(3, true);
+    } else {
+      pageSizer->Show(mainPane, true);
+      wxMessageBox(wxT("This functionality is not available in offline mode."));
+    }
 
   } else if (buttonSwitch == "Eights Local") {
     eightsGame = new CrazyEightsGame(this);
     pageSizer->Prepend(eightsGame->getGui(), 1, wxGROW);
 
   } else if (buttonSwitch == "Eights Online") {
-    pageSizer->Show(4, true);
+    if (isConnected) {
+      pageSizer->Show(4, true);
+    } else {
+      pageSizer->Show(mainPane, true);
+      wxMessageBox(wxT("This functionality is not available in offline mode."));
+    }
 
   } else if (buttonSwitch == "Settings") {
     pageSizer->Show(mainPane, true);

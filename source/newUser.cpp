@@ -30,10 +30,11 @@ newUser::newUser(wxFrame *parent)
   wxBoxSizer *logoHolder = new wxBoxSizer(wxHORIZONTAL);
   wxBoxSizer *horizontalContainerThree = new wxBoxSizer(wxHORIZONTAL);
 
-  usernameText = new wxTextCtrl(this, 0, "Username", wxDefaultPosition,
+  usernameText = new wxTextCtrl(this, 0, "", wxDefaultPosition,
                                 screenInfo->newUserTextSize());
-  passwordText = new wxTextCtrl(this, 0, "Password", wxDefaultPosition,
-                                screenInfo->newUserTextSize());
+  passwordText = new wxTextCtrl(this, 0, "", wxDefaultPosition,
+                                screenInfo->newUserTextSize(), wxTE_PASSWORD,
+                                wxDefaultValidator, wxButtonNameStr);
 
   wxStaticText *usernameLabel =
       new wxStaticText(this, wxID_ANY, "Username:", wxDefaultPosition,
