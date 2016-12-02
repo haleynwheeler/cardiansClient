@@ -92,6 +92,7 @@ void Simple::switchPage(wxString buttonSwitch) {
   } else if (buttonSwitch == "Hearts Online") {
     if (isConnected) {
       pageSizer->Show(3, true);
+      heartsLobby->requestGames();
     } else {
       pageSizer->Show(mainPane, true);
       wxMessageBox(wxT("This functionality is not available in offline mode."));
@@ -104,6 +105,7 @@ void Simple::switchPage(wxString buttonSwitch) {
   } else if (buttonSwitch == "Eights Online") {
     if (isConnected) {
       pageSizer->Show(4, true);
+      eightsLobby->requestGames();
     } else {
       pageSizer->Show(mainPane, true);
       wxMessageBox(wxT("This functionality is not available in offline mode."));
