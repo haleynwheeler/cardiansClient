@@ -1,4 +1,5 @@
 #include "lobby.h"
+#include "Simple.h"
 
 lobby::lobby(wxFrame *parent, wxString typeOfGame)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
@@ -25,7 +26,7 @@ lobby::lobby(wxFrame *parent, wxString typeOfGame)
   gameType->SetFont(
       wxFont(40, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
 
-  availableGames *currentGames = new availableGames(this, wxSize(150, 300));
+  currentGames = new availableGames(this, wxSize(150, 300));
 
   wxButton *newGame = new wxButton(this, wxID_ANY, wxT("New Game"),
                                    wxDefaultPosition, screenInfo->lobbyButton(),
@@ -128,7 +129,7 @@ void lobby::requestGames() {
   receivedGames(receivedMsg);
 }
 
-void login::receivedGames(std::string msg) {
+void lobby::receivedGames(std::string msg) {
   std::cout << msg << std::endl;
   currentGames->ClearAll();
   std::stringstream ss;

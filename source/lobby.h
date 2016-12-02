@@ -11,6 +11,7 @@
 
 class lobby : public wxPanel {
   clientInfo *screenInfo;
+  availableGames *currentGames;
 
 public:
   lobby(wxFrame *parent, wxString typeOfGame);
