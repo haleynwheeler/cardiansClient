@@ -19,6 +19,8 @@ xpCommonFlags()
 
 add_subdirectory(GameLogic)
 add_subdirectory(Networking)
+add_subdirectory(Messages)
+add_subdirectory(OnlineGameLogic)
 
 xpGetExtern(externIncs externLibs PUBLIC boost wxWidgets)
 include_directories(${externIncs} ${CMAKE_SOURCE_DIR})
@@ -38,4 +40,4 @@ add_executable(cardiansClient main.cpp
     lobby.cpp lobby.h
     availableGames.cpp availableGames.h)
 
-target_link_libraries(cardiansClient GameLogic Networking ${externLibs})
+target_link_libraries(cardiansClient GameLogic Networking Messages OnlineGameLogic ${externLibs})

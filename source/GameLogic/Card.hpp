@@ -57,6 +57,11 @@ public:
   std::string printCard() const;
   Suit getSuit() const;
   Value getValue() const;
+  template <class Archive>
+  inline void serialize(Archive &ar, const unsigned int version) {
+    ar &suit;
+    ar &value;
+  }
 };
 
 bool operator<(const Card &, const Card &);
