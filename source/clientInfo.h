@@ -57,6 +57,8 @@ public:
   wxSize newUserBtnSize();
   wxSize newUserTextSize();
   wxSize lobbyButton();
+  wxSize loginLabelSize();
+  wxSize loginOfflineBtnSize();
   int getcardBackType() { return cardBackType; };
 };
 

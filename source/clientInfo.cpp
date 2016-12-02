@@ -137,20 +137,30 @@ wxSize clientInfo::sidePanelSize() {
 
 wxSize clientInfo::loginBtnSize() {
   return wxSize((clientScreenSize.GetWidth() * 0.35),
-                clientScreenSize.GetHeight() * .20);
+                clientScreenSize.GetHeight() * .10);
 }
 
 wxSize clientInfo::loginTextSize() {
   return wxSize((clientScreenSize.GetWidth() * 0.35),
-                clientScreenSize.GetHeight() * .25);
+                clientScreenSize.GetHeight() * .10);
 }
 
 wxSize clientInfo::newUserBtnSize() {
   return wxSize((clientScreenSize.GetWidth() * 0.50),
-                clientScreenSize.GetHeight() * .20);
+                clientScreenSize.GetHeight() * .10);
 }
 
 wxSize clientInfo::newUserTextSize() {
   return wxSize((clientScreenSize.GetWidth() * 0.25),
-                clientScreenSize.GetHeight() * .20);
+                clientScreenSize.GetHeight() * .10);
+}
+
+wxSize clientInfo::loginLabelSize() {
+  return wxSize((clientScreenSize.GetWidth() * 0.25),
+                clientScreenSize.GetHeight() * .02);
+}
+
+wxSize clientInfo::loginOfflineBtnSize() {
+  return wxSize((clientScreenSize.GetWidth() * 0.70),
+                clientScreenSize.GetHeight() * .10);
 }

@@ -61,18 +61,26 @@ void Simple::switchPage(wxString buttonSwitch) {
 
   // switching to main screen from login button
   if (buttonSwitch == "Login") {
-    pageSizer->Show(2, true);
+    pageSizer->Show(mainPane, true);
 
   } else if (buttonSwitch == "New User") {
     // // switch to new user screen from login
-    pageSizer->Show(1, true);
+    pageSizer->Show(newUserPane, true);
     // pageSizer->Prepend(newUserPane, 1, wxGROW);
     // // backgroundSizer->Prepend(theBackgroundDrawable, 1, wxEXPAND);
     // newUserPane->Show();
 
+  } else if (buttonSwitch == "Offline Only") {
+    // // switch to main screen  from login. Don't connect to server
+    pageSizer->Show(mainPane, true);
+
   } else if (buttonSwitch == "Create New User") {
     // switch to main menu screen from new user
-    pageSizer->Show(2, true);
+    pageSizer->Show(mainPane, true);
+
+  } else if (buttonSwitch == "Back To Login") {
+    // switch to main menu screen from new user
+    pageSizer->Show(loginPane, true);
 
   } else if (buttonSwitch == "Hearts Local") {
     heartsGame = new HeartsGame(this);
@@ -91,39 +99,50 @@ void Simple::switchPage(wxString buttonSwitch) {
     pageSizer->Show(4, true);
 
   } else if (buttonSwitch == "Settings") {
-    pageSizer->Show(2, true);
+    pageSizer->Show(mainPane, true);
     wxMessageBox(wxT("Settings"));
 
   } else if (buttonSwitch == "Hearts Rules") {
-    pageSizer->Show(2, true);
-    wxMessageBox(wxT("Hearts rullleeesss"));
+    pageSizer->Show(mainPane, true);
+    wxMessageBox(wxT(
+        "Object of the game: To be the player with the fewest "
+        "points at the end of the game.\n\n At the beginning of "
+        "the  game, a pass is made of three cards.\n\n To start, the player "
+        "holding the two of "
+        "clubs leads the round.\n\n Each player must follow  suit if "
+        "possible. If a player does not a have of suit to play, they may "
+        "either discard of another suit or break hearts.\n\n The highest "
+        "card played of the suit led takes the trick, and the winner of "
+        "that trick leads the next round.\n\n At the end of the round, each "
+        "heart still held by a player is worth 1 point, and the queen of "
+        "spades is worth 13 points."));
 
   } else if (buttonSwitch == "Eights Rules") {
-    pageSizer->Show(2, true);
-    wxMessageBox(
-        wxT("Crazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
-            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
-            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
-            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
-            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
-            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
-            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
-            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
-            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
-            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
-            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
-            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
-            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
-            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
-            "RUlesssssCrazy Eights RUlesssssCrazy Eights RUlesssssCrazy Eights "
-            "RUlesssss"));
+    pageSizer->Show(mainPane, true);
+    wxMessageBox(wxT(
+        "Object of game: Get rid of cards in your hand onto a "
+        "discard pile by matching number or suit of previous discarded "
+        "card.\n\n Each player in turn must either play a legal card face up on"
+        "top of discard pile or draw from the undealt stock.\n\n If the top of "
+        "the"
+        "discard pile is not an eight, you may play a card that matches the"
+        "previous suit or rank.\n\n An eight may be played on any card, and the"
+        "player of the eight must nominate a suit.\n\n If an eight is on the "
+        "top"
+        "of"
+        "the pile, you must play either an eight or a card of the suit"
+        "nominated.\n\n The first player who gets rid of their hand is the "
+        "winner,"
+        "and the other players score penalty points for the cards left in their"
+        "hand.\n\n Penalty points are as follows: -50 for an eight, 10 for a"
+        "picutre, and spot cards at face value."));
 
   } else if (buttonSwitch == "Game Stats") {
-    pageSizer->Show(2, true);
+    pageSizer->Show(mainPane, true);
     wxMessageBox(wxT("Game Stats"));
 
   } else if (buttonSwitch == "Log Out") {
-    pageSizer->Show(2, true);
+    pageSizer->Show(mainPane, true);
     std::string msg = "Are you sure you want to log out?\n\n";
     wxMessageDialog dialog(NULL, msg, "Log Out", wxYES_NO);
     auto decision = dialog.ShowModal();
@@ -132,7 +151,7 @@ void Simple::switchPage(wxString buttonSwitch) {
       pageSizer->ShowItems(false);
       pageSizer->Show(loginPane, true);
     } else {
-      pageSizer->Show(2, true);
+      pageSizer->Show(mainPane, true);
     }
   } else {
     if (heartsGame) {

@@ -23,15 +23,29 @@ newUser::newUser(wxFrame *parent)
 
   // wxBoxSizer *verticalOne = new wxBoxSizer(wxVERTICAL);
   // wxBoxSizer *verticalTwo = new wxBoxSizer(wxVERTICAL);
+  wxBoxSizer *labelContainer = new wxBoxSizer(wxHORIZONTAL);
   wxBoxSizer *horizontalContainer = new wxBoxSizer(wxHORIZONTAL);
   wxBoxSizer *horizontalContainerTwo = new wxBoxSizer(wxHORIZONTAL);
   wxBoxSizer *theSizer = new wxBoxSizer(wxVERTICAL);
   wxBoxSizer *logoHolder = new wxBoxSizer(wxHORIZONTAL);
+  wxBoxSizer *horizontalContainerThree = new wxBoxSizer(wxHORIZONTAL);
 
   usernameText = new wxTextCtrl(this, 0, "Username", wxDefaultPosition,
                                 screenInfo->newUserTextSize());
   passwordText = new wxTextCtrl(this, 0, "Password", wxDefaultPosition,
                                 screenInfo->newUserTextSize());
+
+  wxStaticText *usernameLabel =
+      new wxStaticText(this, wxID_ANY, "Username:", wxDefaultPosition,
+                       screenInfo->loginLabelSize());
+
+  wxStaticText *passwordLabel =
+      new wxStaticText(this, wxID_ANY, "Password:", wxDefaultPosition,
+                       screenInfo->loginLabelSize());
+
+  usernameLabel->SetForegroundColour(wxColour(wxT("WHITE")));
+
+  passwordLabel->SetForegroundColour(wxColour(wxT("WHITE")));
 
   // horizontalContainer->Add(new
   // wxTextCtrl(this,0,"Password",wxDefaultPosition,
@@ -39,7 +53,16 @@ newUser::newUser(wxFrame *parent)
   wxButton *user = new wxButton(this, newUserButton, wxT("Create New User"),
                                 wxDefaultPosition, screenInfo->newUserBtnSize(),
                                 0, wxDefaultValidator, wxButtonNameStr);
+
+  wxButton *backToLogin = new wxButton(
+      this, wxID_ANY, wxT("Back To Login"), wxDefaultPosition,
+      screenInfo->newUserBtnSize(), 0, wxDefaultValidator, wxButtonNameStr);
   // verticalTwo->Add(user);
+
+  labelContainer->AddSpacer(screenInfo->getClientScreenSize().GetWidth() * .25);
+  labelContainer->Add(usernameLabel);
+  labelContainer->Add(passwordLabel);
+
   horizontalContainer->AddSpacer(screenInfo->getClientScreenSize().GetWidth() *
                                  .25);
   horizontalContainer->Add(usernameText);
@@ -49,8 +72,14 @@ newUser::newUser(wxFrame *parent)
       screenInfo->getClientScreenSize().GetWidth() * .25);
   horizontalContainerTwo->Add(user);
 
+  horizontalContainerThree->AddSpacer(
+      screenInfo->getClientScreenSize().GetWidth() * .25);
+  horizontalContainerThree->Add(backToLogin);
+
   user->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
   user->SetForegroundColour(wxColour(wxT("WHITE")));
+  backToLogin->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
+  backToLogin->SetForegroundColour(wxColour(wxT("WHITE")));
 
   // horizontalContainer->Add(verticalOne);
   // horizontalContainer->Add(verticalTwo);
@@ -58,8 +87,11 @@ newUser::newUser(wxFrame *parent)
   logoHolder->Add(theLogo);
 
   theSizer->Add(logoHolder);
+  theSizer->Add(labelContainer);
   theSizer->Add(horizontalContainer);
   theSizer->Add(horizontalContainerTwo);
+  theSizer->AddSpacer(10);
+  theSizer->Add(horizontalContainerThree);
   // theSizer->Add(verticalOne, wxLEFT, 0);
   // theSizer->Add(verticalTwo, wxRIGHT, 0);
 

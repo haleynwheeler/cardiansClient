@@ -26,14 +26,42 @@ login::login(wxFrame *parent)
   wxBoxSizer *verticalTwo = new wxBoxSizer(wxVERTICAL);
   wxBoxSizer *horizontalContainer = new wxBoxSizer(wxHORIZONTAL);
   wxBoxSizer *logoHolder = new wxBoxSizer(wxHORIZONTAL);
+  wxBoxSizer *labelHolder = new wxBoxSizer(wxHORIZONTAL);    // username label
+  wxBoxSizer *labelHolderTwo = new wxBoxSizer(wxHORIZONTAL); // password label
+  wxBoxSizer *offlineHolder = new wxBoxSizer(wxHORIZONTAL);
+
   wxBoxSizer *theSizer = new wxBoxSizer(wxVERTICAL);
+
+  wxStaticText *usernameLabel =
+      new wxStaticText(this, wxID_ANY, "Username:", wxDefaultPosition);
+
+  wxStaticText *passwordLabel =
+      new wxStaticText(this, wxID_ANY, "Password:", wxDefaultPosition);
+
+  usernameLabel->SetForegroundColour(wxColour(wxT("WHITE")));
+
+  passwordLabel->SetForegroundColour(wxColour(wxT("WHITE")));
 
   usernameText = new wxTextCtrl(this, 0, "Username", wxDefaultPosition,
                                 screenInfo->loginTextSize());
   wxButton *login = new wxButton(this, loginButton, wxT("Login"),
                                  wxDefaultPosition, screenInfo->loginBtnSize(),
                                  0, wxDefaultValidator, wxButtonNameStr);
+
+  wxButton *loginOffline =
+      new wxButton(this, wxID_ANY, wxT("Offline Only"), wxDefaultPosition,
+                   screenInfo->loginOfflineBtnSize(), 0, wxDefaultValidator,
+                   wxButtonNameStr);
+
+  loginOffline->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
+  loginOffline->SetForegroundColour(wxColour(wxT("WHITE")));
   // Button *login = new Button(wxT("Login"),parent, wxSize(100,100));
+
+  offlineHolder->AddSpacer(screenInfo->getClientScreenSize().GetWidth() * .145);
+  offlineHolder->Add(loginOffline);
+
+  labelHolder->Add(usernameLabel, 0, wxEXPAND, 0);
+  verticalOne->Add(labelHolder);
   verticalOne->Add(usernameText);
   verticalOne->Add(login);
 
@@ -49,7 +77,8 @@ login::login(wxFrame *parent)
   wxButton *user = new wxButton(this, newUserButton, wxT("New User"),
                                 wxDefaultPosition, screenInfo->loginBtnSize(),
                                 0, wxDefaultValidator, wxButtonNameStr);
-
+  labelHolderTwo->Add(passwordLabel);
+  verticalTwo->Add(labelHolderTwo);
   verticalTwo->Add(passwordText);
   verticalTwo->Add(user);
 
@@ -63,12 +92,16 @@ login::login(wxFrame *parent)
   // *
   //.5);
   horizontalContainer->Add(verticalTwo);
+  // horizontalContainer->Add(offlineHolder);
 
   // theSizer->AddSpacer(screenInfo->getClientScreenSize().GetWidth() * .5);
   logoHolder->AddSpacer(screenInfo->getClientScreenSize().GetWidth() * .3);
   logoHolder->Add(theLogo);
   theSizer->Add(logoHolder);
+  theSizer->Add(labelHolder);
   theSizer->Add(horizontalContainer);
+  theSizer->AddSpacer(10);
+  theSizer->Add(offlineHolder);
 
   SetSizerAndFit(theSizer);
   Center();
