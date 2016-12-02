@@ -14,6 +14,8 @@
 #include <algorithm>
 #include <random>
 
+enum State { PASSING, BIDDING, PLAYING, ROUND_OVER, GAME_OVER, HASNT_STARTED };
+
 class Game {
 protected:
   std::vector<Player> players;

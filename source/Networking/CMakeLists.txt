@@ -9,10 +9,6 @@ GeneralMessage.cpp
 GeneralMessage.hpp
 NetworkInterface.cpp
 NetworkInterface.hpp
-OnlineGame.hpp
-OnlineGame.cpp
-CrazyEightsOnline.cpp
-CrazyEightsOnline.hpp
 TCPConnection.cpp
 TCPConnection.hpp
 )
