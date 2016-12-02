@@ -26,22 +26,6 @@ lobby::lobby(wxFrame *parent, wxString typeOfGame)
       wxFont(40, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
 
   availableGames *currentGames = new availableGames(this, wxSize(150, 300));
-  // wxListCtrl *listCtrl = new wxListCtrl(this, wxNewId(), wxDefaultPosition,
-  //                                       wxDefaultSize, wxLC_REPORT);
-  // listCtrl->InsertColumn(0, _("Games"));
-  // listCtrl->InsertColumn(1, _("# of players"));
-  //
-  // long index = listCtrl->InsertItem(0, _("John Smith"));
-  // listCtrl->SetItem(index, 1, _("3 of 4"));
-
-  // wxPanel *listPanel =
-  //     new wxPanel(this, wxID_ANY, wxDefaultPosition,
-  //                 wxSize((screenInfo->getClientScreenSize().GetWidth() *
-  //                 .35),
-  //                        (screenInfo->getClientScreenSize().GetHeight() *
-  //                        .35)),
-  //                 wxTAB_TRAVERSAL, wxPanelNameStr);
-  // listPanel->SetBackgroundColour(wxColour(200, 20, 20));
 
   wxButton *newGame = new wxButton(this, wxID_ANY, wxT("New Game"),
                                    wxDefaultPosition, screenInfo->lobbyButton(),
@@ -133,6 +117,54 @@ lobby::lobby(wxFrame *parent, wxString typeOfGame)
   // mainSizer->AddSpacer(screenInfo->getClientScreenSize().GetWidth() * .35);
   SetSizerAndFit(mainSizer);
   Center();
+}
+
+void lobby::requestGames() {
+  Simple *mainFrame = (Simple *)GetParent();
+
+  std::string sendMsg = "GET GAMES";
+  mainFrame->sendServerMsg(sendMsg);
+  auto receivedMsg = mainFrame->getResponse();
+  receivedGames(receivedMsg);
+}
+
+void login::receivedGames(std::string msg) {
+  std::cout << msg << std::endl;
+  currentGames->ClearAll();
+  std::stringstream ss;
+  std::string game;
+  while (!ss.eof()) {
+    ss >> game;
+    std::cout << "!" << game << "!" << std::endl;
+  }
+  // Need to check the format of ss but essentially we want to append game to
+  // availableGames.
+  // long index = this->InsertItem(0, _("GameName"));
+  // this->SetItem(index, position in availableGames , _("3 of 4"));
+}
+
+// I didn't make some sort of dialog for this :(
+void lobby::makeGame() {
+  Simple *mainFrame = (Simple *)GetParent();
+  std::string sendMsg = "MAKE HEARTS";
+  auto receivedMsg = mainFrame->getResponse();
+  if (receivedMsg == "FAILURE : UNKNOWN GAME TYPE") {
+    std::cout << "Somethin done gone wrong" << std::endl;
+  } else if (receivedMsg == "FAILURE : ALREADY EXSISTS") {
+    std::cout << "This game name already exists" << std::endl;
+  } else if (receivedMsg == "SUCCESS") {
+    // somehow drop into game
+  }
+}
+
+void lobby::joinGame() {
+  Simple *mainFrame = (Simple *)GetParent();
+  // Get game title it should be like selected item in wxListCtrl
+  std::string desiredGame = "girls";
+  std::string sendMsg = "JOIN " + desiredGame;
+  mainFrame->sendServerMsg(sendMsg);
+  auto receivedMsg = mainFrame->getResponse();
+  // Do something???
 }
 
 lobby::~lobby() {}

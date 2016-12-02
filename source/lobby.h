@@ -4,6 +4,7 @@
 #include "availableGames.h"
 #include "clientInfo.h"
 #include "imageInsert.h"
+#include <sstream>
 #include <wx/collpane.h>
 #include <wx/listctrl.h>
 #include <wx/wx.h>
@@ -14,7 +15,10 @@ class lobby : public wxPanel {
 public:
   lobby(wxFrame *parent, wxString typeOfGame);
   ~lobby();
-
+  void joinGame();
+  void makeGame();
+  void receivedGames(std::string msg);
+  void requestGames();
   void OnPaint(wxPaintEvent &event) {
     wxPaintDC paintDC(this);
     paintDC.SetBrush(wxBrush(wxColour(90, 5, 18, wxALPHA_OPAQUE)));
