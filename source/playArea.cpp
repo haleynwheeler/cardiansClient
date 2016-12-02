@@ -146,7 +146,7 @@ void playArea::setMadeMoveFunction(std::function<void(Card)> f) {
 void playArea::playerZero(std::vector<Card> hand) {
   yourHand->Clear(true);
   handCards.clear();
-  if (hand.size() > 0) {
+  if(hand.size() > 0){
     auto firstCard = hand.back();
     hand.pop_back();
     for (auto &&handCard : hand) {
@@ -163,11 +163,8 @@ void playArea::playerZero(std::vector<Card> hand) {
     card->setMoveFunction(humanMadeMove);
     handCards.push_back(card);
     yourHand->Add(card);
-    yourHand->Layout();
   }
-  // yourHand->Update();
-  // yourHand->Refresh();
-  lowerPortion->Layout();
+  yourHand->Layout();
   theMainSizer->Layout();
 }
 
@@ -199,10 +196,7 @@ void playArea::updatePlayerOne(int handSize) {
     }
   }
   playerOne->Layout();
-  middlePortion->Layout();
-  theMainSizer->Layout();
-  // playerOne->Update();
-  // playerOne->Refresh();
+  // middlePortion->Layout();
 }
 
 void playArea::updatePlayerTwo(int handSize) {
@@ -213,8 +207,6 @@ void playArea::updatePlayerTwo(int handSize) {
     }
   }
   playerTwo->Layout();
-  upperPortion->Layout();
-  theMainSizer->Layout();
 }
 
 void playArea::updatePlayerThree(int handSize) {
@@ -225,8 +217,6 @@ void playArea::updatePlayerThree(int handSize) {
     }
   }
   playerThree->Layout();
-  middlePortion->Layout();
-  theMainSizer->Layout();
 }
 
 void playArea::initializePlayArea(std::vector<Card> humanHand,
@@ -239,8 +229,8 @@ void playArea::initializePlayArea(std::vector<Card> humanHand,
     playerAi(i, humanHand.size());
   }
   updateFieldArea(false, topOfDiscardPile, true);
-  // this->Refresh();
-  // this->Update();
+  this->Refresh();
+  this->Update();
   Thaw();
 }
 
@@ -259,9 +249,8 @@ void playArea::updatePlayArea(int playerId, std::vector<Card> hand,
     break;
   }
   updateFieldArea(deckEmpty, topOfDiscardPile, false);
-  Refresh();
-  Update();
-  // this->Update();
+  this->Refresh();
+  this->Update();
   Thaw();
 }
 
@@ -291,9 +280,7 @@ void playArea::updateFieldArea(bool deckEmpty, Card topOfDiscardPile,
   fieldArea->Show(true);
   // fieldArea->Add(Deck);
   // fieldArea->Add(Discard);
-  fieldArea->Layout();
-  middlePortion->Layout();
-  theMainSizer->Layout();
+  // fieldArea->Layout();
 }
 
 void playArea::invalidMoveDialog() {
