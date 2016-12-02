@@ -27,6 +27,7 @@ private:
   void humanDrewCard();
   void displayEndOfRoundDialogBox();
   void showScores();
+  void updateGui();
 
 public:
   CrazyEightsGame(wxFrame *);

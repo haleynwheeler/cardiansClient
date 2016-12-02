@@ -42,7 +42,7 @@ login::login(wxFrame *parent)
 
   passwordLabel->SetForegroundColour(wxColour(wxT("WHITE")));
 
-  usernameText = new wxTextCtrl(this, 0, "Username", wxDefaultPosition,
+  usernameText = new wxTextCtrl(this, 0, "", wxDefaultPosition,
                                 screenInfo->loginTextSize());
   wxButton *login = new wxButton(this, loginButton, wxT("Login"),
                                  wxDefaultPosition, screenInfo->loginBtnSize(),

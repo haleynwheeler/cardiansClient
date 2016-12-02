@@ -1,6 +1,9 @@
 #include "lobby.h"
 #include "Simple.h"
 
+#include "Messages/LobbyGame.hpp"
+#include <boost/archive/text_iarchive.hpp>
+
 lobby::lobby(wxFrame *parent, wxString typeOfGame)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
               wxTAB_TRAVERSAL, wxPanelNameStr) {
@@ -132,12 +135,34 @@ void lobby::requestGames() {
 void lobby::receivedGames(std::string msg) {
   std::cout << msg << std::endl;
   currentGames->ClearAll();
-  std::stringstream ss;
-  std::string game;
-  while (!ss.eof()) {
-    ss >> game;
-    std::cout << "!" << game << "!" << std::endl;
-  }
+  std::stringstream ss(msg);
+  boost::archive::text_iarchive coded(ss);
+
+  // std::vector<LobbyGame> decodedGames;
+  // std::string game;
+  //
+  // while (!ss.eof()){
+  //   std::string game;
+  //   for (int i=0; i<3; i++){
+  //     coded >> game;
+  //   }
+  //
+  // }
+  // while (!ss.eof()) {
+  // LobbyGame tmp;
+  // coded >> tmp;
+  // decodedGames.push_back(tmp);
+  // //}
+  // // coded >> decodedGame;
+  // for (auto &&game : decodedGames) {
+  //   std::cout << game.name << std::endl;
+  // }
+
+  // while (!)
+  // while (!ss.eof()) {
+  //   ss >> game;
+  //   std::cout << "!" << game << "!" << std::endl;
+  // }
   // Need to check the format of ss but essentially we want to append game to
   // availableGames.
   // long index = this->InsertItem(0, _("GameName"));

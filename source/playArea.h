@@ -65,6 +65,7 @@ public:
   void setDrewCardFunction(std::function<void()>);
   void setMadeMoveFunction(std::function<void(Card)>);
   void hideGame();
+  void dummyPopUp();
 };
 
 #endif
