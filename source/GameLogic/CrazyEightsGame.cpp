@@ -45,8 +45,7 @@ void CrazyEightsGame::humanDrewCard() {
     if (!deck.empty()) {
       players[0].insertCardToHand(deck.back());
       deck.pop_back();
-      gui->updatePlayArea(0, players[0].getHand(), deck.empty(),
-                          discardPile.back());
+      updateGui();
     } else {
       std::cout << "You passed" << std::endl;
       auto hand = players[0].getHand();
@@ -57,8 +56,7 @@ void CrazyEightsGame::humanDrewCard() {
           return;
         }
       }
-      gui->updatePlayArea(0, players[0].getHand(), deck.empty(),
-                          discardPile.back());
+      updateGui();
       computersTurn();
     }
   }
@@ -84,8 +82,7 @@ void CrazyEightsGame::humanMadeMove(Card c) {
         endRound();
         return;
       }
-      gui->updatePlayArea(0, players[0].getHand(), deck.empty(),
-                          discardPile.back());
+      updateGui();
       computersTurn();
     } else {
       gui->invalidMoveDialog();
@@ -101,11 +98,7 @@ void CrazyEightsGame::computersTurn() {
       endRound();
       return;
     }
-    gui->updatePlayArea(turn, players[turn].getHand(), deck.empty(),
-                        discardPile.back());
-    // gui->Refresh();
-    // gui->Update();
-    std::this_thread::sleep_for(1s);
+    updateGui();
   }
   turn = 0;
 }
@@ -124,11 +117,7 @@ void CrazyEightsGame::computersMove() {
     auto newCard = deck.back();
     deck.pop_back();
     players[turn].insertCardToHand(newCard);
-    gui->updatePlayArea(turn, players[turn].getHand(), deck.empty(),
-                        discardPile.back());
-    // gui->Refresh();
-    // gui->Update();
-    std::this_thread::sleep_for(500ms);
+    // updateGui();
     auto validMove = checkCardValidity(newCard);
     if (validMove) {
       performValidAiMove(newCard);
@@ -144,11 +133,14 @@ void CrazyEightsGame::performValidAiMove(Card card) {
     roundOver = true;
     return;
   } else if (card.getValue() == EIGHT) {
+    // updateGui();
     std::random_device rd;
     std::mt19937 mt(rd());
     std::uniform_int_distribution<> dist(0, 3);
     suitSpecified = static_cast<Suit>(dist(rd));
-    gui->aiPickedSuitDialog(suitSpecified);
+    if (turn == 3) {
+      gui->aiPickedSuitDialog(suitSpecified);
+    }
   }
 }
 
@@ -179,25 +171,31 @@ void CrazyEightsGame::endRound() {
   // Calculate Scores
   roundOver = true;
   bool gameOver = false;
-  gui->updatePlayArea(turn, players[turn].getHand(), deck.empty(),
-                      discardPile.back());
-  // gui->Refresh();
-  // gui->Update();
+  updateGui();
+  int totalScoreToWinner = 0;
   for (auto &&player : players) {
     for (auto &&card : player.getHand()) {
       auto value = card.getValue();
       if (value == EIGHT) {
-        player.incrementRoundScore(50);
+        totalScoreToWinner += 50;
       } else if (value == TEN || value == JACK || value == QUEEN ||
                  value == KING) {
-        player.incrementRoundScore(10);
+        totalScoreToWinner += 10;
       } else if (value == ACE) {
-        player.incrementRoundScore(1);
+        totalScoreToWinner += 1;
       } else {
-        player.incrementRoundScore(value);
+        totalScoreToWinner += value;
       }
     }
   }
+  for (int i = 0; i < players.size(); i++) {
+    if (turn == i) {
+      players[i].incrementRoundScore(totalScoreToWinner);
+    } else {
+      players[i].incrementRoundScore(0);
+    }
+  }
+
   showScores();
 }
 
@@ -226,7 +224,12 @@ void CrazyEightsGame::showScores() {
 
 void CrazyEightsGame::showGame() { gui->Show(true); }
 
-void CrazyEightsGame::hideGame() {
-  std::cout << "This is pointer" << gui << std::endl;
-  gui->hideGame();
+void CrazyEightsGame::hideGame() { gui->hideGame(); }
+
+void CrazyEightsGame::updateGui() {
+  std::vector<int> handSize;
+  for (int i = 0; i < 4; i++) {
+    handSize.push_back(players[i].getHand().size());
+  }
+  gui->updateOnlinePlayArea(players[0].getHand(), handSize, discardPile);
 }

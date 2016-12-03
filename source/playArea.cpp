@@ -73,7 +73,7 @@ playArea::playArea(wxFrame *parent)
 
   // END PANE
 
-  wxBitmapButton *topLogo = new wxBitmapButton(
+  topLogo = new wxBitmapButton(
       this, wxID_ANY, wxBitmap("../res/TextLogo.png", wxBITMAP_TYPE_PNG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
   topLogo->SetBackgroundColour(wxColour(90, 5, 18, 0));
@@ -282,24 +282,64 @@ void playArea::initializePlayArea(std::vector<Card> humanHand,
   Thaw();
 }
 
+void playArea::updateOnlinePlayArea(std::vector<Card> hand,
+                                    std::vector<int> handSizes,
+                                    std::vector<Card> field) {
+  Freeze();
+  playerZero(hand);
+  for (int i = 0; i < 3; i++) {
+    playerAi(i, handSizes.at(i));
+  }
+  std::cout << field.back().getSuit() << "=" << field.back().getValue()
+            << std::endl;
+  updateFieldArea(FALSE, field.back(), FALSE);
+  Refresh();
+  Update();
+  Thaw();
+}
+
 void playArea::updatePlayArea(int playerId, std::vector<Card> hand,
                               bool deckEmpty, Card topOfDiscardPile) {
-  Freeze();
-  switch (playerId) {
-  case 0:
-    playerZero(hand);
-    break;
-  case 1:
-  case 2:
-  case 3:
-    playerAi(playerId, hand.size());
-    std::cout << "Computer Played" << std::endl;
-    break;
+  // Freeze();
+  if (playerId == 0) {
+    std::cout << "your turn" << std::endl;
+    std::vector<int> aiHandSize;
+    aiHandSize.clear();
+    for (int i = 1; i < 5; i++) {
+      aiHandSize.push_back(std::rand() % 13);
+    }
+    std::vector<Card> disc;
+    disc.push_back(topOfDiscardPile);
+    std::cout << topOfDiscardPile.getSuit() << "+"
+              << topOfDiscardPile.getValue() << std::endl;
+    updateOnlinePlayArea(hand, aiHandSize, disc);
   }
-  updateFieldArea(deckEmpty, topOfDiscardPile, false);
-  this->Refresh();
-  this->Update();
-  Thaw();
+  //
+  // switch (playerId) {
+  // case 0:
+  //   playerZero(hand);
+  //   break;
+  // case 1:
+  // case 2:
+  // case 3:
+  //   playerAi(playerId, hand.size());
+  //   std::cout << "Computer Played" << std::endl;
+  //   break;
+  // }
+  // updateFieldArea(deckEmpty, topOfDiscardPile, false);
+  // this->Refresh();
+  // this->Update();
+  // wxWindow *parent, wxWindowID id, const wxString &title, const wxPoint
+  // &pos=wxDefaultPosition,
+  //  const wxSize &size=wxDefaultSize, long style=wxDEFAULT_DIALOG_STYLE, const
+  //  wxString &name=wxDialogNameSt);
+  // wxMessageDialog dialog(this, wxID_ANY, ".lol", wxPoint(0, 0),
+  // wxDefaultSize,
+  //                        wxDEFAULT_DIALOG_STYLE, wxDialogNameSt);
+  // auto decision = dialog.ShowModal();
+  // dialog.Desrtoy();
+  // Thaw();
+  // ProcessPendingEvents();
 }
 
 void playArea::updateFieldArea(bool deckEmpty, Card topOfDiscardPile,

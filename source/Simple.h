@@ -15,6 +15,9 @@
 #include <wx/wx.h>
 
 class Simple : public wxFrame {
+private:
+  bool isConnected;
+
 public:
   Simple(const wxString &title, clientInfo *theClientScreen);
   void switchPage(wxString buttonSwitch);

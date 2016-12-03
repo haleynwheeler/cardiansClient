@@ -31,6 +31,7 @@ class playArea : public wxPanel {
   wxBoxSizer *playerTwo;
   wxBoxSizer *playerThree;
 
+  wxBitmapButton *topLogo;
   playerCard *Deck;
   playerCard *Discard;
   std::vector<playerCard *> handCards;
@@ -51,6 +52,8 @@ public:
   void updatePlayArea(int playerId, std::vector<Card> hand, bool deckEmpty,
                       Card topOfDiscardPile);
 
+  void updateOnlinePlayArea(std::vector<Card> hand, std::vector<int> handSizes,
+                            std::vector<Card> field);
   void playerZero(std::vector<Card> hand);
   void playerAi(int playerId, int handSize);
 
@@ -65,6 +68,7 @@ public:
   void setDrewCardFunction(std::function<void()>);
   void setMadeMoveFunction(std::function<void(Card)>);
   void hideGame();
+  void dummyPopUp();
 };
 
 #endif

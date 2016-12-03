@@ -1,6 +1,11 @@
 #include "lobby.h"
+#include "Simple.h"
 
-lobby::lobby(wxFrame *parent, wxString typeOfGame)
+#include "Messages/LobbyGame.hpp"
+#include <boost/archive/text_iarchive.hpp>
+#include <wx/textdlg.h>
+
+lobby::lobby(wxFrame *parent, wxString type)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
               wxTAB_TRAVERSAL, wxPanelNameStr) {
   screenInfo = new clientInfo();
@@ -8,6 +13,8 @@ lobby::lobby(wxFrame *parent, wxString typeOfGame)
   wxBoxSizer *leftSizer = new wxBoxSizer(wxVERTICAL);
   wxBoxSizer *centerSizer = new wxBoxSizer(wxVERTICAL);
   wxBoxSizer *buttonSizer = new wxBoxSizer(wxHORIZONTAL);
+
+  typeOfGame = type;
   // wxBoxSizer *ctrlSizer = new wxBoxSizer(wxHORIZONTAL);
 
   wxBitmapButton *theLogo = new wxBitmapButton(
@@ -25,35 +32,19 @@ lobby::lobby(wxFrame *parent, wxString typeOfGame)
   gameType->SetFont(
       wxFont(40, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
 
-  availableGames *currentGames = new availableGames(this, wxSize(150, 300));
-  // wxListCtrl *listCtrl = new wxListCtrl(this, wxNewId(), wxDefaultPosition,
-  //                                       wxDefaultSize, wxLC_REPORT);
-  // listCtrl->InsertColumn(0, _("Games"));
-  // listCtrl->InsertColumn(1, _("# of players"));
-  //
-  // long index = listCtrl->InsertItem(0, _("John Smith"));
-  // listCtrl->SetItem(index, 1, _("3 of 4"));
+  currentGames = new availableGames(this, wxSize(150, 300));
 
-  // wxPanel *listPanel =
-  //     new wxPanel(this, wxID_ANY, wxDefaultPosition,
-  //                 wxSize((screenInfo->getClientScreenSize().GetWidth() *
-  //                 .35),
-  //                        (screenInfo->getClientScreenSize().GetHeight() *
-  //                        .35)),
-  //                 wxTAB_TRAVERSAL, wxPanelNameStr);
-  // listPanel->SetBackgroundColour(wxColour(200, 20, 20));
+  newGameBut = new wxButton(this, newGameButton, wxT("New Game"),
+                            wxDefaultPosition, screenInfo->lobbyButton(), 0,
+                            wxDefaultValidator, wxButtonNameStr);
+  newGameBut->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
+  newGameBut->SetForegroundColour(wxColour(wxT("WHITE")));
 
-  wxButton *newGame = new wxButton(this, wxID_ANY, wxT("New Game"),
-                                   wxDefaultPosition, screenInfo->lobbyButton(),
-                                   0, wxDefaultValidator, wxButtonNameStr);
-  newGame->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
-  newGame->SetForegroundColour(wxColour(wxT("WHITE")));
-
-  wxButton *joinGame = new wxButton(
-      this, wxID_ANY, wxT("Join Game"), wxDefaultPosition,
-      screenInfo->lobbyButton(), 0, wxDefaultValidator, wxButtonNameStr);
-  joinGame->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
-  joinGame->SetForegroundColour(wxColour(wxT("WHITE")));
+  joinGameBut = new wxButton(this, joinGameButton, wxT("Join Game"),
+                             wxDefaultPosition, screenInfo->lobbyButton(), 0,
+                             wxDefaultValidator, wxButtonNameStr);
+  joinGameBut->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
+  joinGameBut->SetForegroundColour(wxColour(wxT("WHITE")));
 
   wxCollapsiblePane *sidePane =
       new wxCollapsiblePane(this, wxID_ANY, "Menu", wxDefaultPosition,
@@ -115,9 +106,9 @@ lobby::lobby(wxFrame *parent, wxString typeOfGame)
   leftSizer->Add(theLogo);
   leftSizer->AddSpacer(40);
 
-  buttonSizer->Add(newGame);
+  buttonSizer->Add(newGameBut);
   buttonSizer->AddSpacer(screenInfo->lobbyButtonSpacer());
-  buttonSizer->Add(joinGame);
+  buttonSizer->Add(joinGameBut);
 
   centerSizer->Add(gameType, wxEXPAND | wxALIGN_RIGHT);
   centerSizer->AddSpacer(screenInfo->getClientScreenSize().GetHeight() * .10);
@@ -135,8 +126,115 @@ lobby::lobby(wxFrame *parent, wxString typeOfGame)
   Center();
 }
 
+void lobby::requestGames() {
+  Simple *mainFrame = (Simple *)GetParent();
+
+  std::string sendMsg = "GET GAMES " + typeOfGame.ToStdString();
+  mainFrame->sendServerMsg(sendMsg);
+  auto receivedMsg = mainFrame->getResponse();
+  receivedGames(receivedMsg);
+}
+
+void lobby::receivedGames(std::string msg) {
+  std::cout << msg << std::endl;
+  currentGames->ClearAll();
+  std::stringstream ss(msg);
+  boost::archive::text_iarchive coded(ss);
+
+  // std::vector<LobbyGame> decodedGames;
+  // std::string game;
+  //
+  // while (!ss.eof()){
+  //   std::string game;
+  //   for (int i=0; i<3; i++){
+  //     coded >> game;
+  //   }
+  //
+  // }
+  // while (!ss.eof()) {
+  // LobbyGame tmp;
+  // coded >> tmp;
+  // decodedGames.push_back(tmp);
+  // //}
+  // // coded >> decodedGame;
+  // for (auto &&game : decodedGames) {
+  //   std::cout << game.name << std::endl;
+  // }
+
+  // while (!)
+  // while (!ss.eof()) {
+  //   ss >> game;
+  //   std::cout << "!" << game << "!" << std::endl;
+  // }
+  // Need to check the format of ss but essentially we want to append game to
+  // availableGames.
+  // long index = this->InsertItem(0, _("GameName"));
+  // this->SetItem(index, position in availableGames , _("3 of 4"));
+}
+
+// I didn't make some sort of dialog for this :(
+void lobby::makeGame(wxCommandEvent &event) {
+  Simple *mainFrame = (Simple *)GetParent();
+  wxTextEntryDialog dialog(
+      NULL, "Please enter the name of the game you would like to create.",
+      "Create a Game");
+  dialog.ShowModal();
+  auto response = dialog.GetValue();
+  std::cout << response << std::endl;
+  std::string sendMsg =
+      "MAKE " + typeOfGame.ToStdString() + " " + response.ToStdString();
+  std::cout << sendMsg << std::endl;
+  mainFrame->sendServerMsg(sendMsg);
+  auto receivedMsg = mainFrame->getResponse();
+  receivedMakeGameResponse(receivedMsg);
+}
+
+void lobby::receivedMakeGameResponse(std::string receivedMsg) {
+  showGeneralDialogBox(receivedMsg);
+  if (receivedMsg == "FAILURE : UNKNOWN GAME TYPE") {
+    std::cout << "Somethin done gone wrong" << std::endl;
+  } else if (receivedMsg == "FAILURE : ALREADY EXSISTS") {
+    std::cout << "This game name already exists" << std::endl;
+  } else if (receivedMsg == "SUCCESS") {
+    std::cout << "Game created successfully" << std::endl;
+    requestGames();
+  }
+}
+
+void lobby::joinGame(wxCommandEvent &event) {
+  Simple *mainFrame = (Simple *)GetParent();
+  wxTextEntryDialog dialog(
+      NULL, "Please enter the name of the game you would like to join.",
+      "Join a Game");
+  dialog.ShowModal();
+  auto response = dialog.GetValue();
+  std::cout << response << std::endl;
+  std::string sendMsg = "JOIN " + response.ToStdString();
+  std::cout << sendMsg << std::endl;
+  mainFrame->sendServerMsg(sendMsg);
+  auto receivedMsg = mainFrame->getResponse();
+  receivedJoinGameResponse(receivedMsg);
+}
+
+void lobby::receivedJoinGameResponse(std::string receivedMsg) {
+  showGeneralDialogBox(receivedMsg);
+  if (receivedMsg == "FAILURE : GAME NOT FOUND") {
+    std::cout << "Game could not be found" << std::endl;
+  } else if (receivedMsg == "FAILURE : GAME FULL") {
+    std::cout << "This game is full" << std::endl;
+  } else if (receivedMsg == "SUCCESS") {
+    std::cout << "Game joined successfully" << std::endl;
+    requestGames();
+  }
+}
+
+void lobby::showGeneralDialogBox(std::string msg) {
+  wxMessageDialog dialog(NULL, msg);
+  dialog.ShowModal();
+}
+
 lobby::~lobby() {}
 
-BEGIN_EVENT_TABLE(lobby, wxPanel)
-EVT_PAINT(lobby::OnPaint)
-END_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(lobby, wxPanel) EVT_PAINT(lobby::OnPaint)
+    EVT_BUTTON(newGameButton, lobby::makeGame)
+        EVT_BUTTON(joinGameButton, lobby::joinGame) END_EVENT_TABLE()

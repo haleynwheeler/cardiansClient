@@ -36,7 +36,7 @@ void HeartsGame::startNewRound(bool newGame) {
     }
     player.initializeHand(deck, 13);
   }
-  gui->initializePlayArea(players[0].getHand());
+  // gui->initializePlayArea(players[0].getHand());
   setCardsAiWillPass();
   std::vector<Card> passed = gui->requestCardsPassed(players[0].getHand());
   humanPassedCards(passed);
@@ -48,7 +48,8 @@ void HeartsGame::startNewTrick(int startingPlayer) {
   for (auto &&card : centerPile) {
     card = Card();
   }
-  gui->updatePlayArea(turn, players[turn].getHand(), centerPile);
+  // gui->updatePlayArea(turn, players[turn].getHand(), centerPile);
+  updateGui();
   if (turn > 0) {
     computersTurn();
   }
@@ -98,7 +99,8 @@ void HeartsGame::humanMadeMove(Card c) {
       players[0].removeCardFromHand(c);
       centerPile[0] = c;
       turn++;
-      gui->updatePlayArea(0, players[0].getHand(), centerPile);
+      // gui->updatePlayArea(0, players[0].getHand(), centerPile);
+      updateGui();
       computersTurn();
     } else {
       gui->invalidMoveDialog();
@@ -114,7 +116,8 @@ void HeartsGame::computersTurn() {
       turn = i;
       std::cout << "It's AI " << i << "'s turn" << std::endl;
       computersMove();
-      gui->updatePlayArea(turn, players[turn].getHand(), centerPile);
+      // gui->updatePlayArea(turn, players[turn].getHand(), centerPile);
+      updateGui();
       std::this_thread::sleep_for(1s);
     } else {
       assignTrick();
@@ -313,3 +316,15 @@ void HeartsGame::showGame() { gui->showGame(); }
 void HeartsGame::hideGame() { gui->hideGame(); }
 
 void HeartsGame::startGame() { startNewRound(true); }
+
+void HeartsGame::updateGui() {
+  std::vector<int> handSize;
+  std::vector<Card> centerField;
+  for (int i = 0; i < 4; i++) {
+    handSize.push_back(players[i].getHand().size());
+    std::cout << "Before Crash?" << std::endl;
+    centerField.push_back(centerPile[i]);
+  }
+
+  gui->updateOnlinePlayArea(players[0].getHand(), handSize, centerField);
+}
