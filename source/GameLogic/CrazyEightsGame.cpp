@@ -224,13 +224,12 @@ void CrazyEightsGame::showScores() {
 
 void CrazyEightsGame::showGame() { gui->Show(true); }
 
-void CrazyEightsGame::hideGame() {
-  std::cout << "This is pointer" << gui << std::endl;
-  gui->hideGame();
-}
+void CrazyEightsGame::hideGame() { gui->hideGame(); }
 
 void CrazyEightsGame::updateGui() {
-  gui->updatePlayArea(turn, players[turn].getHand(), deck.empty(),
-                      discardPile.back());
-  // gui->dummyPopUp();
+  std::vector<int> handSize;
+  for (int i = 0; i < 4; i++) {
+    handSize.push_back(players[i].getHand().size());
+  }
+  gui->updateOnlinePlayArea(players[0].getHand(), handSize, discardPile);
 }
