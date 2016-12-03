@@ -85,6 +85,8 @@ void playerCard::setMoveFunction(std::function<void(Card)> humanMadeMove) {
 }
 
 void playerCard::updateCard(Card c, bool largeSize) {
+  Freeze();
+  background->Clear(true);
   theCard = new Card(c.getSuit(), c.getValue());
   wxString bgImagePath;
   if (!largeSize) {
@@ -97,11 +99,13 @@ void playerCard::updateCard(Card c, bool largeSize) {
 
   bgImage = new imageInsert(this, bgImagePath, wxBITMAP_TYPE_PNG,
                             GetSize().GetHeight(), GetSize().GetWidth());
+  background->Add(bgImage);
   // background->ShowItems(false);
   // background->Layout();
   // background->ShowItems(true);
   // Refresh();
   // Update();
+  Thaw();
 }
 
 void playerCard::updateDeck(bool deckEmpty, int bgType) {
