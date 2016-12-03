@@ -196,7 +196,7 @@ void playArea::updatePlayerOne(int handSize) {
     }
   }
   playerOne->Layout();
-  // middlePortion->Layout();
+  middlePortion->Layout();
 }
 
 void playArea::updatePlayerTwo(int handSize) {
@@ -217,6 +217,7 @@ void playArea::updatePlayerThree(int handSize) {
     }
   }
   playerThree->Layout();
+  middlePortion->Layout();
 }
 
 void playArea::initializePlayArea(std::vector<Card> humanHand,
@@ -239,7 +240,7 @@ void playArea::updateOnlinePlayArea(std::vector<Card> hand,
                                     std::vector<Card> field) {
   Freeze();
   playerZero(hand);
-  for (int i = 0; i < 3; i++) {
+  for (int i = 0; i < 4; i++) {
     playerAi(i, handSizes.at(i));
   }
   std::cout << field.back().getSuit() << "=" << field.back().getValue()
