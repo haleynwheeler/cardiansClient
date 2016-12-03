@@ -42,15 +42,17 @@ class playArea : public wxPanel {
   wxBoxSizer *playerThree;
 
   wxBitmapButton *topLogo;
+  wxBoxSizer *discardPile;
   playerCard *Deck;
-  playerCard *Discard;
+  std::array<playerCard *, 4> Discard;
   std::vector<playerCard *> handCards;
 
   clientInfo *screenInfo;
 
   std::function<void()> humanDrewCard;
   std::function<void(Card)> humanMadeMove;
-  void updateFieldArea(bool deckEmpty, Card topOfDiscardPile, bool initialize);
+  void updateFieldArea(bool deckEmpty, std::vector<Card> field,
+                       bool initialize);
   void updatePlayerOne(int handSize);
   void updatePlayerTwo(int handSize);
   void updatePlayerThree(int handSize);

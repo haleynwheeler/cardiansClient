@@ -35,6 +35,7 @@ void playArea::setUpScreen(wxFrame *parent) {
 
   fieldArea = new wxBoxSizer(wxHORIZONTAL);
   verticalfieldArea = new wxBoxSizer(wxVERTICAL);
+  discardPile = new wxBoxSizer(wxHORIZONTAL);
 
   yourHand = new wxBoxSizer(wxHORIZONTAL);
   wxBoxSizer *playerOneLabel = new wxBoxSizer(wxHORIZONTAL);
@@ -128,9 +129,12 @@ void playArea::setUpScreen(wxFrame *parent) {
   Deck->setDrewCardFunction(humanDrewCard);
   Deck->Hide();
 
-  Discard = new playerCard(parent, dummyCard, screenInfo->getLargeCardSize(),
-                           cardBackType, TRUE);
-  Discard->Hide();
+  for (int i = 0; i < 4; i++) {
+    Discard[i] = new playerCard(
+        parent, dummyCard, screenInfo->getLargeCardSize(), cardBackType, TRUE);
+    discardPile->Add(Discard[i]);
+  }
+  discardPile->ShowItems(false);
 
   yourHand->Add(userLabel);
   playerCard *yourCard =
@@ -195,7 +199,7 @@ void playArea::setUpScreen(wxFrame *parent) {
   playerThree->ShowItems(false);
 
   fieldArea->Add(Deck);
-  fieldArea->Add(Discard);
+  fieldArea->Add(discardPile);
 
   verticalfieldArea->AddSpacer(screenInfo->c8middleVerSpace());
   verticalfieldArea->Add(fieldArea);
@@ -326,7 +330,9 @@ void playArea::initializePlayArea(std::vector<Card> humanHand,
   for (int i = 1; i < 4; i++) {
     playerAi(i, humanHand.size());
   }
-  updateFieldArea(false, topOfDiscardPile, true);
+  std::vector<Card> tempDisc;
+  tempDisc.push_back(topOfDiscardPile);
+  updateFieldArea(false, tempDisc, true);
   this->Refresh();
   this->Update();
   Thaw();
@@ -340,9 +346,7 @@ void playArea::updateOnlinePlayArea(std::vector<Card> hand,
   for (int i = 0; i < 4; i++) {
     playerAi(i, handSizes.at(i));
   }
-  std::cout << field.back().getSuit() << "=" << field.back().getValue()
-            << std::endl;
-  updateFieldArea(FALSE, field.back(), FALSE);
+  updateFieldArea(FALSE, field, FALSE);
   Refresh();
   Update();
   Thaw();
@@ -360,61 +364,30 @@ void playArea::updatePlayArea(int playerId, std::vector<Card> hand,
     }
     std::vector<Card> disc;
     disc.push_back(topOfDiscardPile);
-    std::cout << topOfDiscardPile.getSuit() << "+"
-              << topOfDiscardPile.getValue() << std::endl;
     updateOnlinePlayArea(hand, aiHandSize, disc);
   }
-  //
-  // switch (playerId) {
-  // case 0:
-  //   playerZero(hand);
-  //   break;
-  // case 1:
-  // case 2:
-  // case 3:
-  //   playerAi(playerId, hand.size());
-  //   std::cout << "Computer Played" << std::endl;
-  //   break;
-  // }
-  // updateFieldArea(deckEmpty, topOfDiscardPile, false);
-  // this->Refresh();
-  // this->Update();
-  // wxWindow *parent, wxWindowID id, const wxString &title, const wxPoint
-  // &pos=wxDefaultPosition,
-  //  const wxSize &size=wxDefaultSize, long style=wxDEFAULT_DIALOG_STYLE, const
-  //  wxString &name=wxDialogNameSt);
+
   // wxMessageDialog dialog(this, wxID_ANY, ".lol", wxPoint(0, 0),
-  // wxDefaultSize,
-  //                        wxDEFAULT_DIALOG_STYLE, wxDialogNameSt);
+  // wxDefaultSize, wxDEFAULT_DIALOG_STYLE, wxDialogNameSt);
   // auto decision = dialog.ShowModal();
   // dialog.Desrtoy();
   // Thaw();
   // ProcessPendingEvents();
 }
 
-void playArea::updateFieldArea(bool deckEmpty, Card topOfDiscardPile,
+void playArea::updateFieldArea(bool deckEmpty, std::vector<Card> field,
                                bool initialize) {
-  // if (initialize) {
-  //   fieldArea->Clear(true);
-  // } else {
-  //   fieldArea->Clear();
-  // }
-  // if (!deckEmpty) {
-  //   Deck =
-  //       new playerCard(this->GetParent(), cardBackType, wxSize(80, 120),
-  //       false);
-  // } else {
-  //   Deck =
-  //       new playerCard(this->GetParent(), cardBackType, wxSize(80, 120),
-  //       true);
-  // }
-  // Deck->setDrewCardFunction(humanDrewCard);
 
-  // Card *tempest =
-  //     new Card(topOfDiscardPile.getSuit(), topOfDiscardPile.getValue());
   Deck->updateDeck(deckEmpty, screenInfo->getcardBackType());
   Deck->setDrewCardFunction(humanDrewCard);
-  Discard->updateCard(topOfDiscardPile, TRUE);
+  for (int i = 0; i < 4; i++) {
+    if (field.size() != 0) {
+      Discard[i]->updateCard(field.back(), TRUE);
+      field.pop_back();
+    } else {
+      Discard[i]->Hide();
+    }
+  }
   fieldArea->Show(true);
   // fieldArea->Add(Deck);
   // fieldArea->Add(Discard);
