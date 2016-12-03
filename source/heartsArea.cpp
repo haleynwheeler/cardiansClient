@@ -127,17 +127,20 @@ heartsArea::heartsArea(wxFrame *parent)
 
   upperPortion->Add(topLogo);
   upperPortion->AddSpacer(screenInfo->hSpaceBetweenCardAndHand());
-  upperPortion->Add(playerTwo, wxALIGN_CENTRE_VERTICAL);
+  upperPortion->Add(playerTwo,
+                    wxALIGN_CENTRE_VERTICAL | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
 
   middlePortion->AddSpacer(screenInfo->hSpaceBetweenCardAndHand());
-  middlePortion->Add(playerOne, wxALIGN_BOTTOM);
+  middlePortion->Add(playerOne,
+                     wxALIGN_BOTTOM | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
   middlePortion->AddSpacer(2 * screenInfo->hSpaceBetweenCardAndHand());
   middlePortion->Add(fieldArea);
   middlePortion->AddSpacer(2 * screenInfo->hSpaceBetweenCardAndHand());
-  middlePortion->Add(playerThree, wxALIGN_BOTTOM);
+  middlePortion->Add(playerThree, wxALIGN_BOTTOM,
+                     wxRESERVE_SPACE_EVEN_IF_HIDDEN);
 
   lowerPortion->AddSpacer(screenInfo->c8LogoDifference());
-  lowerPortion->Add(yourHand);
+  lowerPortion->Add(yourHand, wxRESERVE_SPACE_EVEN_IF_HIDDEN);
 
   theMainSizer->AddSpacer(10);
   theMainSizer->Add(upperPortion);
@@ -179,35 +182,41 @@ void heartsArea::playerZero(std::vector<Card> hand) {
 void heartsArea::playerAi(int playerId, int handSize) {
   switch (playerId) {
   case 1:
-    playerOne->Show(this, false, true);
+    // playerOne->Show(this, false, true);
     playerOne->ShowItems(true);
     for (int i = 0; i < 13; i++) {
       if (i >= handSize) {
         playerOne->Hide(i);
       }
     }
+    playerOne->Layout();
+    leftFieldArea->Layout();
     break;
 
   case 2:
-    playerTwo->Show(this, false, true);
+    // playerTwo->Show(this, false, true);
     playerTwo->ShowItems(true);
     for (int i = 0; i < 13; i++) {
       if (i >= handSize) {
         playerTwo->Hide(i);
       }
     }
+    playerTwo->Layout();
+    midFieldArea->Layout();
     break;
-    std::cout << handCards.at(0) << std::endl;
   case 3:
-    playerThree->Show(this, false, true);
+    // playerThree->Show(this, false, true);
     playerThree->ShowItems(true);
     for (int i = 0; i < 13; i++) {
       if (i >= handSize) {
         playerThree->Hide(i);
       }
     }
+    playerThree->Layout();
+    rightFieldArea->Layout();
     break;
   }
+  fieldArea->Layout();
   theMainSizer->Layout();
   this->Refresh();
   this->Update();
@@ -231,17 +240,16 @@ void heartsArea::initializePlayArea(std::vector<Card> hand) {
 void heartsArea::updateOnlinePlayArea(std::vector<Card> hand,
                                       std::vector<int> handSizes,
                                       std::vector<Card> field) {
-  std::cout << "Before Crash?" << std::endl;
   Freeze();
   playerZero(hand);
-  for (int i = 0; i < 3; i++) {
+  for (int i = 0; i < 4; i++) {
     playerAi(i, handSizes.at(i));
   }
   updateMiddleCards(field);
   // updateFieldArea(FALSE, field.back(), FALSE);
+  Thaw();
   Refresh();
   Update();
-  Thaw();
 }
 
 void heartsArea::updatePlayArea(int playerId, std::vector<Card> hand,
@@ -262,12 +270,8 @@ void heartsArea::updateMiddleCards(std::vector<Card> centerPile) {
     playerZeroChoice->Hide();
     std::cout << "Hasn't played" << std::endl;
   } else {
-    playerZeroChoice->Show();
-    // Card *tempest = new Card(centerPile[0].getSuit(),
-    // centerPile[0].getValue());
-    // playerZeroChoice =
-    // new playerCard(this->GetParent(), tempest, wxSize(70, 100), 14);
     playerZeroChoice->updateCard(centerPile.at(0), TRUE);
+    playerZeroChoice->Show();
     playerZeroChoice->Layout();
   }
 
@@ -276,8 +280,8 @@ void heartsArea::updateMiddleCards(std::vector<Card> centerPile) {
     std::cout << "Hasn't played" << std::endl;
 
   } else {
-    playerOneChoice->Show();
     playerOneChoice->updateCard(centerPile.at(1), TRUE);
+    std::cout << playerOneChoice->Show();
     playerOneChoice->Layout();
   }
 
@@ -286,8 +290,8 @@ void heartsArea::updateMiddleCards(std::vector<Card> centerPile) {
     std::cout << "Hasn't played" << std::endl;
 
   } else {
-    playerTwoChoice->Show();
     playerTwoChoice->updateCard(centerPile.at(2), TRUE);
+    playerTwoChoice->Show();
     playerTwoChoice->Layout();
   }
 
@@ -304,6 +308,8 @@ void heartsArea::updateMiddleCards(std::vector<Card> centerPile) {
   leftFieldArea->Layout();
   midFieldArea->Layout();
   rightFieldArea->Layout();
+  fieldArea->Layout();
+  theMainSizer->Layout();
   Refresh();
   Update();
 }
