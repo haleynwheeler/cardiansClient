@@ -322,9 +322,7 @@ void HeartsGame::updateGui() {
   std::vector<Card> centerField;
   for (int i = 0; i < 4; i++) {
     handSize.push_back(players[i].getHand().size());
-    std::cout << "Before Crash?" << std::endl;
     centerField.push_back(centerPile[i]);
   }
-
   gui->updateOnlinePlayArea(players[0].getHand(), handSize, centerField);
 }

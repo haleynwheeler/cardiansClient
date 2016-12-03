@@ -116,7 +116,7 @@ int clientInfo::hSideVFieldSpacer() {
   return (clientScreenSize.GetHeight() * .18);
 }
 int clientInfo::hSideFieldSpacer() {
-  return (clientScreenSize.GetWidth() * .25);
+  return (clientScreenSize.GetWidth() * .3);
 }
 int clientInfo::hMiddleSpacer() { return (clientScreenSize.GetHeight() * .18); }
 
