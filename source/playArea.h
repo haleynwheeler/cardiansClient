@@ -28,7 +28,7 @@ class playArea : public wxPanel {
   int playerTwoHandSize;
   int playerThreeHandSize;
   wxBoxSizer *theMainSizer;
-
+  wxBoxSizer *fullSizer;
   wxBoxSizer *upperPortion;
   wxBoxSizer *middlePortion;
   wxBoxSizer *lowerPortion;

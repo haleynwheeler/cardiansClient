@@ -46,12 +46,12 @@ void playArea::setUpScreen(wxFrame *parent) {
   playerTwo = new wxBoxSizer(wxHORIZONTAL);
   playerThree = new wxBoxSizer(wxVERTICAL);
   theMainSizer = new wxBoxSizer(wxVERTICAL);
-  wxBoxSizer *fullSizer = new wxBoxSizer(wxHORIZONTAL);
+  fullSizer = new wxBoxSizer(wxHORIZONTAL);
 
   // COLLAPSIBLE PANE
-  sidePane = new wxCollapsiblePane(
-      this->GetParent(), wxID_ANY, "Menu", wxDefaultPosition,
-      screenInfo->sidePanelSize(), wxCP_NO_TLW_RESIZE);
+  sidePane =
+      new wxCollapsiblePane(this, wxID_ANY, "Menu", wxDefaultPosition,
+                            screenInfo->sidePanelSize(), wxCP_NO_TLW_RESIZE);
 
   win = sidePane->GetPane();
   paneSz = new wxBoxSizer(wxVERTICAL);
@@ -90,9 +90,8 @@ void playArea::setUpScreen(wxFrame *parent) {
   // END PANE
 
   topLogo = new wxBitmapButton(
-      this->GetParent(), wxID_ANY,
-      wxBitmap("../res/TextLogo.png", wxBITMAP_TYPE_PNG), wxDefaultPosition,
-      wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
+      this, wxID_ANY, wxBitmap("../res/TextLogo.png", wxBITMAP_TYPE_PNG),
+      wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
   topLogo->SetBackgroundColour(wxColour(90, 5, 18, 0));
 
   SetFont(
@@ -225,7 +224,7 @@ void playArea::setUpScreen(wxFrame *parent) {
   theMainSizer->Add(lowerPortion, wxBOTTOM);
 
   fullSizer->Add(theMainSizer);
-  // fullSizer->Add(sidePane);
+  fullSizer->Add(sidePane);
   // SetSizerAndFit(theMainSizer);
   SetSizerAndFit(fullSizer);
 
@@ -510,7 +509,7 @@ bool playArea::endOfGameDialog(std::vector<int> playersRoundScores,
   }
 }
 
-void playArea::hideGame() { theMainSizer->Show(false); }
+void playArea::hideGame() { fullSizer->Show(false); }
 
 playArea::~playArea() {}
 
