@@ -26,50 +26,55 @@ playArea::playArea(wxFrame *parent)
   verticalfieldArea = new wxBoxSizer(wxVERTICAL);
 
   yourHand = new wxBoxSizer(wxHORIZONTAL);
+  wxBoxSizer *playerOneLabel = new wxBoxSizer(wxHORIZONTAL);
+  wxBoxSizer *playerTwoLabel = new wxBoxSizer(wxHORIZONTAL);
+  wxBoxSizer *playerThreeLabel = new wxBoxSizer(wxVERTICAL);
+  wxBoxSizer *userLabel = new wxBoxSizer(wxHORIZONTAL);
+
   playerOne = new wxBoxSizer(wxVERTICAL);
   playerTwo = new wxBoxSizer(wxHORIZONTAL);
   playerThree = new wxBoxSizer(wxVERTICAL);
   theMainSizer = new wxBoxSizer(wxVERTICAL);
-  // wxBoxSizer *fullSizer = new wxBoxSizer(wxHORIZONTAL);
+  wxBoxSizer *fullSizer = new wxBoxSizer(wxHORIZONTAL);
 
   // COLLAPSIBLE PANE
-  // wxCollapsiblePane *sidePane =
-  //     new wxCollapsiblePane(this, wxID_ANY, "Menu", wxDefaultPosition,
-  //                           screenInfo->sidePanelSize(), wxCP_NO_TLW_RESIZE);
-  //
-  // wxWindow *win = sidePane->GetPane();
-  // wxSizer *paneSz = new wxBoxSizer(wxVERTICAL);
-  //
-  // wxButton *settingsBtn = new wxButton(
-  //     win, wxID_ANY, wxT("Eights Settings"), wxDefaultPosition,
-  //     screenInfo->sidePaneBtnSize(), 0, wxDefaultValidator, wxButtonNameStr);
-  //
-  // wxButton *eightsRulesBtn = new wxButton(
-  //     win, wxID_ANY, wxT("Rules"), wxDefaultPosition,
-  //     screenInfo->sidePaneBtnSize(), 0, wxDefaultValidator, wxButtonNameStr);
-  //
-  // wxButton *statsBtn = new wxButton(
-  //     win, wxID_ANY, wxT("Eights Stats"), wxDefaultPosition,
-  //     screenInfo->sidePaneBtnSize(), 0, wxDefaultValidator, wxButtonNameStr);
-  //
-  // win->SetBackgroundColour(wxColour(0, 0, 0));
-  // sidePane->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
-  //
-  // settingsBtn->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
-  // settingsBtn->SetForegroundColour(wxColour(255, 255, 255));
-  //
-  // eightsRulesBtn->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
-  // eightsRulesBtn->SetForegroundColour(wxColour(255, 255, 255));
-  //
-  // statsBtn->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
-  // statsBtn->SetForegroundColour(wxColour(255, 255, 255));
-  //
-  // paneSz->Add(settingsBtn);
-  // paneSz->Add(eightsRulesBtn);
-  // paneSz->Add(statsBtn);
-  //
-  // win->SetSizer(paneSz);
-  // paneSz->SetSizeHints(win);
+  wxCollapsiblePane *sidePane =
+      new wxCollapsiblePane(this, wxID_ANY, "Menu", wxDefaultPosition,
+                            screenInfo->sidePanelSize(), wxCP_NO_TLW_RESIZE);
+
+  wxWindow *win = sidePane->GetPane();
+  wxSizer *paneSz = new wxBoxSizer(wxVERTICAL);
+
+  wxButton *settingsBtn = new wxButton(
+      win, wxID_ANY, wxT("Eights Settings"), wxDefaultPosition,
+      screenInfo->sidePaneBtnSize(), 0, wxDefaultValidator, wxButtonNameStr);
+
+  wxButton *eightsRulesBtn = new wxButton(
+      win, wxID_ANY, wxT("Rules"), wxDefaultPosition,
+      screenInfo->sidePaneBtnSize(), 0, wxDefaultValidator, wxButtonNameStr);
+
+  wxButton *statsBtn = new wxButton(
+      win, wxID_ANY, wxT("Eights Stats"), wxDefaultPosition,
+      screenInfo->sidePaneBtnSize(), 0, wxDefaultValidator, wxButtonNameStr);
+
+  win->SetBackgroundColour(wxColour(0, 0, 0));
+  sidePane->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
+
+  settingsBtn->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
+  settingsBtn->SetForegroundColour(wxColour(255, 255, 255));
+
+  eightsRulesBtn->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
+  eightsRulesBtn->SetForegroundColour(wxColour(255, 255, 255));
+
+  statsBtn->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
+  statsBtn->SetForegroundColour(wxColour(255, 255, 255));
+
+  paneSz->Add(settingsBtn);
+  paneSz->Add(eightsRulesBtn);
+  paneSz->Add(statsBtn);
+
+  win->SetSizer(paneSz);
+  paneSz->SetSizeHints(win);
 
   // END PANE
 
@@ -77,6 +82,35 @@ playArea::playArea(wxFrame *parent)
       this, wxID_ANY, wxBitmap("../res/TextLogo.png", wxBITMAP_TYPE_PNG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
   topLogo->SetBackgroundColour(wxColour(90, 5, 18, 0));
+
+  SetFont(
+      wxFont(10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
+
+  wxStaticText *playerOneInfo =
+      new wxStaticText(this, wxID_ANY, "Drax the Destroyer", wxDefaultPosition,
+                       wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);
+
+  wxStaticText *playerTwoInfo =
+      new wxStaticText(this, wxID_ANY, "Star-Lord", wxDefaultPosition,
+                       wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);
+
+  wxStaticText *playerThreeInfo =
+      new wxStaticText(this, wxID_ANY, "Groot", wxDefaultPosition,
+                       wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);
+
+  wxStaticText *userInfo =
+      new wxStaticText(this, wxID_ANY, "You", wxDefaultPosition, wxDefaultSize,
+                       wxALIGN_CENTRE_HORIZONTAL);
+
+  playerOneInfo->SetForegroundColour(wxColour(255, 255, 255));
+  playerTwoInfo->SetForegroundColour(wxColour(255, 255, 255));
+  playerThreeInfo->SetForegroundColour(wxColour(255, 255, 255));
+  userInfo->SetForegroundColour(wxColour(255, 255, 255));
+
+  playerOneLabel->Add(playerOneInfo);
+  playerTwoLabel->Add(playerTwoInfo);
+  playerThreeLabel->Add(playerThreeInfo);
+  userLabel->Add(userInfo);
 
   Deck = new playerCard(this->GetParent(), cardBackType,
                         screenInfo->getLargeCardSize(), TRUE);
@@ -157,16 +191,22 @@ playArea::playArea(wxFrame *parent)
 
   upperPortion->Add(topLogo);
   upperPortion->AddSpacer(screenInfo->c8StrandardBorder()); //
+  upperPortion->Add(playerTwoLabel);
   upperPortion->Add(playerTwo, wxALIGN_CENTRE_VERTICAL);
+  upperPortion->AddSpacer(50);
+  upperPortion->Add(playerThreeLabel);
 
   middlePortion->AddSpacer(screenInfo->c8StrandardBorder()); //
+  middlePortion->Add(playerOneLabel);
   middlePortion->Add(playerOne, wxALIGN_BOTTOM);
   middlePortion->AddSpacer(screenInfo->c8MiddleHorSpace());
   middlePortion->Add(verticalfieldArea);
   middlePortion->AddSpacer(screenInfo->c8MiddleHorSpace());
+  //  middlePortion->Add(playerThreeLabel);
   middlePortion->Add(playerThree, wxALIGN_BOTTOM);
 
   lowerPortion->AddSpacer(screenInfo->c8LogoDifference()); //
+  lowerPortion->Add(userLabel);
   lowerPortion->Add(yourHand);
 
   theMainSizer->AddSpacer(10); //
@@ -175,10 +215,10 @@ playArea::playArea(wxFrame *parent)
   theMainSizer->Add(middlePortion);
   theMainSizer->Add(lowerPortion, wxBOTTOM);
 
-  // fullSizer->Add(theMainSizer);
-  // fullSizer->Add(sidePane);
-  SetSizerAndFit(theMainSizer);
-  // SetSizerAndFit(fullSizer);
+  fullSizer->Add(theMainSizer);
+  fullSizer->Add(sidePane);
+  // SetSizerAndFit(theMainSizer);
+  SetSizerAndFit(fullSizer);
 
   Hide();
 }

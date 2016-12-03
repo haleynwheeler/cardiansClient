@@ -100,7 +100,7 @@ int clientInfo::c8StrandardBorder() {
   return (clientScreenSize.GetHeight() * .02);
 } // 20
 int clientInfo::c8MiddleHorSpace() {
-  return (clientScreenSize.GetWidth() * .3);
+  return (clientScreenSize.GetWidth() * .2);
 } // 270
 int clientInfo::c8LogoDifference() {
   return (clientScreenSize.GetWidth() * .2);
