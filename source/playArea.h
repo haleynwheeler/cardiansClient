@@ -7,11 +7,21 @@
 #include <functional>
 #include <string>
 #include <vector>
+#include <wx/collpane.h>
 #include <wx/wx.h>
 
 class playArea : public wxPanel {
   int maxHandSize;
   int cardBackType;
+
+  wxCollapsiblePane *sidePane;
+  wxWindow *win;
+  wxSizer *paneSz;
+
+  wxStaticText *playerOneInfo;
+  wxStaticText *playerTwoInfo;
+  wxStaticText *playerThreeInfo;
+  wxStaticText *userInfo;
 
   int thePlayerHandSize;
   int playerOneHandSize;
