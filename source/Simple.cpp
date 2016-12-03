@@ -31,12 +31,12 @@ Simple::Simple(const wxString &title, clientInfo *theClientScreen)
   mainPane->Hide();
 
   // page 4
-  heartsLobby = new lobby(this, wxT("Hearts"));
+  heartsLobby = new lobby(this, wxT("HEARTS"));
   pageSizer->Add(heartsLobby);
   heartsLobby->Show(false);
 
   // page 5
-  eightsLobby = new lobby(this, wxT("Crazy Eights"));
+  eightsLobby = new lobby(this, wxT("EIGHTS"));
   pageSizer->Add(eightsLobby);
   eightsLobby->Hide();
 

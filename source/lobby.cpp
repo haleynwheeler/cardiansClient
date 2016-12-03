@@ -3,8 +3,9 @@
 
 #include "Messages/LobbyGame.hpp"
 #include <boost/archive/text_iarchive.hpp>
+#include <wx/textdlg.h>
 
-lobby::lobby(wxFrame *parent, wxString typeOfGame)
+lobby::lobby(wxFrame *parent, wxString type)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
               wxTAB_TRAVERSAL, wxPanelNameStr) {
   screenInfo = new clientInfo();
@@ -12,6 +13,8 @@ lobby::lobby(wxFrame *parent, wxString typeOfGame)
   wxBoxSizer *leftSizer = new wxBoxSizer(wxVERTICAL);
   wxBoxSizer *centerSizer = new wxBoxSizer(wxVERTICAL);
   wxBoxSizer *buttonSizer = new wxBoxSizer(wxHORIZONTAL);
+
+  typeOfGame = type;
   // wxBoxSizer *ctrlSizer = new wxBoxSizer(wxHORIZONTAL);
 
   wxBitmapButton *theLogo = new wxBitmapButton(
@@ -31,17 +34,17 @@ lobby::lobby(wxFrame *parent, wxString typeOfGame)
 
   currentGames = new availableGames(this, wxSize(150, 300));
 
-  wxButton *newGame = new wxButton(this, wxID_ANY, wxT("New Game"),
-                                   wxDefaultPosition, screenInfo->lobbyButton(),
-                                   0, wxDefaultValidator, wxButtonNameStr);
-  newGame->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
-  newGame->SetForegroundColour(wxColour(wxT("WHITE")));
+  newGameBut = new wxButton(this, newGameButton, wxT("New Game"),
+                            wxDefaultPosition, screenInfo->lobbyButton(), 0,
+                            wxDefaultValidator, wxButtonNameStr);
+  newGameBut->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
+  newGameBut->SetForegroundColour(wxColour(wxT("WHITE")));
 
-  wxButton *joinGame = new wxButton(
-      this, wxID_ANY, wxT("Join Game"), wxDefaultPosition,
-      screenInfo->lobbyButton(), 0, wxDefaultValidator, wxButtonNameStr);
-  joinGame->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
-  joinGame->SetForegroundColour(wxColour(wxT("WHITE")));
+  joinGameBut = new wxButton(this, joinGameButton, wxT("Join Game"),
+                             wxDefaultPosition, screenInfo->lobbyButton(), 0,
+                             wxDefaultValidator, wxButtonNameStr);
+  joinGameBut->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
+  joinGameBut->SetForegroundColour(wxColour(wxT("WHITE")));
 
   wxCollapsiblePane *sidePane =
       new wxCollapsiblePane(this, wxID_ANY, "Menu", wxDefaultPosition,
@@ -103,9 +106,9 @@ lobby::lobby(wxFrame *parent, wxString typeOfGame)
   leftSizer->Add(theLogo);
   leftSizer->AddSpacer(40);
 
-  buttonSizer->Add(newGame);
+  buttonSizer->Add(newGameBut);
   buttonSizer->AddSpacer(screenInfo->lobbyButtonSpacer());
-  buttonSizer->Add(joinGame);
+  buttonSizer->Add(joinGameBut);
 
   centerSizer->Add(gameType, wxEXPAND | wxALIGN_RIGHT);
   centerSizer->AddSpacer(screenInfo->getClientScreenSize().GetHeight() * .10);
@@ -126,7 +129,7 @@ lobby::lobby(wxFrame *parent, wxString typeOfGame)
 void lobby::requestGames() {
   Simple *mainFrame = (Simple *)GetParent();
 
-  std::string sendMsg = "GET GAMES";
+  std::string sendMsg = "GET GAMES " + typeOfGame.ToStdString();
   mainFrame->sendServerMsg(sendMsg);
   auto receivedMsg = mainFrame->getResponse();
   receivedGames(receivedMsg);
@@ -170,31 +173,68 @@ void lobby::receivedGames(std::string msg) {
 }
 
 // I didn't make some sort of dialog for this :(
-void lobby::makeGame() {
+void lobby::makeGame(wxCommandEvent &event) {
   Simple *mainFrame = (Simple *)GetParent();
-  std::string sendMsg = "MAKE HEARTS";
+  wxTextEntryDialog dialog(
+      NULL, "Please enter the name of the game you would like to create.",
+      "Create a Game");
+  dialog.ShowModal();
+  auto response = dialog.GetValue();
+  std::cout << response << std::endl;
+  std::string sendMsg =
+      "MAKE " + typeOfGame.ToStdString() + " " + response.ToStdString();
+  std::cout << sendMsg << std::endl;
+  mainFrame->sendServerMsg(sendMsg);
   auto receivedMsg = mainFrame->getResponse();
+  receivedMakeGameResponse(receivedMsg);
+}
+
+void lobby::receivedMakeGameResponse(std::string receivedMsg) {
+  showGeneralDialogBox(receivedMsg);
   if (receivedMsg == "FAILURE : UNKNOWN GAME TYPE") {
     std::cout << "Somethin done gone wrong" << std::endl;
   } else if (receivedMsg == "FAILURE : ALREADY EXSISTS") {
     std::cout << "This game name already exists" << std::endl;
   } else if (receivedMsg == "SUCCESS") {
-    // somehow drop into game
+    std::cout << "Game created successfully" << std::endl;
+    requestGames();
   }
 }
 
-void lobby::joinGame() {
+void lobby::joinGame(wxCommandEvent &event) {
   Simple *mainFrame = (Simple *)GetParent();
-  // Get game title it should be like selected item in wxListCtrl
-  std::string desiredGame = "girls";
-  std::string sendMsg = "JOIN " + desiredGame;
+  wxTextEntryDialog dialog(
+      NULL, "Please enter the name of the game you would like to join.",
+      "Join a Game");
+  dialog.ShowModal();
+  auto response = dialog.GetValue();
+  std::cout << response << std::endl;
+  std::string sendMsg = "JOIN " + response.ToStdString();
+  std::cout << sendMsg << std::endl;
   mainFrame->sendServerMsg(sendMsg);
   auto receivedMsg = mainFrame->getResponse();
-  // Do something???
+  receivedJoinGameResponse(receivedMsg);
+}
+
+void lobby::receivedJoinGameResponse(std::string receivedMsg) {
+  showGeneralDialogBox(receivedMsg);
+  if (receivedMsg == "FAILURE : GAME NOT FOUND") {
+    std::cout << "Game could not be found" << std::endl;
+  } else if (receivedMsg == "FAILURE : GAME FULL") {
+    std::cout << "This game is full" << std::endl;
+  } else if (receivedMsg == "SUCCESS") {
+    std::cout << "Game joined successfully" << std::endl;
+    requestGames();
+  }
+}
+
+void lobby::showGeneralDialogBox(std::string msg) {
+  wxMessageDialog dialog(NULL, msg);
+  dialog.ShowModal();
 }
 
 lobby::~lobby() {}
 
-BEGIN_EVENT_TABLE(lobby, wxPanel)
-EVT_PAINT(lobby::OnPaint)
-END_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(lobby, wxPanel) EVT_PAINT(lobby::OnPaint)
+    EVT_BUTTON(newGameButton, lobby::makeGame)
+        EVT_BUTTON(joinGameButton, lobby::joinGame) END_EVENT_TABLE()
