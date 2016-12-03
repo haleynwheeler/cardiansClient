@@ -8,13 +8,19 @@ heartsArea::heartsArea(wxFrame *parent)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
               wxTAB_TRAVERSAL, wxPanelNameStr) {
   screenInfo = new clientInfo();
-  int cardWidth = 20;
-  int cardHeight = 100;
-  int cardBackType = 14;
-  Card *dummyCard = new Card(HEARTS, TWO);
+  setUpScreen(parent);
+}
 
-  int heightLeft = wxSystemSettings::GetMetric(wxSYS_SCREEN_Y) * .7;
-  heightLeft -= 850;
+heartsArea::heartsArea(wxFrame *parent, clientInfo *client)
+    : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
+              wxTAB_TRAVERSAL, wxPanelNameStr) {
+  screenInfo = client;
+  setUpScreen(parent);
+}
+
+void heartsArea::setUpScreen(wxFrame *parent) {
+  Card *dummyCard = new Card(HEARTS, TWO);
+  int cardBackType = screenInfo->getcardBackType();
 
   thePlayerHandSize = playerOneHandSize = playerTwoHandSize =
       playerThreeHandSize = 13;
@@ -40,16 +46,13 @@ heartsArea::heartsArea(wxFrame *parent)
   topLogo->SetLabel("topLogo");
   topLogo->SetBackgroundColour(wxColour(90, 5, 18, 0));
 
-  playerCard *yourCard =
-      new playerCard(this->GetParent(), dummyCard,
-                     screenInfo->getLargeCardSize(), cardBackType, TRUE);
+  playerCard *yourCard = new playerCard(
+      this, dummyCard, screenInfo->getLargeCardSize(), cardBackType, TRUE);
   handCards.push_back(yourCard);
   yourHand->Add(yourCard);
-
   for (int i = 0; i < 13; i++) {
-    playerCard *card =
-        new playerCard(this->GetParent(), dummyCard,
-                       screenInfo->getSmallCardSize(), 14, FALSE);
+    playerCard *card = new playerCard(
+        this, dummyCard, screenInfo->getSmallCardSize(), 14, FALSE);
     handCards.push_back(card);
     yourHand->Add(card);
     if (i >= thePlayerHandSize) {
@@ -58,11 +61,11 @@ heartsArea::heartsArea(wxFrame *parent)
   }
   yourHand->ShowItems(false);
 
-  playerCard *card = new playerCard(this->GetParent(), 2, cardBackType,
-                                    screenInfo->getLargeHorCardSize(), TRUE);
-  playerOne->Add(card);
+  playerCard *card1 = new playerCard(this, 2, cardBackType,
+                                     screenInfo->getLargeHorCardSize(), TRUE);
+  playerOne->Add(card1);
   for (int i = 0; i < 12; i++) {
-    playerCard *card = new playerCard(this->GetParent(), 2, cardBackType,
+    playerCard *card = new playerCard(this, 2, cardBackType,
                                       screenInfo->getSmallHorCardSize(), false);
     playerOne->Add(card);
     if (i >= playerOneHandSize) {
@@ -70,11 +73,11 @@ heartsArea::heartsArea(wxFrame *parent)
     }
   }
 
-  playerCard *card1 = new playerCard(this->GetParent(), 3, cardBackType,
+  playerCard *card2 = new playerCard(this, 3, cardBackType,
                                      screenInfo->getLargeCardSize(), TRUE);
-  playerTwo->Add(card1);
+  playerTwo->Add(card2);
   for (int i = 0; i < 12; i++) {
-    playerCard *card = new playerCard(this->GetParent(), 3, cardBackType,
+    playerCard *card = new playerCard(this, 3, cardBackType,
                                       screenInfo->getSmallCardSize(), false);
     playerTwo->Add(card);
     if (i >= playerTwoHandSize) {
@@ -82,11 +85,11 @@ heartsArea::heartsArea(wxFrame *parent)
     }
   }
 
-  playerCard *card2 = new playerCard(this->GetParent(), 4, cardBackType,
+  playerCard *card3 = new playerCard(this->GetParent(), 4, cardBackType,
                                      screenInfo->getLargeHorCardSize(), TRUE);
-  playerThree->Add(card2);
+  playerThree->Add(card3);
   for (int i = 0; i < 12; i++) {
-    playerCard *card = new playerCard(this->GetParent(), 4, cardBackType,
+    playerCard *card = new playerCard(this, 4, cardBackType,
                                       screenInfo->getSmallHorCardSize(), false);
     playerThree->Add(card);
     if (i >= playerThreeHandSize) {
@@ -94,29 +97,30 @@ heartsArea::heartsArea(wxFrame *parent)
     }
   }
 
-  playerZeroChoice = new playerCard(this->GetParent(), 1, cardBackType,
+  playerZeroChoice = new playerCard(this, 1, cardBackType,
                                     screenInfo->getLargeCardSize(), TRUE);
-  playerOneChoice = new playerCard(this->GetParent(), 2, cardBackType,
+  playerOneChoice = new playerCard(this, 2, cardBackType,
                                    screenInfo->getLargeCardSize(), TRUE);
-  playerTwoChoice = new playerCard(this->GetParent(), 3, cardBackType,
+  playerTwoChoice = new playerCard(this, 3, cardBackType,
                                    screenInfo->getLargeCardSize(), TRUE);
-  playerThreeChoice = new playerCard(this->GetParent(), 4, cardBackType,
+  playerThreeChoice = new playerCard(this, 4, cardBackType,
                                      screenInfo->getLargeCardSize(), TRUE);
 
   leftFieldArea->AddSpacer(screenInfo->hSideVFieldSpacer());
-  leftFieldArea->Add(playerOneChoice,
-                     wxALIGN_LEFT | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
+  leftFieldArea->Add(playerOneChoice); //,
+  //  wxALIGN_LEFT | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
   leftFieldArea->AddSpacer(screenInfo->hSideVFieldSpacer());
 
-  midFieldArea->Add(playerTwoChoice, wxSizerFlags().ReserveSpaceEvenIfHidden());
+  midFieldArea->Add(playerTwoChoice);
+  // wxSizerFlags().ReserveSpaceEvenIfHidden());
   midFieldArea->AddSpacer(120);
-  midFieldArea->Add(playerZeroChoice,
-                    wxALIGN_LEFT | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
+  midFieldArea->Add(playerZeroChoice);
+  // wxALIGN_LEFT | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
   midFieldArea->AddSpacer(screenInfo->hSpaceBetweenCardAndHand());
 
   rightFieldArea->AddSpacer(screenInfo->hSideVFieldSpacer());
-  rightFieldArea->Add(playerThreeChoice,
-                      wxALIGN_LEFT | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
+  rightFieldArea->Add(playerThreeChoice);
+  // wxALIGN_LEFT | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
   rightFieldArea->AddSpacer(screenInfo->hSideVFieldSpacer());
 
   fieldArea->Add(leftFieldArea);
@@ -127,20 +131,20 @@ heartsArea::heartsArea(wxFrame *parent)
 
   upperPortion->Add(topLogo);
   upperPortion->AddSpacer(screenInfo->hSpaceBetweenCardAndHand());
-  upperPortion->Add(playerTwo,
-                    wxALIGN_CENTRE_VERTICAL | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
+  upperPortion->Add(playerTwo);
+  // wxALIGN_CENTRE_VERTICAL | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
 
   middlePortion->AddSpacer(screenInfo->hSpaceBetweenCardAndHand());
-  middlePortion->Add(playerOne,
-                     wxALIGN_BOTTOM | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
+  middlePortion->Add(playerOne);
+  //  wxALIGN_BOTTOM | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
   middlePortion->AddSpacer(2 * screenInfo->hSpaceBetweenCardAndHand());
   middlePortion->Add(fieldArea);
   middlePortion->AddSpacer(2 * screenInfo->hSpaceBetweenCardAndHand());
-  middlePortion->Add(playerThree, wxALIGN_BOTTOM,
-                     wxRESERVE_SPACE_EVEN_IF_HIDDEN);
+  middlePortion->Add(playerThree); //, wxALIGN_BOTTOM,
+                                   //  wxRESERVE_SPACE_EVEN_IF_HIDDEN);
 
   lowerPortion->AddSpacer(screenInfo->c8LogoDifference());
-  lowerPortion->Add(yourHand, wxRESERVE_SPACE_EVEN_IF_HIDDEN);
+  lowerPortion->Add(yourHand); // wxRESERVE_SPACE_EVEN_IF_HIDDEN);
 
   theMainSizer->AddSpacer(10);
   theMainSizer->Add(upperPortion);

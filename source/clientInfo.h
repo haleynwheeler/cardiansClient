@@ -29,6 +29,9 @@ class clientInfo {
 public:
   clientInfo();
   ~clientInfo();
+
+  void changeBackgroundDialog();
+
   int c8middleVerSpace();
   int c8StrandardBorder();
   int c8MiddleHorSpace();

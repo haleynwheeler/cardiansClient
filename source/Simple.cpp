@@ -107,7 +107,7 @@ void Simple::switchPage(wxString buttonSwitch) {
     pageSizer->Show(loginPane, true);
 
   } else if (buttonSwitch == "Hearts Local") {
-    heartsGame = new HeartsGame(this);
+    heartsGame = new HeartsGame(this, screenInfo);
     pageSizer->Add(heartsGame->getGui(), 1, wxGROW);
     //  heartsGame->hideGame();
     heartsGame->startGame();
@@ -122,7 +122,7 @@ void Simple::switchPage(wxString buttonSwitch) {
     }
 
   } else if (buttonSwitch == "Eights Local") {
-    eightsGame = new CrazyEightsGame(this);
+    eightsGame = new CrazyEightsGame(this, screenInfo);
     pageSizer->Prepend(eightsGame->getGui(), 1, wxGROW);
 
   } else if (buttonSwitch == "Eights Online") {
@@ -136,7 +136,7 @@ void Simple::switchPage(wxString buttonSwitch) {
 
   } else if (buttonSwitch == "Settings") {
     pageSizer->Show(mainPane, true);
-    wxMessageBox(wxT("Settings"));
+    screenInfo->changeBackgroundDialog();
 
   } else if (buttonSwitch == "Hearts Rules") {
     pageSizer->Show(mainPane, true);

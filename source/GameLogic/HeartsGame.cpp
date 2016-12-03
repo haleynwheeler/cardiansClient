@@ -11,7 +11,7 @@
 
 using namespace std::chrono_literals;
 // constructor
-HeartsGame::HeartsGame(wxFrame *mainFrame) : Game() {
+HeartsGame::HeartsGame(wxFrame *mainFrame, clientInfo *client) : Game() {
   gui = new heartsArea(mainFrame);
   gui->setMadeMoveFunction([this](Card c) { humanMadeMove(c); });
   roundNumber = 0;
