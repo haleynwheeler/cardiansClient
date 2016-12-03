@@ -164,3 +164,8 @@ wxSize clientInfo::loginOfflineBtnSize() {
   return wxSize((clientScreenSize.GetWidth() * 0.70),
                 clientScreenSize.GetHeight() * .10);
 }
+
+wxSize clientInfo::loginLogoSize() {
+  return wxSize((clientScreenSize.GetWidth() * 0.30),
+                clientScreenSize.GetHeight() * .12);
+}

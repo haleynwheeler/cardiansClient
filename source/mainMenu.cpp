@@ -20,11 +20,17 @@ mainMenu::mainMenu(wxFrame *parent)
   SetFont(
       wxFont(15, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
   // wxBoxSizer *wholeSizer = new wxBoxSizer(wxHORIZONTAL);
+  //
+  // imageInsert *theLogo =
+  //     new imageInsert(this, wxT("../res/TextLogo.png"), wxBITMAP_TYPE_PNG,
+  //                     screenInfo->getClientScreenSize().GetHeight() * .12,
+  //                     screenInfo->getClientScreenSize().GetWidth() * .30);
 
-  imageInsert *theLogo =
-      new imageInsert(this, wxT("../res/TextLogo.png"), wxBITMAP_TYPE_PNG,
-                      screenInfo->getClientScreenSize().GetHeight() * .12,
-                      screenInfo->getClientScreenSize().GetWidth() * .30);
+  wxBitmapButton *theLogo = new wxBitmapButton(
+      this, wxID_ANY, wxBitmap("../res/TextLogo.png", wxBITMAP_TYPE_PNG),
+      wxDefaultPosition, screenInfo->loginLogoSize(), 0, wxDefaultValidator,
+      wxButtonNameStr);
+  theLogo->SetBackgroundColour(wxColour(90, 5, 18, 0));
 
   wxButton *heartsLocal = new wxButton(
       this, heartsLocalBtn, wxT("Hearts Local"), wxDefaultPosition,
@@ -149,29 +155,7 @@ mainMenu::mainMenu(wxFrame *parent)
   paneSizer->AddSpacer(50);
   paneSizer->Add(sidePane);
 
-  // paneSizer->Add(sidePane);
-
-  // wholeSizer->Add(theSizer);
-  // wholeSizer->Add(paneSizer);
-  // wxButton *paneButton = new wxButton(this, testButton, wxT("TEST"),
-  // wxDefaultPosition,
-  //   wxSize(200,10), 0, wxDefaultValidator, wxButtonNameStr);
-  //
-  // wxWindow *win = sidePane->GetPane();
-  // wxSizer *paneSz = new wxBoxSizer(wxVERTICAL);
-  // paneSz->Add(paneButton);
-  // win->SetSizer(paneSz);
-  // paneSz->SetSizeHints(win);
-
-  // paneSizer->Add(theSizer, wxALIGN_CENTER_HORIZONTAL);
-  // paneSizer->Add(sidePane);
-
   SetSizerAndFit(paneSizer);
-  // SetSizerAndFit(paneSizer);
-  //  SetSizerAndFit(paneSizer);
-
-  // SetSizerAndFit(eightsContainer);
-  // Centre();
 }
 
 BEGIN_EVENT_TABLE(mainMenu, wxPanel)

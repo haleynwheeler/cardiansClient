@@ -3,6 +3,7 @@
 #include "imageInsert.h"
 #include <iostream>
 #include <vector>
+#include <wx/collpane.h>
 
 playArea::playArea(wxFrame *parent)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
@@ -29,6 +30,48 @@ playArea::playArea(wxFrame *parent)
   playerTwo = new wxBoxSizer(wxHORIZONTAL);
   playerThree = new wxBoxSizer(wxVERTICAL);
   theMainSizer = new wxBoxSizer(wxVERTICAL);
+  // wxBoxSizer *fullSizer = new wxBoxSizer(wxHORIZONTAL);
+
+  // COLLAPSIBLE PANE
+  // wxCollapsiblePane *sidePane =
+  //     new wxCollapsiblePane(this, wxID_ANY, "Menu", wxDefaultPosition,
+  //                           screenInfo->sidePanelSize(), wxCP_NO_TLW_RESIZE);
+  //
+  // wxWindow *win = sidePane->GetPane();
+  // wxSizer *paneSz = new wxBoxSizer(wxVERTICAL);
+  //
+  // wxButton *settingsBtn = new wxButton(
+  //     win, wxID_ANY, wxT("Eights Settings"), wxDefaultPosition,
+  //     screenInfo->sidePaneBtnSize(), 0, wxDefaultValidator, wxButtonNameStr);
+  //
+  // wxButton *eightsRulesBtn = new wxButton(
+  //     win, wxID_ANY, wxT("Rules"), wxDefaultPosition,
+  //     screenInfo->sidePaneBtnSize(), 0, wxDefaultValidator, wxButtonNameStr);
+  //
+  // wxButton *statsBtn = new wxButton(
+  //     win, wxID_ANY, wxT("Eights Stats"), wxDefaultPosition,
+  //     screenInfo->sidePaneBtnSize(), 0, wxDefaultValidator, wxButtonNameStr);
+  //
+  // win->SetBackgroundColour(wxColour(0, 0, 0));
+  // sidePane->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
+  //
+  // settingsBtn->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
+  // settingsBtn->SetForegroundColour(wxColour(255, 255, 255));
+  //
+  // eightsRulesBtn->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
+  // eightsRulesBtn->SetForegroundColour(wxColour(255, 255, 255));
+  //
+  // statsBtn->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
+  // statsBtn->SetForegroundColour(wxColour(255, 255, 255));
+  //
+  // paneSz->Add(settingsBtn);
+  // paneSz->Add(eightsRulesBtn);
+  // paneSz->Add(statsBtn);
+  //
+  // win->SetSizer(paneSz);
+  // paneSz->SetSizeHints(win);
+
+  // END PANE
 
   wxBitmapButton *topLogo = new wxBitmapButton(
       this, wxID_ANY, wxBitmap("../res/TextLogo.png", wxBITMAP_TYPE_PNG),
@@ -131,7 +174,12 @@ playArea::playArea(wxFrame *parent)
   theMainSizer->AddSpacer(20); //
   theMainSizer->Add(middlePortion);
   theMainSizer->Add(lowerPortion, wxBOTTOM);
+
+  // fullSizer->Add(theMainSizer);
+  // fullSizer->Add(sidePane);
   SetSizerAndFit(theMainSizer);
+  // SetSizerAndFit(fullSizer);
+
   Hide();
 }
 
@@ -146,7 +194,7 @@ void playArea::setMadeMoveFunction(std::function<void(Card)> f) {
 void playArea::playerZero(std::vector<Card> hand) {
   yourHand->Clear(true);
   handCards.clear();
-  if(hand.size() > 0){
+  if (hand.size() > 0) {
     auto firstCard = hand.back();
     hand.pop_back();
     for (auto &&handCard : hand) {
