@@ -4,6 +4,7 @@
 *
 *
 */
+#include "../clientInfo.h"
 #include "../playArea.h"
 #include "Card.hpp"
 #include "Game.hpp"
@@ -30,7 +31,7 @@ private:
   void updateGui();
 
 public:
-  CrazyEightsGame(wxFrame *);
+  CrazyEightsGame(wxFrame *, clientInfo *client);
   void startNewRound(bool newGame);
   playArea *getGui() { return gui; };
   void showGame();

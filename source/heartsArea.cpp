@@ -8,6 +8,17 @@ heartsArea::heartsArea(wxFrame *parent)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
               wxTAB_TRAVERSAL, wxPanelNameStr) {
   screenInfo = new clientInfo();
+  setUpScreen(parent);
+}
+
+heartsArea::heartsArea(wxFrame *parent, clientInfo *client)
+    : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
+              wxTAB_TRAVERSAL, wxPanelNameStr) {
+  screenInfo = client;
+  setUpScreen(parent);
+}
+
+void heartsArea::setUpScreen(wxFrame *parent) {
   int cardWidth = 20;
   int cardHeight = 100;
   int cardBackType = 14;
@@ -68,86 +79,88 @@ heartsArea::heartsArea(wxFrame *parent)
     if (i >= playerOneHandSize) {
       playerOne->Hide(i);
     }
-  }
 
-  playerCard *card1 = new playerCard(this->GetParent(), 3, cardBackType,
-                                     screenInfo->getLargeCardSize(), TRUE);
-  playerTwo->Add(card1);
-  for (int i = 0; i < 12; i++) {
-    playerCard *card = new playerCard(this->GetParent(), 3, cardBackType,
-                                      screenInfo->getSmallCardSize(), false);
-    playerTwo->Add(card);
-    if (i >= playerTwoHandSize) {
-      playerTwo->Hide(i);
+    playerCard *card1 = new playerCard(this->GetParent(), 3, cardBackType,
+                                       screenInfo->getLargeCardSize(), TRUE);
+    playerTwo->Add(card1);
+    for (int i = 0; i < 12; i++) {
+      playerCard *card = new playerCard(this->GetParent(), 3, cardBackType,
+                                        screenInfo->getSmallCardSize(), false);
+      playerTwo->Add(card);
+      if (i >= playerTwoHandSize) {
+        playerTwo->Hide(i);
+      }
     }
-  }
 
-  playerCard *card2 = new playerCard(this->GetParent(), 4, cardBackType,
-                                     screenInfo->getLargeHorCardSize(), TRUE);
-  playerThree->Add(card2);
-  for (int i = 0; i < 12; i++) {
-    playerCard *card = new playerCard(this->GetParent(), 4, cardBackType,
-                                      screenInfo->getSmallHorCardSize(), false);
-    playerThree->Add(card);
-    if (i >= playerThreeHandSize) {
-      playerThree->Hide(i);
+    playerCard *card2 = new playerCard(this->GetParent(), 4, cardBackType,
+                                       screenInfo->getLargeHorCardSize(), TRUE);
+    playerThree->Add(card2);
+    for (int i = 0; i < 12; i++) {
+      playerCard *card =
+          new playerCard(this->GetParent(), 4, cardBackType,
+                         screenInfo->getSmallHorCardSize(), false);
+      playerThree->Add(card);
+      if (i >= playerThreeHandSize) {
+        playerThree->Hide(i);
+      }
     }
-  }
 
-  playerZeroChoice = new playerCard(this->GetParent(), 1, cardBackType,
-                                    screenInfo->getLargeCardSize(), TRUE);
-  playerOneChoice = new playerCard(this->GetParent(), 2, cardBackType,
-                                   screenInfo->getLargeCardSize(), TRUE);
-  playerTwoChoice = new playerCard(this->GetParent(), 3, cardBackType,
-                                   screenInfo->getLargeCardSize(), TRUE);
-  playerThreeChoice = new playerCard(this->GetParent(), 4, cardBackType,
+    playerZeroChoice = new playerCard(this->GetParent(), 1, cardBackType,
+                                      screenInfo->getLargeCardSize(), TRUE);
+    playerOneChoice = new playerCard(this->GetParent(), 2, cardBackType,
                                      screenInfo->getLargeCardSize(), TRUE);
+    playerTwoChoice = new playerCard(this->GetParent(), 3, cardBackType,
+                                     screenInfo->getLargeCardSize(), TRUE);
+    playerThreeChoice = new playerCard(this->GetParent(), 4, cardBackType,
+                                       screenInfo->getLargeCardSize(), TRUE);
 
-  leftFieldArea->AddSpacer(screenInfo->hSideVFieldSpacer());
-  leftFieldArea->Add(playerOneChoice,
-                     wxALIGN_LEFT | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
-  leftFieldArea->AddSpacer(screenInfo->hSideVFieldSpacer());
+    leftFieldArea->AddSpacer(screenInfo->hSideVFieldSpacer());
+    leftFieldArea->Add(playerOneChoice,
+                       wxALIGN_LEFT | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
+    leftFieldArea->AddSpacer(screenInfo->hSideVFieldSpacer());
 
-  midFieldArea->Add(playerTwoChoice, wxSizerFlags().ReserveSpaceEvenIfHidden());
-  midFieldArea->AddSpacer(120);
-  midFieldArea->Add(playerZeroChoice,
-                    wxALIGN_LEFT | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
-  midFieldArea->AddSpacer(screenInfo->hSpaceBetweenCardAndHand());
-
-  rightFieldArea->AddSpacer(screenInfo->hSideVFieldSpacer());
-  rightFieldArea->Add(playerThreeChoice,
+    midFieldArea->Add(playerTwoChoice,
+                      wxSizerFlags().ReserveSpaceEvenIfHidden());
+    midFieldArea->AddSpacer(120);
+    midFieldArea->Add(playerZeroChoice,
                       wxALIGN_LEFT | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
-  rightFieldArea->AddSpacer(screenInfo->hSideVFieldSpacer());
+    midFieldArea->AddSpacer(screenInfo->hSpaceBetweenCardAndHand());
 
-  fieldArea->Add(leftFieldArea);
-  fieldArea->AddSpacer(screenInfo->hSideFieldSpacer());
-  fieldArea->Add(midFieldArea);
-  fieldArea->AddSpacer(screenInfo->hSideFieldSpacer());
-  fieldArea->Add(rightFieldArea);
+    rightFieldArea->AddSpacer(screenInfo->hSideVFieldSpacer());
+    rightFieldArea->Add(playerThreeChoice,
+                        wxALIGN_LEFT | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
+    rightFieldArea->AddSpacer(screenInfo->hSideVFieldSpacer());
 
-  upperPortion->Add(topLogo);
-  upperPortion->AddSpacer(screenInfo->hSpaceBetweenCardAndHand());
-  upperPortion->Add(playerTwo,
-                    wxALIGN_CENTRE_VERTICAL | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
+    fieldArea->Add(leftFieldArea);
+    fieldArea->AddSpacer(screenInfo->hSideFieldSpacer());
+    fieldArea->Add(midFieldArea);
+    fieldArea->AddSpacer(screenInfo->hSideFieldSpacer());
+    fieldArea->Add(rightFieldArea);
 
-  middlePortion->AddSpacer(screenInfo->hSpaceBetweenCardAndHand());
-  middlePortion->Add(playerOne,
-                     wxALIGN_BOTTOM | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
-  middlePortion->AddSpacer(2 * screenInfo->hSpaceBetweenCardAndHand());
-  middlePortion->Add(fieldArea);
-  middlePortion->AddSpacer(2 * screenInfo->hSpaceBetweenCardAndHand());
-  middlePortion->Add(playerThree, wxALIGN_BOTTOM,
-                     wxRESERVE_SPACE_EVEN_IF_HIDDEN);
+    upperPortion->Add(topLogo);
+    upperPortion->AddSpacer(screenInfo->hSpaceBetweenCardAndHand());
+    upperPortion->Add(playerTwo,
+                      wxALIGN_CENTRE_VERTICAL | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
 
-  lowerPortion->AddSpacer(screenInfo->c8LogoDifference());
-  lowerPortion->Add(yourHand, wxRESERVE_SPACE_EVEN_IF_HIDDEN);
+    middlePortion->AddSpacer(screenInfo->hSpaceBetweenCardAndHand());
+    middlePortion->Add(playerOne,
+                       wxALIGN_BOTTOM | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
+    middlePortion->AddSpacer(2 * screenInfo->hSpaceBetweenCardAndHand());
+    middlePortion->Add(fieldArea);
+    middlePortion->AddSpacer(2 * screenInfo->hSpaceBetweenCardAndHand());
+    middlePortion->Add(playerThree, wxALIGN_BOTTOM,
+                       wxRESERVE_SPACE_EVEN_IF_HIDDEN);
 
-  theMainSizer->AddSpacer(10);
-  theMainSizer->Add(upperPortion);
-  theMainSizer->AddSpacer(screenInfo->hSpaceBetweenCardAndHand());
-  theMainSizer->Add(middlePortion);
-  theMainSizer->Add(lowerPortion, wxBOTTOM);
-  SetSizerAndFit(theMainSizer);
+    lowerPortion->AddSpacer(screenInfo->c8LogoDifference());
+    lowerPortion->Add(yourHand, wxRESERVE_SPACE_EVEN_IF_HIDDEN);
+
+    theMainSizer->AddSpacer(10);
+    theMainSizer->Add(upperPortion);
+    theMainSizer->AddSpacer(screenInfo->hSpaceBetweenCardAndHand());
+    theMainSizer->Add(middlePortion);
+    theMainSizer->Add(lowerPortion, wxBOTTOM);
+    SetSizerAndFit(theMainSizer);
+  }
 }
 
 void heartsArea::setMadeMoveFunction(std::function<void(Card)> f) {

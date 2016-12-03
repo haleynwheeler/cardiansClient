@@ -55,7 +55,10 @@ class playArea : public wxPanel {
   void updatePlayerTwo(int handSize);
   void updatePlayerThree(int handSize);
 
+  void setUpScreen(wxFrame *parent);
+
 public:
+  playArea(wxFrame *parent, clientInfo *client);
   playArea(wxFrame *parent);
   ~playArea();
   void initializePlayArea(std::vector<Card> humanHand, Card topOfDiscardPile);
@@ -79,6 +82,7 @@ public:
   void setMadeMoveFunction(std::function<void(Card)>);
   void hideGame();
   void dummyPopUp();
+  void updateCardBacks();
 };
 
 #endif

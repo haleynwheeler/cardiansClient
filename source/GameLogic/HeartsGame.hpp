@@ -1,12 +1,13 @@
 #ifndef HEARTS_GAME_HPP
 #define HEARTS_GAME_HPP
 
+#include "../clientInfo.h"
 #include "../heartsArea.h"
 #include "Game.hpp"
 
 class HeartsGame : public Game {
 public:
-  HeartsGame(wxFrame *);
+  HeartsGame(wxFrame *, clientInfo *client);
   heartsArea *getGui() { return gui; };
   void showGame();
   void hideGame();

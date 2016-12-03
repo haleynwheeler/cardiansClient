@@ -3,10 +3,23 @@
 #include "imageInsert.h"
 #include <iostream>
 
+playArea::playArea(wxFrame *parent, clientInfo *client)
+    : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
+              wxTAB_TRAVERSAL, wxPanelNameStr) {
+  screenInfo = client;
+  setUpScreen(parent);
+}
+
 playArea::playArea(wxFrame *parent)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
               wxTAB_TRAVERSAL, wxPanelNameStr) {
   screenInfo = new clientInfo();
+  setUpScreen(parent);
+}
+
+void playArea::updateCardBacks() {}
+
+void playArea::setUpScreen(wxFrame *parent) {
   int cardWidth = 20;
   int cardHeight = 100;
   cardBackType = 14;
@@ -36,9 +49,9 @@ playArea::playArea(wxFrame *parent)
   wxBoxSizer *fullSizer = new wxBoxSizer(wxHORIZONTAL);
 
   // COLLAPSIBLE PANE
-  sidePane =
-      new wxCollapsiblePane(this, wxID_ANY, "Menu", wxDefaultPosition,
-                            screenInfo->sidePanelSize(), wxCP_NO_TLW_RESIZE);
+  sidePane = new wxCollapsiblePane(
+      this->GetParent(), wxID_ANY, "Menu", wxDefaultPosition,
+      screenInfo->sidePanelSize(), wxCP_NO_TLW_RESIZE);
 
   win = sidePane->GetPane();
   paneSz = new wxBoxSizer(wxVERTICAL);
@@ -212,7 +225,7 @@ playArea::playArea(wxFrame *parent)
   theMainSizer->Add(lowerPortion, wxBOTTOM);
 
   fullSizer->Add(theMainSizer);
-  fullSizer->Add(sidePane);
+  // fullSizer->Add(sidePane);
   // SetSizerAndFit(theMainSizer);
   SetSizerAndFit(fullSizer);
 

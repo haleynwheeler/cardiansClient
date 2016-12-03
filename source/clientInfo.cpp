@@ -169,3 +169,30 @@ wxSize clientInfo::loginLogoSize() {
   return wxSize((clientScreenSize.GetWidth() * 0.30),
                 clientScreenSize.GetHeight() * .12);
 }
+
+void clientInfo::changeBackgroundDialog() {
+  wxArrayString choices;
+  choices.Add("Happy Alien");
+  choices.Add("U.F.O");
+  choices.Add("Cave Symbols");
+  choices.Add("Purple Space");
+  choices.Add("Boring /Deprecated");
+  choices.Add("U.F.O");
+  choices.Add("See no Evil");
+  choices.Add("Astronaut Treat");
+  choices.Add("Planet");
+  choices.Add("Planets");
+  choices.Add("Astronaut");
+  choices.Add("Street Art");
+  choices.Add("Light Purple Planets");
+  choices.Add("Orange Space");
+  choices.Add("Maroon Space");
+  choices.Add("Pastel Space");
+
+  wxString title("Change your card Back");
+  wxSingleChoiceDialog dialog(NULL, title, title, choices);
+  auto yes = dialog.ShowModal();
+  if (yes == wxID_OK) {
+    cardBackType = dialog.GetSelection() + 1;
+  }
+}
