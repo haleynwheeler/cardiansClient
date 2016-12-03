@@ -57,11 +57,29 @@ Simple::Simple(const wxString &title, clientInfo *theClientScreen)
 
 void Simple::switchPage(wxString buttonSwitch) {
 
-  pageSizer->ShowItems(false);
+  if (buttonSwitch != "Eights Settings" || buttonSwitch != "Rules" ||
+      buttonSwitch != "Eights Stats") {
+
+    pageSizer->ShowItems(false);
+  }
 
   // switching to main screen from login button
   if (buttonSwitch == "Login") {
     pageSizer->Show(mainPane, true);
+
+  } else if (buttonSwitch == "Eights Settings") {
+    // pageSizer->Show(mainPane, true);
+    wxMessageBox(wxT("Settings"));
+
+    // pageSizer->Prepend(eightsGame->getGui(), 1, wxGROW);
+
+  } else if (buttonSwitch == "Rules") {
+    // pageSizer->Show(mainPane, true);
+    wxMessageBox(wxT("Rules"));
+
+  } else if (buttonSwitch == "Eights Stats") {
+    // pageSizer->Show(mainPane, true);
+    wxMessageBox(wxT("stats"));
 
   } else if (buttonSwitch == "New User") {
     // // switch to new user screen from login
