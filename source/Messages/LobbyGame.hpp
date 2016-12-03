@@ -6,6 +6,7 @@
 #include <vector>
 
 #include <boost/serialization/access.hpp>
+#include <boost/serialization/string.hpp>
 
 //#include "source/PlayerAPI/Player.hpp"
 

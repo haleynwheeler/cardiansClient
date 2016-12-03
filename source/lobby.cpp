@@ -3,6 +3,7 @@
 
 #include "Messages/LobbyGame.hpp"
 #include <boost/archive/text_iarchive.hpp>
+#include <boost/serialization/vector.hpp>
 #include <wx/textdlg.h>
 
 lobby::lobby(wxFrame *parent, wxString type)
@@ -50,6 +51,11 @@ lobby::lobby(wxFrame *parent, wxString type)
       new wxCollapsiblePane(this, wxID_ANY, "Menu", wxDefaultPosition,
                             wxSize(800, 800), wxCP_NO_TLW_RESIZE);
 
+  startGameBut = new wxButton(this, startGameButton, wxT("Start Game"),
+                              wxDefaultPosition, screenInfo->lobbyButton(), 0,
+                              wxDefaultValidator, wxButtonNameStr);
+  startGameBut->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
+  startGameBut->SetForegroundColour(wxColour(wxT("WHITE")));
   // COLLAPSIBLE PANE///////////////////////////////////////////////////
   wxWindow *win = sidePane->GetPane();
   wxSizer *paneSz = new wxBoxSizer(wxVERTICAL);
@@ -109,6 +115,7 @@ lobby::lobby(wxFrame *parent, wxString type)
   buttonSizer->Add(newGameBut);
   buttonSizer->AddSpacer(screenInfo->lobbyButtonSpacer());
   buttonSizer->Add(joinGameBut);
+  buttonSizer->Add(startGameBut);
 
   centerSizer->Add(gameType, wxEXPAND | wxALIGN_RIGHT);
   centerSizer->AddSpacer(screenInfo->getClientScreenSize().GetHeight() * .10);
@@ -128,7 +135,6 @@ lobby::lobby(wxFrame *parent, wxString type)
 
 void lobby::requestGames() {
   Simple *mainFrame = (Simple *)GetParent();
-
   std::string sendMsg = "GET GAMES " + typeOfGame.ToStdString();
   mainFrame->sendServerMsg(sendMsg);
   auto receivedMsg = mainFrame->getResponse();
@@ -140,39 +146,13 @@ void lobby::receivedGames(std::string msg) {
   currentGames->ClearAll();
   std::stringstream ss(msg);
   boost::archive::text_iarchive coded(ss);
-
-  // std::vector<LobbyGame> decodedGames;
-  // std::string game;
-  //
-  // while (!ss.eof()){
-  //   std::string game;
-  //   for (int i=0; i<3; i++){
-  //     coded >> game;
-  //   }
-  //
-  // }
-  // while (!ss.eof()) {
-  // LobbyGame tmp;
-  // coded >> tmp;
-  // decodedGames.push_back(tmp);
-  // //}
-  // // coded >> decodedGame;
-  // for (auto &&game : decodedGames) {
-  //   std::cout << game.name << std::endl;
-  // }
-
-  // while (!)
-  // while (!ss.eof()) {
-  //   ss >> game;
-  //   std::cout << "!" << game << "!" << std::endl;
-  // }
-  // Need to check the format of ss but essentially we want to append game to
-  // availableGames.
-  // long index = this->InsertItem(0, _("GameName"));
-  // this->SetItem(index, position in availableGames , _("3 of 4"));
+  std::vector<LobbyGame> decodedGames;
+  coded &decodedGames;
+  for (auto &&game : decodedGames) {
+    std::cout << game.name << std::endl;
+  }
 }
 
-// I didn't make some sort of dialog for this :(
 void lobby::makeGame(wxCommandEvent &event) {
   Simple *mainFrame = (Simple *)GetParent();
   wxTextEntryDialog dialog(
@@ -216,6 +196,21 @@ void lobby::joinGame(wxCommandEvent &event) {
   receivedJoinGameResponse(receivedMsg);
 }
 
+void lobby::startGame(wxCommandEvent &event) {
+  Simple *mainFrame = (Simple *)GetParent();
+  wxTextEntryDialog dialog(
+      NULL, "Please enter the name of the game you would like to join.",
+      "Join a Game");
+  dialog.ShowModal();
+  auto response = dialog.GetValue();
+  std::cout << response << std::endl;
+  std::string sendMsg = "START " + response.ToStdString();
+  std::cout << sendMsg << std::endl;
+  mainFrame->sendServerMsg(sendMsg);
+  auto receivedMsg = mainFrame->getResponse();
+  receivedJoinGameResponse(receivedMsg);
+}
+
 void lobby::receivedJoinGameResponse(std::string receivedMsg) {
   showGeneralDialogBox(receivedMsg);
   if (receivedMsg == "FAILURE : GAME NOT FOUND") {
@@ -228,6 +223,16 @@ void lobby::receivedJoinGameResponse(std::string receivedMsg) {
   }
 }
 
+void lobby::receivedStartGameResponse(std::string receivedMsg) {
+  showGeneralDialogBox(receivedMsg);
+  if (receivedMsg == "FAILURE : GAME NOT FOUND") {
+    std::cout << "Game could not be found";
+  } else if (receivedMsg == "SUCCESS") {
+    std::cout << "Game joined successfully" << std::endl;
+    // TODO: link to appropriate in game screen.
+  }
+}
+
 void lobby::showGeneralDialogBox(std::string msg) {
   wxMessageDialog dialog(NULL, msg);
   dialog.ShowModal();
@@ -237,4 +242,5 @@ lobby::~lobby() {}
 
 wxBEGIN_EVENT_TABLE(lobby, wxPanel) EVT_PAINT(lobby::OnPaint)
     EVT_BUTTON(newGameButton, lobby::makeGame)
-        EVT_BUTTON(joinGameButton, lobby::joinGame) END_EVENT_TABLE()
+        EVT_BUTTON(joinGameButton, lobby::joinGame)
+            EVT_BUTTON(startGameButton, lobby::startGame) END_EVENT_TABLE()

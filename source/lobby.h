@@ -15,14 +15,17 @@ class lobby : public wxPanel {
   availableGames *currentGames;
   void receivedMakeGameResponse(std::string);
   void receivedJoinGameResponse(std::string);
+  void receivedStartGameResponse(std::string);
   void showGeneralDialogBox(std::string);
   wxButton *newGameBut;
   wxButton *joinGameBut;
+  wxButton *startGameBut;
   wxString typeOfGame;
 
 public:
   lobby(wxFrame *parent, wxString typeOfGame);
   ~lobby();
+  void startGame(wxCommandEvent &);
   void joinGame(wxCommandEvent &);
   void makeGame(wxCommandEvent &);
   void receivedGames(std::string msg);
@@ -36,7 +39,7 @@ public:
     // paintDC.DrawRectangle(500,0,500,60);
   }
 
-  enum { newGameButton = 1, joinGameButton = 2 };
+  enum { newGameButton = 1, joinGameButton = 2, startGameButton = 3 };
 
   wxDECLARE_EVENT_TABLE();
 };

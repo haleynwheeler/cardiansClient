@@ -11,6 +11,11 @@ Simple::Simple(const wxString &title, clientInfo *theClientScreen)
 
   NI.connect("127.0.0.1", 12000);
   isConnected = NI.isConnected();
+  if (!isConnected) {
+    wxMessageDialog dialog(NULL, "Unable to connect to the server. Please "
+                                 "choose to play in offline mode.");
+    dialog.ShowModal();
+  }
   screenInfo = theClientScreen;
 
   pageSizer = new wxBoxSizer(wxVERTICAL);
