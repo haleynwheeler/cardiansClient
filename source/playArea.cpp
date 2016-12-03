@@ -2,8 +2,6 @@
 #include "button.h"
 #include "imageInsert.h"
 #include <iostream>
-#include <vector>
-#include <wx/collpane.h>
 
 playArea::playArea(wxFrame *parent)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
@@ -38,12 +36,12 @@ playArea::playArea(wxFrame *parent)
   wxBoxSizer *fullSizer = new wxBoxSizer(wxHORIZONTAL);
 
   // COLLAPSIBLE PANE
-  wxCollapsiblePane *sidePane =
+  sidePane =
       new wxCollapsiblePane(this, wxID_ANY, "Menu", wxDefaultPosition,
                             screenInfo->sidePanelSize(), wxCP_NO_TLW_RESIZE);
 
-  wxWindow *win = sidePane->GetPane();
-  wxSizer *paneSz = new wxBoxSizer(wxVERTICAL);
+  win = sidePane->GetPane();
+  paneSz = new wxBoxSizer(wxVERTICAL);
 
   wxButton *settingsBtn = new wxButton(
       win, wxID_ANY, wxT("Eights Settings"), wxDefaultPosition,
@@ -79,28 +77,29 @@ playArea::playArea(wxFrame *parent)
   // END PANE
 
   topLogo = new wxBitmapButton(
-      this, wxID_ANY, wxBitmap("../res/TextLogo.png", wxBITMAP_TYPE_PNG),
-      wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
+      this->GetParent(), wxID_ANY,
+      wxBitmap("../res/TextLogo.png", wxBITMAP_TYPE_PNG), wxDefaultPosition,
+      wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
   topLogo->SetBackgroundColour(wxColour(90, 5, 18, 0));
 
   SetFont(
       wxFont(10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
 
-  wxStaticText *playerOneInfo =
-      new wxStaticText(this, wxID_ANY, "Drax the Destroyer", wxDefaultPosition,
+  playerOneInfo = new wxStaticText(this->GetParent(), wxID_ANY,
+                                   "Drax the Destroyer", wxDefaultPosition,
+                                   wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);
+
+  playerTwoInfo = new wxStaticText(this->GetParent(), wxID_ANY, "Star-Lord",
+                                   wxDefaultPosition, wxDefaultSize,
+                                   wxALIGN_CENTRE_HORIZONTAL);
+
+  playerThreeInfo =
+      new wxStaticText(this->GetParent(), wxID_ANY, "Groot", wxDefaultPosition,
                        wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);
 
-  wxStaticText *playerTwoInfo =
-      new wxStaticText(this, wxID_ANY, "Star-Lord", wxDefaultPosition,
+  userInfo =
+      new wxStaticText(this->GetParent(), wxID_ANY, "You", wxDefaultPosition,
                        wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);
-
-  wxStaticText *playerThreeInfo =
-      new wxStaticText(this, wxID_ANY, "Groot", wxDefaultPosition,
-                       wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);
-
-  wxStaticText *userInfo =
-      new wxStaticText(this, wxID_ANY, "You", wxDefaultPosition, wxDefaultSize,
-                       wxALIGN_CENTRE_HORIZONTAL);
 
   playerOneInfo->SetForegroundColour(wxColour(255, 255, 255));
   playerTwoInfo->SetForegroundColour(wxColour(255, 255, 255));
@@ -121,12 +120,12 @@ playArea::playArea(wxFrame *parent)
                            cardBackType, TRUE);
   Discard->Hide();
 
+  yourHand->Add(userLabel);
   playerCard *yourCard =
       new playerCard(this->GetParent(), dummyCard,
                      screenInfo->getLargeCardSize(), cardBackType, TRUE);
   handCards.push_back(yourCard);
   yourHand->Add(yourCard);
-
   for (int i = 0; i < maxHandSize; i++) {
     playerCard *card =
         new playerCard(this->GetParent(), dummyCard,
@@ -139,6 +138,7 @@ playArea::playArea(wxFrame *parent)
   }
   yourHand->ShowItems(false);
 
+  playerOne->Add(playerOneLabel);
   playerCard *card = new playerCard(this->GetParent(), 2, cardBackType,
                                     screenInfo->getLargeHorCardSize());
   playerOne->Add(card, wxRESERVE_SPACE_EVEN_IF_HIDDEN);
@@ -153,6 +153,7 @@ playArea::playArea(wxFrame *parent)
   playerOne->ShowItems(false);
 
   std::cout << "PlayerTwo Set Up" << std::endl;
+  playerTwo->Add(playerTwoLabel);
   playerCard *card1 = new playerCard(this->GetParent(), 3, cardBackType,
                                      screenInfo->getLargeCardSize());
   playerTwo->Add(card1, wxRESERVE_SPACE_EVEN_IF_HIDDEN);
@@ -167,6 +168,7 @@ playArea::playArea(wxFrame *parent)
   playerTwo->ShowItems(false);
   std::cout << "Player Two Done" << std::endl;
 
+  playerThree->Add(playerThreeLabel);
   playerCard *card2 = new playerCard(this->GetParent(), 4, cardBackType,
                                      screenInfo->getLargeHorCardSize());
   playerThree->Add(card2, wxRESERVE_SPACE_EVEN_IF_HIDDEN);
@@ -180,8 +182,6 @@ playArea::playArea(wxFrame *parent)
   }
   playerThree->ShowItems(false);
 
-  int temporary = screenInfo->c8middleVerSpace();
-
   fieldArea->Add(Deck);
   fieldArea->Add(Discard);
 
@@ -191,22 +191,18 @@ playArea::playArea(wxFrame *parent)
 
   upperPortion->Add(topLogo);
   upperPortion->AddSpacer(screenInfo->c8StrandardBorder()); //
-  upperPortion->Add(playerTwoLabel);
   upperPortion->Add(playerTwo, wxALIGN_CENTRE_VERTICAL);
   upperPortion->AddSpacer(50);
   upperPortion->Add(playerThreeLabel);
 
   middlePortion->AddSpacer(screenInfo->c8StrandardBorder()); //
-  middlePortion->Add(playerOneLabel);
   middlePortion->Add(playerOne, wxALIGN_BOTTOM);
   middlePortion->AddSpacer(screenInfo->c8MiddleHorSpace());
   middlePortion->Add(verticalfieldArea);
   middlePortion->AddSpacer(screenInfo->c8MiddleHorSpace());
-  //  middlePortion->Add(playerThreeLabel);
   middlePortion->Add(playerThree, wxALIGN_BOTTOM);
 
   lowerPortion->AddSpacer(screenInfo->c8LogoDifference()); //
-  lowerPortion->Add(userLabel);
   lowerPortion->Add(yourHand);
 
   theMainSizer->AddSpacer(10); //
@@ -235,6 +231,7 @@ void playArea::playerZero(std::vector<Card> hand) {
   yourHand->Clear(true);
   handCards.clear();
   if (hand.size() > 0) {
+    // yourHand->Add(userInfo);
     auto firstCard = hand.back();
     hand.pop_back();
     for (auto &&handCard : hand) {
