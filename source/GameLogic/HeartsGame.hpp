@@ -11,6 +11,7 @@ public:
   void showGame();
   void hideGame();
   void startGame();
+  void updateGui();
 
 private:
   heartsArea *gui;

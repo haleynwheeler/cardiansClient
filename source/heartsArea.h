@@ -38,7 +38,7 @@ class heartsArea : public wxPanel {
   clientInfo *screenInfo;
 
   std::function<void(Card)> humanMadeMove;
-  void updateMiddleCards(std::array<Card, 4> centerPile);
+  void updateMiddleCards(std::vector<Card> centerPile);
 
 public:
   heartsArea(wxFrame *parent);
@@ -47,8 +47,10 @@ public:
   void updatePlayArea(int playerId, std::vector<Card> hand,
                       std::array<Card, 4> centerPile);
 
+  void updateOnlinePlayArea(std::vector<Card> hand, std::vector<int> handSizes,
+                            std::vector<Card> field);
   void playerZero(std::vector<Card> hand);
-  void playerAi(int playerId, std::vector<Card> hand);
+  void playerAi(int playerId, int handSize);
 
   void invalidMoveDialog();
   bool endOfRoundDialog(std::vector<int> allPlayersRoundScores,
