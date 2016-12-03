@@ -59,6 +59,7 @@ playArea::playArea(wxFrame *parent)
 
   win->SetBackgroundColour(wxColour(0, 0, 0));
   sidePane->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
+  sidePane->SetForegroundColour(wxColour(255, 255, 255));
 
   settingsBtn->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
   settingsBtn->SetForegroundColour(wxColour(255, 255, 255));
@@ -84,7 +85,7 @@ playArea::playArea(wxFrame *parent)
   topLogo->SetBackgroundColour(wxColour(90, 5, 18, 0));
 
   SetFont(
-      wxFont(10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
+      wxFont(15, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
 
   wxStaticText *playerOneInfo =
       new wxStaticText(this, wxID_ANY, "Drax the Destroyer", wxDefaultPosition,
@@ -192,21 +193,29 @@ playArea::playArea(wxFrame *parent)
   upperPortion->Add(topLogo);
   upperPortion->AddSpacer(screenInfo->c8StrandardBorder()); //
   upperPortion->Add(playerTwoLabel);
+  upperPortion->AddSpacer(10);
   upperPortion->Add(playerTwo, wxALIGN_CENTRE_VERTICAL);
-  upperPortion->AddSpacer(50);
-  upperPortion->Add(playerThreeLabel);
+  // upperPortion->AddSpacer(screenInfo->getClientScreenSize().GetWidth() * .3);
+  // upperPortion->Add(playerThreeLabel);
 
   middlePortion->AddSpacer(screenInfo->c8StrandardBorder()); //
   middlePortion->Add(playerOneLabel);
+  middlePortion->AddSpacer(10);
+
   middlePortion->Add(playerOne, wxALIGN_BOTTOM);
   middlePortion->AddSpacer(screenInfo->c8MiddleHorSpace());
   middlePortion->Add(verticalfieldArea);
   middlePortion->AddSpacer(screenInfo->c8MiddleHorSpace());
   //  middlePortion->Add(playerThreeLabel);
   middlePortion->Add(playerThree, wxALIGN_BOTTOM);
+  middlePortion->AddSpacer(10);
+
+  middlePortion->Add(playerThreeLabel);
 
   lowerPortion->AddSpacer(screenInfo->c8LogoDifference()); //
   lowerPortion->Add(userLabel);
+  lowerPortion->AddSpacer(10);
+
   lowerPortion->Add(yourHand);
 
   theMainSizer->AddSpacer(10); //
