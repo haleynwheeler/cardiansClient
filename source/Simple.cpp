@@ -122,7 +122,7 @@ void Simple::switchPage(wxString buttonSwitch) {
     }
 
   } else if (buttonSwitch == "Eights Local") {
-    eightsGame = new CrazyEightsGame(this, screenInfo);
+    eightsGame = new CrazyEightsGame(this);
     pageSizer->Prepend(eightsGame->getGui(), 1, wxGROW);
 
   } else if (buttonSwitch == "Eights Online") {

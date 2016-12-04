@@ -37,7 +37,9 @@ void HeartsGame::startNewRound(bool newGame) {
     player.initializeHand(deck, 13);
   }
   // gui->initializePlayArea(players[0].getHand());
+  std::cout << "bler" << std::endl;
   setCardsAiWillPass();
+  std::cout << "bler" << std::endl;
   std::vector<Card> passed = gui->requestCardsPassed(players[0].getHand());
   humanPassedCards(passed);
 }
@@ -59,6 +61,7 @@ void HeartsGame::setCardsAiWillPass() {
   for (int i = 1; i < players.size(); i++) {
     // TODO: Write AI to pick cards to pass
     auto hand = players[i].getHand();
+    cardsToPass.clear();
     for (int j = 0; j < 3; j++) {
       cardsToPass[i].push_back(hand[j]);
       players[i].removeCardFromHand(hand[j]);

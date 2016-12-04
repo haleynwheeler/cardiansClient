@@ -3,23 +3,10 @@
 #include "imageInsert.h"
 #include <iostream>
 
-playArea::playArea(wxFrame *parent, clientInfo *client)
-    : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
-              wxTAB_TRAVERSAL, wxPanelNameStr) {
-  screenInfo = client;
-  setUpScreen(parent);
-}
-
 playArea::playArea(wxFrame *parent)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
               wxTAB_TRAVERSAL, wxPanelNameStr) {
   screenInfo = new clientInfo();
-  setUpScreen(parent);
-}
-
-void playArea::updateCardBacks() {}
-
-void playArea::setUpScreen(wxFrame *parent) {
   int cardWidth = 20;
   int cardHeight = 100;
   cardBackType = 14;
@@ -35,7 +22,6 @@ void playArea::setUpScreen(wxFrame *parent) {
 
   fieldArea = new wxBoxSizer(wxHORIZONTAL);
   verticalfieldArea = new wxBoxSizer(wxVERTICAL);
-  discardPile = new wxBoxSizer(wxHORIZONTAL);
 
   yourHand = new wxBoxSizer(wxHORIZONTAL);
   wxBoxSizer *playerOneLabel = new wxBoxSizer(wxHORIZONTAL);
@@ -47,7 +33,7 @@ void playArea::setUpScreen(wxFrame *parent) {
   playerTwo = new wxBoxSizer(wxHORIZONTAL);
   playerThree = new wxBoxSizer(wxVERTICAL);
   theMainSizer = new wxBoxSizer(wxVERTICAL);
-  fullSizer = new wxBoxSizer(wxHORIZONTAL);
+  wxBoxSizer *fullSizer = new wxBoxSizer(wxHORIZONTAL);
 
   // COLLAPSIBLE PANE
   sidePane =
@@ -71,7 +57,6 @@ void playArea::setUpScreen(wxFrame *parent) {
 
   win->SetBackgroundColour(wxColour(0, 0, 0));
   sidePane->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
-  sidePane->SetForegroundColour(wxColour(255, 255, 255));
 
   settingsBtn->SetBackgroundColour(wxColour(90, 5, 18, wxALPHA_OPAQUE));
   settingsBtn->SetForegroundColour(wxColour(255, 255, 255));
@@ -97,7 +82,7 @@ void playArea::setUpScreen(wxFrame *parent) {
   topLogo->SetBackgroundColour(wxColour(90, 5, 18, 0));
 
   SetFont(
-      wxFont(15, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
+      wxFont(10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
 
   playerOneInfo = new wxStaticText(this->GetParent(), wxID_ANY,
                                    "Drax the Destroyer", wxDefaultPosition,
@@ -130,12 +115,9 @@ void playArea::setUpScreen(wxFrame *parent) {
   Deck->setDrewCardFunction(humanDrewCard);
   Deck->Hide();
 
-  for (int i = 0; i < 1; i++) {
-    Discard[i] = new playerCard(
-        parent, dummyCard, screenInfo->getLargeCardSize(), cardBackType, TRUE);
-    discardPile->Add(Discard[i]);
-  }
-  discardPile->ShowItems(false);
+  Discard = new playerCard(parent, dummyCard, screenInfo->getLargeCardSize(),
+                           cardBackType, TRUE);
+  Discard->Hide();
 
   yourHand->Add(userLabel);
   playerCard *yourCard =
@@ -200,7 +182,7 @@ void playArea::setUpScreen(wxFrame *parent) {
   playerThree->ShowItems(false);
 
   fieldArea->Add(Deck);
-  fieldArea->Add(discardPile);
+  fieldArea->Add(Discard);
 
   verticalfieldArea->AddSpacer(screenInfo->c8middleVerSpace());
   verticalfieldArea->Add(fieldArea);
@@ -208,30 +190,18 @@ void playArea::setUpScreen(wxFrame *parent) {
 
   upperPortion->Add(topLogo);
   upperPortion->AddSpacer(screenInfo->c8StrandardBorder()); //
-  upperPortion->Add(playerTwoLabel);
-  upperPortion->AddSpacer(10);
   upperPortion->Add(playerTwo, wxALIGN_CENTRE_VERTICAL);
-  // upperPortion->AddSpacer(screenInfo->getClientScreenSize().GetWidth() * .3);
-  // upperPortion->Add(playerThreeLabel);
+  upperPortion->AddSpacer(50);
+  upperPortion->Add(playerThreeLabel);
 
   middlePortion->AddSpacer(screenInfo->c8StrandardBorder()); //
-  middlePortion->Add(playerOneLabel);
-  middlePortion->AddSpacer(10);
-
   middlePortion->Add(playerOne, wxALIGN_BOTTOM);
   middlePortion->AddSpacer(screenInfo->c8MiddleHorSpace());
   middlePortion->Add(verticalfieldArea);
   middlePortion->AddSpacer(screenInfo->c8MiddleHorSpace());
   middlePortion->Add(playerThree, wxALIGN_BOTTOM);
-  middlePortion->AddSpacer(10);
-
-  middlePortion->Add(playerThreeLabel);
 
   lowerPortion->AddSpacer(screenInfo->c8LogoDifference()); //
-
-  lowerPortion->Add(userLabel);
-  lowerPortion->AddSpacer(10);
-
   lowerPortion->Add(yourHand);
 
   theMainSizer->AddSpacer(10); //
@@ -257,10 +227,8 @@ void playArea::setMadeMoveFunction(std::function<void(Card)> f) {
 }
 
 void playArea::playerZero(std::vector<Card> hand) {
-  std::cout << "Crash?" << std::endl;
   yourHand->Clear(true);
   handCards.clear();
-  std::cout << "Crash?" << std::endl;
   if (hand.size() > 0) {
     // yourHand->Add(userInfo);
     auto firstCard = hand.back();
@@ -342,13 +310,10 @@ void playArea::initializePlayArea(std::vector<Card> humanHand,
   Show();
   Freeze();
   playerZero(humanHand);
-  std::cout << "Creating area" << std::endl;
   for (int i = 1; i < 4; i++) {
     playerAi(i, humanHand.size());
   }
-  std::vector<Card> tempDisc;
-  tempDisc.push_back(topOfDiscardPile);
-  updateFieldArea(false, tempDisc, true);
+  updateFieldArea(false, topOfDiscardPile, true);
   this->Refresh();
   this->Update();
   Thaw();
@@ -362,7 +327,9 @@ void playArea::updateOnlinePlayArea(std::vector<Card> hand,
   for (int i = 0; i < 4; i++) {
     playerAi(i, handSizes.at(i));
   }
-  updateFieldArea(FALSE, field, FALSE);
+  std::cout << field.back().getSuit() << "=" << field.back().getValue()
+            << std::endl;
+  updateFieldArea(FALSE, field.back(), FALSE);
   Refresh();
   Update();
   Thaw();
@@ -380,30 +347,61 @@ void playArea::updatePlayArea(int playerId, std::vector<Card> hand,
     }
     std::vector<Card> disc;
     disc.push_back(topOfDiscardPile);
+    std::cout << topOfDiscardPile.getSuit() << "+"
+              << topOfDiscardPile.getValue() << std::endl;
     updateOnlinePlayArea(hand, aiHandSize, disc);
   }
-
+  //
+  // switch (playerId) {
+  // case 0:
+  //   playerZero(hand);
+  //   break;
+  // case 1:
+  // case 2:
+  // case 3:
+  //   playerAi(playerId, hand.size());
+  //   std::cout << "Computer Played" << std::endl;
+  //   break;
+  // }
+  // updateFieldArea(deckEmpty, topOfDiscardPile, false);
+  // this->Refresh();
+  // this->Update();
+  // wxWindow *parent, wxWindowID id, const wxString &title, const wxPoint
+  // &pos=wxDefaultPosition,
+  //  const wxSize &size=wxDefaultSize, long style=wxDEFAULT_DIALOG_STYLE, const
+  //  wxString &name=wxDialogNameSt);
   // wxMessageDialog dialog(this, wxID_ANY, ".lol", wxPoint(0, 0),
-  // wxDefaultSize, wxDEFAULT_DIALOG_STYLE, wxDialogNameSt);
+  // wxDefaultSize,
+  //                        wxDEFAULT_DIALOG_STYLE, wxDialogNameSt);
   // auto decision = dialog.ShowModal();
   // dialog.Desrtoy();
   // Thaw();
   // ProcessPendingEvents();
 }
 
-void playArea::updateFieldArea(bool deckEmpty, std::vector<Card> field,
+void playArea::updateFieldArea(bool deckEmpty, Card topOfDiscardPile,
                                bool initialize) {
+  // if (initialize) {
+  //   fieldArea->Clear(true);
+  // } else {
+  //   fieldArea->Clear();
+  // }
+  // if (!deckEmpty) {
+  //   Deck =
+  //       new playerCard(this->GetParent(), cardBackType, wxSize(80, 120),
+  //       false);
+  // } else {
+  //   Deck =
+  //       new playerCard(this->GetParent(), cardBackType, wxSize(80, 120),
+  //       true);
+  // }
+  // Deck->setDrewCardFunction(humanDrewCard);
 
+  // Card *tempest =
+  //     new Card(topOfDiscardPile.getSuit(), topOfDiscardPile.getValue());
   Deck->updateDeck(deckEmpty, screenInfo->getcardBackType());
   Deck->setDrewCardFunction(humanDrewCard);
-  for (int i = 0; i < 1; i++) {
-    if (field.size() != 0) {
-      Discard[i]->updateCard(field.back(), TRUE);
-      field.pop_back();
-    } else {
-      Discard[i]->Hide();
-    }
-  }
+  Discard->updateCard(topOfDiscardPile, TRUE);
   fieldArea->Show(true);
   // fieldArea->Add(Deck);
   // fieldArea->Add(Discard);
@@ -498,7 +496,7 @@ bool playArea::endOfGameDialog(std::vector<int> playersRoundScores,
   }
 }
 
-void playArea::hideGame() { fullSizer->Show(false); }
+void playArea::hideGame() { theMainSizer->Show(false); }
 
 playArea::~playArea() {}
 
