@@ -100,7 +100,7 @@ void Simple::switchPage(wxString buttonSwitch) {
 
   } else if (buttonSwitch == "Create New User") {
     // switch to main menu screen from new user
-    pageSizer->Show(mainPane, true);
+    pageSizer->Show(loginPane, true);
 
   } else if (buttonSwitch == "Back To Login") {
     // switch to main menu screen from new user

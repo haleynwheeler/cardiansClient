@@ -130,7 +130,7 @@ void playArea::setUpScreen(wxFrame *parent) {
   Deck->setDrewCardFunction(humanDrewCard);
   Deck->Hide();
 
-  for (int i = 0; i < 4; i++) {
+  for (int i = 0; i < 1; i++) {
     Discard[i] = new playerCard(
         parent, dummyCard, screenInfo->getLargeCardSize(), cardBackType, TRUE);
     discardPile->Add(Discard[i]);
@@ -393,7 +393,7 @@ void playArea::updateFieldArea(bool deckEmpty, std::vector<Card> field,
 
   Deck->updateDeck(deckEmpty, screenInfo->getcardBackType());
   Deck->setDrewCardFunction(humanDrewCard);
-  for (int i = 0; i < 4; i++) {
+  for (int i = 0; i < 1; i++) {
     if (field.size() != 0) {
       Discard[i]->updateCard(field.back(), TRUE);
       field.pop_back();
