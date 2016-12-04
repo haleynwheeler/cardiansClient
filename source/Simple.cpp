@@ -166,7 +166,7 @@ void Simple::switchPage(wxString buttonSwitch) {
         "winner,"
         "and the other players score penalty points for the cards left in their"
         "hand.\n\n Penalty points are as follows: -50 for an eight, 10 for a"
-        "picutre, and spot cards at face value."));
+        "picture, and spot cards at face value."));
 
   } else if (buttonSwitch == "Game Stats") {
     pageSizer->Show(mainPane, true);
