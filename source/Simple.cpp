@@ -11,6 +11,11 @@ Simple::Simple(const wxString &title, clientInfo *theClientScreen)
 
   NI.connect("127.0.0.1", 12000);
   isConnected = NI.isConnected();
+  if (!isConnected) {
+    wxMessageDialog dialog(NULL, "Unable to connect to the server. Please "
+                                 "choose to play in offline mode.");
+    dialog.ShowModal();
+  }
   screenInfo = theClientScreen;
 
   pageSizer = new wxBoxSizer(wxVERTICAL);
@@ -102,7 +107,7 @@ void Simple::switchPage(wxString buttonSwitch) {
     pageSizer->Show(loginPane, true);
 
   } else if (buttonSwitch == "Hearts Local") {
-    heartsGame = new HeartsGame(this);
+    heartsGame = new HeartsGame(this, screenInfo);
     pageSizer->Add(heartsGame->getGui(), 1, wxGROW);
     //  heartsGame->hideGame();
     heartsGame->startGame();
@@ -117,7 +122,7 @@ void Simple::switchPage(wxString buttonSwitch) {
     }
 
   } else if (buttonSwitch == "Eights Local") {
-    eightsGame = new CrazyEightsGame(this);
+    eightsGame = new CrazyEightsGame(this, screenInfo);
     pageSizer->Prepend(eightsGame->getGui(), 1, wxGROW);
 
   } else if (buttonSwitch == "Eights Online") {
@@ -131,7 +136,7 @@ void Simple::switchPage(wxString buttonSwitch) {
 
   } else if (buttonSwitch == "Settings") {
     pageSizer->Show(mainPane, true);
-    wxMessageBox(wxT("Settings"));
+    screenInfo->changeBackgroundDialog();
 
   } else if (buttonSwitch == "Hearts Rules") {
     pageSizer->Show(mainPane, true);

@@ -37,10 +37,13 @@ class heartsArea : public wxPanel {
   std::vector<playerCard *> handCards;
   clientInfo *screenInfo;
 
+  void setUpScreen(wxFrame *parent);
+
   std::function<void(Card)> humanMadeMove;
   void updateMiddleCards(std::vector<Card> centerPile);
 
 public:
+  heartsArea(wxFrame *parent, clientInfo *client);
   heartsArea(wxFrame *parent);
   ~heartsArea();
   void initializePlayArea(std::vector<Card> humanHand);
