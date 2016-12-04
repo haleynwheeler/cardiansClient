@@ -257,8 +257,10 @@ void playArea::setMadeMoveFunction(std::function<void(Card)> f) {
 }
 
 void playArea::playerZero(std::vector<Card> hand) {
+  std::cout << "Crash?" << std::endl;
   yourHand->Clear(true);
   handCards.clear();
+  std::cout << "Crash?" << std::endl;
   if (hand.size() > 0) {
     // yourHand->Add(userInfo);
     auto firstCard = hand.back();
@@ -340,6 +342,7 @@ void playArea::initializePlayArea(std::vector<Card> humanHand,
   Show();
   Freeze();
   playerZero(humanHand);
+  std::cout << "Creating area" << std::endl;
   for (int i = 1; i < 4; i++) {
     playerAi(i, humanHand.size());
   }
