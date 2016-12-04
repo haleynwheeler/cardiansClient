@@ -14,5 +14,6 @@ public:
   ~availableGames();
   void appendGames(LobbyGame game);
   void clearAllGames();
+  wxString getSelect();
 };
 #endif

@@ -142,14 +142,12 @@ void lobby::requestGames() {
 }
 
 void lobby::receivedGames(std::string msg) {
-  std::cout << msg << std::endl;
   currentGames->clearAllGames();
   std::stringstream ss(msg);
   boost::archive::text_iarchive coded(ss);
   std::vector<LobbyGame> decodedGames;
   coded &decodedGames;
   for (auto &&game : decodedGames) {
-    std::cout << game.name << std::endl;
     currentGames->appendGames(game);
   }
 }
@@ -184,11 +182,12 @@ void lobby::receivedMakeGameResponse(std::string receivedMsg) {
 
 void lobby::joinGame(wxCommandEvent &event) {
   Simple *mainFrame = (Simple *)GetParent();
-  wxTextEntryDialog dialog(
-      NULL, "Please enter the name of the game you would like to join.",
-      "Join a Game");
-  dialog.ShowModal();
-  auto response = dialog.GetValue();
+  // wxTextEntryDialog dialog(
+  //     NULL, "Please enter the name of the game you would like to join.",
+  //     "Join a Game");
+  // dialog.ShowModal();
+  // auto response = dialog.GetValue();
+  auto response = currentGames->getSelect();
   std::cout << response << std::endl;
   std::string sendMsg = "JOIN " + response.ToStdString();
   std::cout << sendMsg << std::endl;
