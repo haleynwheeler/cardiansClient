@@ -143,13 +143,14 @@ void lobby::requestGames() {
 
 void lobby::receivedGames(std::string msg) {
   std::cout << msg << std::endl;
-  currentGames->ClearAll();
+  currentGames->clearAllGames();
   std::stringstream ss(msg);
   boost::archive::text_iarchive coded(ss);
   std::vector<LobbyGame> decodedGames;
   coded &decodedGames;
   for (auto &&game : decodedGames) {
     std::cout << game.name << std::endl;
+    currentGames->appendGames(game);
   }
 }
 

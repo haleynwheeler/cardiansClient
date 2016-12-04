@@ -115,13 +115,19 @@ void newUser::OnNewUser(wxCommandEvent &event) {
 void newUser::receivedNewUserFromServer(std::string msg,
                                         wxCommandEvent &event) {
   if (boost::algorithm::starts_with(msg, "SUCCESS")) {
-    std::cout << "Created new user successfully" << std::endl;
+    std::string msgs = "User successfully created.\n\n";
+    wxMessageDialog dialog(NULL, msgs, "User Creation", wxOK);
+    auto decision = dialog.ShowModal();
     event.Skip();
   } else if (boost::algorithm::starts_with(msg, "USERNAME TAKEN")) {
-    std::cout << "Please pick a different username. This one already exists"
-              << std::endl;
+    std::string msgs = "That Username has already been taken.\n\n";
+    wxMessageDialog dialog(NULL, msgs, "User Creation", wxOK);
+    auto decision = dialog.ShowModal();
   } else {
-    std::cout << "Unknown Message" << std::endl;
+    std::string msgs = "If every porkchop was perfect we"
+                       "wouldn't have hotdogs\n\n";
+    wxMessageDialog dialog(NULL, msgs, "User Creation Error", wxOK);
+    auto decision = dialog.ShowModal();
   }
 }
 
