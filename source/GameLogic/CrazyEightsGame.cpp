@@ -6,9 +6,8 @@
 
 using namespace std::chrono_literals;
 
-CrazyEightsGame::CrazyEightsGame(wxFrame *mainFrame, clientInfo *client)
-    : Game() {
-  gui = new playArea(mainFrame, client);
+CrazyEightsGame::CrazyEightsGame(wxFrame *mainFrame) : Game() {
+  gui = new playArea(mainFrame);
   gui->setMadeMoveFunction([this](Card c) { humanMadeMove(c); });
   gui->setDrewCardFunction([this]() { humanDrewCard(); });
   std::cout << "Created Play Area" << std::endl;
