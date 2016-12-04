@@ -126,9 +126,16 @@ void login::receivedLoginFromServer(std::string msg, wxCommandEvent &event) {
     event.Skip();
   } else if (boost::algorithm::starts_with(msg, "PASSWORD INCORRECT")) {
     std::cout << "Incorrect Password" << std::endl;
+    wxMessageDialog dialog(NULL, "You have entered an invalid password.",
+                           "Invalid Password", wxICON_EXCLAMATION);
+    dialog.ShowModal();
     // Prompt again with dialog box?
   } else if (boost::algorithm::starts_with(msg, "USER NOT FOUND")) {
     std::cout << "User Not Found" << std::endl;
+    wxMessageDialog dialog(NULL, "User not found.", "Invalid Username",
+                           wxICON_EXCLAMATION);
+    dialog.ShowModal();
+
     // Prompt to create a new user?
   } else {
     std::cout << "Unknown Message" << std::endl;
