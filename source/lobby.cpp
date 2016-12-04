@@ -16,15 +16,12 @@ lobby::lobby(wxFrame *parent, wxString type)
   wxBoxSizer *buttonSizer = new wxBoxSizer(wxHORIZONTAL);
 
   typeOfGame = type;
-  // wxBoxSizer *ctrlSizer = new wxBoxSizer(wxHORIZONTAL);
 
   wxBitmapButton *theLogo = new wxBitmapButton(
       this, wxID_ANY, wxBitmap("../res/TextLogo.png", wxBITMAP_TYPE_PNG),
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
   theLogo->SetBackgroundColour(wxColour(90, 5, 18, 0));
   theLogo->SetWindowStyle(wxBORDER_NONE);
-  // imageInsert *theLogo = new imageInsert(this, wxT("../res/TextLogo.png"),
-  //  wxBITMAP_TYPE_PNG, 100, 200);
 
   wxStaticText *gameType =
       new wxStaticText(this, wxID_ANY, typeOfGame, wxDefaultPosition,
@@ -120,7 +117,6 @@ lobby::lobby(wxFrame *parent, wxString type)
   centerSizer->Add(gameType, wxEXPAND | wxALIGN_RIGHT);
   centerSizer->AddSpacer(screenInfo->getClientScreenSize().GetHeight() * .10);
   centerSizer->Add(currentGames, 1, wxEXPAND, 0);
-  // centerSizer->Add(listPanel);
   centerSizer->AddSpacer(screenInfo->getClientScreenSize().GetHeight() * .10);
   centerSizer->Add(buttonSizer, wxEXPAND | wxALIGN_CENTER);
 
@@ -128,7 +124,6 @@ lobby::lobby(wxFrame *parent, wxString type)
   mainSizer->AddSpacer(screenInfo->getClientScreenSize().GetWidth() * .15);
   mainSizer->Add(centerSizer);
   mainSizer->Add(sidePane);
-  // mainSizer->AddSpacer(screenInfo->getClientScreenSize().GetWidth() * .35);
   SetSizerAndFit(mainSizer);
   Center();
 }
@@ -182,11 +177,6 @@ void lobby::receivedMakeGameResponse(std::string receivedMsg) {
 
 void lobby::joinGame(wxCommandEvent &event) {
   Simple *mainFrame = (Simple *)GetParent();
-  // wxTextEntryDialog dialog(
-  //     NULL, "Please enter the name of the game you would like to join.",
-  //     "Join a Game");
-  // dialog.ShowModal();
-  // auto response = dialog.GetValue();
   auto response = currentGames->getSelect();
   std::cout << response << std::endl;
   std::string sendMsg = "JOIN " + response.ToStdString();
