@@ -347,9 +347,8 @@ std::vector<Card> heartsArea::requestCardsPassed(std::vector<Card> hand) {
 }
 
 void heartsArea::invalidMoveDialog() {
-  wxMessageDialog dialog(NULL, "You played an invalid card. If possible, you "
-                               "must match the suit of the card lead. Please "
-                               "try again.",
+  wxMessageDialog dialog(NULL, "You played an invalid card."
+                               "Please try again.",
                          "Invalid Move", wxICON_EXCLAMATION);
   dialog.ShowModal();
 }
