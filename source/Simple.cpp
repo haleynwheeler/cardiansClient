@@ -134,7 +134,7 @@ void Simple::switchPage(wxString buttonSwitch) {
       wxMessageBox(wxT("This functionality is not available in offline mode."));
     }
 
-  } else if (buttonSwitch == "Settings") {
+  } else if (buttonSwitch == "Cardbacks") {
     pageSizer->Show(mainPane, true);
     screenInfo->changeBackgroundDialog();
 

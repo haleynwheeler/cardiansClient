@@ -209,6 +209,7 @@ bool HeartsGame::checkLeadPlayersCard(Card c) {
     } else {
       if (brokenHearts || allHearts()) {
         brokenHearts = true;
+        // gui->brokenHeartsDialog();
         return true;
       }
       return false;
@@ -241,6 +242,7 @@ bool HeartsGame::checkFollowingPlayersCard(Card c) {
 void HeartsGame::checkBrokenHearts(Card c) {
   if (c.getSuit() == HEARTS || c.getSuit() == SPADES && c.getValue() == QUEEN) {
     brokenHearts = true;
+    // gui->brokenHeartsDialog();
   }
 }
 
@@ -249,15 +251,23 @@ void HeartsGame::assignTrick() {
   Suit leadSuit = centerPile[playerLeadingTrick].getSuit();
   int winningValue = -1;
   int winner = -1;
+  std::vector<int> suitsPlayed;
+  std::vector<int> valuesPlayed;
+
   for (int i = 0; i < centerPile.size(); i++) {
     if (centerPile[i].getSuit() == leadSuit &&
         centerPile[i].getValue() > winningValue) {
       winner = i;
       winningValue = centerPile[i].getValue();
     }
+    suitsPlayed.push_back(centerPile[i].getSuit());
+    valuesPlayed.push_back(centerPile[i].getValue());
   }
+  gui->showLastTrick(suitsPlayed, valuesPlayed, winner, brokenHearts);
   std::cout << "Player " << winner << " won the trick" << std::endl;
+
   assignPoints(winner);
+
   if (tricksAssigned < 13) {
     startNewTrick(winner);
   } else {

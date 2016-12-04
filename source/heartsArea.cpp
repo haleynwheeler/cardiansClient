@@ -34,6 +34,11 @@ void heartsArea::setUpScreen(wxFrame *parent) {
   midFieldArea = new wxBoxSizer(wxVERTICAL);
   rightFieldArea = new wxBoxSizer(wxVERTICAL);
 
+  wxBoxSizer *playerOneLabel = new wxBoxSizer(wxHORIZONTAL);
+  wxBoxSizer *playerTwoLabel = new wxBoxSizer(wxHORIZONTAL);
+  wxBoxSizer *playerThreeLabel = new wxBoxSizer(wxVERTICAL);
+  wxBoxSizer *userLabel = new wxBoxSizer(wxHORIZONTAL);
+
   yourHand = new wxBoxSizer(wxHORIZONTAL);
   playerOne = new wxBoxSizer(wxVERTICAL);
   playerTwo = new wxBoxSizer(wxHORIZONTAL);
@@ -45,6 +50,32 @@ void heartsArea::setUpScreen(wxFrame *parent) {
       wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxButtonNameStr);
   topLogo->SetLabel("topLogo");
   topLogo->SetBackgroundColour(wxColour(90, 5, 18, 0));
+
+  wxStaticText *playerOneInfo = new wxStaticText(
+      this->GetParent(), wxID_ANY, "Rocket\nRaccoon", wxDefaultPosition,
+      wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);
+
+  wxStaticText *playerTwoInfo = new wxStaticText(
+      this->GetParent(), wxID_ANY, "Star Lord", wxDefaultPosition,
+      wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);
+
+  wxStaticText *playerThreeInfo =
+      new wxStaticText(this->GetParent(), wxID_ANY, "Groot", wxDefaultPosition,
+                       wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);
+
+  wxStaticText *userInfo =
+      new wxStaticText(this->GetParent(), wxID_ANY, "You", wxDefaultPosition,
+                       wxDefaultSize, wxALIGN_CENTRE_HORIZONTAL);
+
+  playerOneInfo->SetForegroundColour(wxColour(255, 255, 255));
+  playerTwoInfo->SetForegroundColour(wxColour(255, 255, 255));
+  playerThreeInfo->SetForegroundColour(wxColour(255, 255, 255));
+  userInfo->SetForegroundColour(wxColour(255, 255, 255));
+
+  playerOneLabel->Add(playerOneInfo);
+  playerTwoLabel->Add(playerTwoInfo);
+  playerThreeLabel->Add(playerThreeInfo);
+  userLabel->Add(userInfo);
 
   playerCard *yourCard = new playerCard(
       this, dummyCard, screenInfo->getLargeCardSize(), cardBackType, TRUE);
@@ -129,21 +160,37 @@ void heartsArea::setUpScreen(wxFrame *parent) {
   fieldArea->AddSpacer(screenInfo->hSideFieldSpacer());
   fieldArea->Add(rightFieldArea);
 
-  upperPortion->Add(topLogo);
+  wxBoxSizer *thisthing = new wxBoxSizer(wxVERTICAL);
+  thisthing->Add(topLogo);
+  thisthing->AddSpacer(20);
+  thisthing->Add(playerOneLabel);
+
+  upperPortion->Add(thisthing);
   upperPortion->AddSpacer(screenInfo->hSpaceBetweenCardAndHand());
+  upperPortion->Add(playerTwoLabel);
+  upperPortion->AddSpacer(10);
   upperPortion->Add(playerTwo);
   // wxALIGN_CENTRE_VERTICAL | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
 
   middlePortion->AddSpacer(screenInfo->hSpaceBetweenCardAndHand());
+  // middlePortion->Add(playerOneLabel);
+  // middlePortion->AddSpacer(10);
   middlePortion->Add(playerOne);
   //  wxALIGN_BOTTOM | wxRESERVE_SPACE_EVEN_IF_HIDDEN);
   middlePortion->AddSpacer(2 * screenInfo->hSpaceBetweenCardAndHand());
   middlePortion->Add(fieldArea);
   middlePortion->AddSpacer(2 * screenInfo->hSpaceBetweenCardAndHand());
+  // middlePortion->Add(playerThreeLabel);
+
   middlePortion->Add(playerThree); //, wxALIGN_BOTTOM,
                                    //  wxRESERVE_SPACE_EVEN_IF_HIDDEN);
+                                   // middlePortion->AddSpacer(10);
+
+  middlePortion->Add(playerThreeLabel);
 
   lowerPortion->AddSpacer(screenInfo->c8LogoDifference());
+  lowerPortion->Add(userLabel);
+  lowerPortion->AddSpacer(10);
   lowerPortion->Add(yourHand); // wxRESERVE_SPACE_EVEN_IF_HIDDEN);
 
   theMainSizer->AddSpacer(10);
@@ -347,9 +394,64 @@ std::vector<Card> heartsArea::requestCardsPassed(std::vector<Card> hand) {
 }
 
 void heartsArea::invalidMoveDialog() {
-  wxMessageDialog dialog(NULL, "You played an invalid card."
+  wxMessageDialog dialog(NULL, "You played an invalid card. "
                                "Please try again.",
                          "Invalid Move", wxICON_EXCLAMATION);
+  dialog.ShowModal();
+}
+
+void heartsArea::brokenHeartsDialog() {
+  wxMessageDialog dialog(NULL, "Hearts have been broken.", "Hearts Broken",
+                         wxICON_EXCLAMATION);
+  dialog.ShowModal();
+}
+
+void heartsArea::showLastTrick(std::vector<int> suitsPlayed,
+                               std::vector<int> valuesPlayed, int winner,
+                               bool brokenHearts) {
+  std::vector<std::string> suitsStringPlayed = {"one", "two", "three", "four"};
+
+  for (int i = 0; i < suitsPlayed.size(); i++) {
+    if (suitsPlayed[i] == 0) {
+      suitsStringPlayed[i] = "Hearts";
+    } else if (suitsPlayed[i] == 1) {
+      suitsStringPlayed[i] = "Spades";
+    } else if (suitsPlayed[i] == 2) {
+      suitsStringPlayed[i] = "Clubs";
+    } else if (suitsPlayed[i] == 3) {
+      suitsStringPlayed[i] = "Diamonds";
+    }
+  }
+  std::string winnerString;
+  switch (winner) {
+  case 0:
+    winnerString = "You";
+    break;
+  case 1:
+    winnerString = "Rocket";
+    break;
+  case 2:
+    winnerString = "Star Lord";
+    break;
+  case 3:
+    winnerString = "Groot";
+    break;
+  }
+
+  std::string msg = "Cards played last hand: \n\n";
+  msg += "You:\t" + std::to_string(valuesPlayed[0]) + " of " +
+         suitsStringPlayed[0] + "\n";
+  msg += "Rocket Raccoon:\t" + std::to_string(valuesPlayed[1]) + " of " +
+         suitsStringPlayed[1] + "\n";
+  msg += "Star Lord:\t" + std::to_string(valuesPlayed[2]) + " of " +
+         suitsStringPlayed[2] + "\n";
+  msg += "Groot:\t" + std::to_string(valuesPlayed[3]) + " of " +
+         suitsStringPlayed[3] + "\n\n";
+  msg += winnerString + " took the trick!";
+  if (brokenHearts) {
+    msg += "\n\nHearts are broken!";
+  }
+  wxMessageDialog dialog(NULL, msg, "Last Trick", wxICON_EXCLAMATION);
   dialog.ShowModal();
 }
 

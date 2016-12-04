@@ -56,6 +56,10 @@ public:
   void playerAi(int playerId, int handSize);
 
   void invalidMoveDialog();
+  void brokenHeartsDialog();
+  void showLastTrick(std::vector<int> suitsPlayed,
+                     std::vector<int> valuesPlayed, int winner,
+                     bool brokenHearts);
   bool endOfRoundDialog(std::vector<int> allPlayersRoundScores,
                         std::vector<int> allPlayersTotalScores);
   bool endOfGameDialog(std::vector<int> allPlayersRoundScores,

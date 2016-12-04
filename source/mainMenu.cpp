@@ -78,7 +78,7 @@ mainMenu::mainMenu(wxFrame *parent)
   wxSizer *paneSz = new wxBoxSizer(wxVERTICAL);
 
   wxButton *settingsBtn = new wxButton(
-      win, wxID_ANY, wxT("Settings"), wxDefaultPosition,
+      win, wxID_ANY, wxT("Cardbacks"), wxDefaultPosition,
       screenInfo->sidePaneBtnSize(), 0, wxDefaultValidator, wxButtonNameStr);
 
   wxButton *heartsRulesBtn = new wxButton(
